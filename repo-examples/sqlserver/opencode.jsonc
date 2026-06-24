@@ -1,0 +1,15 @@
+// Config repo-specifica per progetti che usano SQL Server
+// Posizione: /path/to/repo/.opencode/opencode.jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // Aggiunge SQL Server MCP solo per questo repo
+  // Le credenziali vengono da .opencode/env.sh (non committare!)
+  "mcp": {
+    "sqlserver": {
+      "type": "local",
+      "command": ["mssql_mcp_server"],
+      "enabled": true
+    }
+  }
+}

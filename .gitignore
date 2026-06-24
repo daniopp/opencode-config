@@ -1,0 +1,9 @@
+# Secret e credenziali - MAI committare
+.opencode/env.sh
+.env.local
+.env
+*.secret
+
+# File generati da OpenCode
+.opencode/sessions/
+.opencode/cache/

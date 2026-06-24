@@ -1,0 +1,16 @@
+// Config repo-specifica per progetti che usano MongoDB
+// Posizione: /path/to/repo/.opencode/opencode.jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // Aggiunge MongoDB MCP solo per questo repo
+  // Il server parte in modalita' read-only per sicurezza
+  // Le credenziali vengono da .opencode/env.sh (non committare!)
+  "mcp": {
+    "mongodb": {
+      "type": "local",
+      "command": ["mongodb-mcp-server", "--readOnly"],
+      "enabled": true
+    }
+  }
+}
