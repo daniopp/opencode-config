@@ -27,11 +27,14 @@
   // LSP abilitati (Java, Go, C#, TS, ecc.)
   "lsp": true,
 
-  // Permessi - approccio least-privilege
+  // Permessi
+  // edit: ask  -> conferma prima di modificare file (protezione codebase)
+  // bash: allow -> comandi shell liberi (git, build, test, ecc.)
+  // webfetch: allow -> lettura URL libera
   "permission": {
-    "edit": "ask",     // chiede conferma per modifiche file
-    "bash": "ask",     // chiede conferma per comandi shell
-    "webfetch": "allow" // lettura web libera
+    "edit": "ask",
+    "bash": "allow",
+    "webfetch": "allow"
   },
 
   // MCP Server globali (sempre disponibili)
