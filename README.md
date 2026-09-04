@@ -1,94 +1,76 @@
-# opencode-config
+# Opencode Quick Reference
 
-Configurazione OpenCode per sviluppo enterprise: MCP, LSP, plugin, sicurezza e script di avvio.
+## Setup Rapido
 
-Stack di riferimento: Java/Kotlin, .NET/C#, Go · MongoDB, SQL Server · GCP Cloud Run, Firebase · GitHub Actions, Docker
+```bash
+# 1. Install
+npm install -g @opencode/ai
 
----
+# 2. Clone config
+git clone https://github.com/your-org/opencode-config.git ~/opencode-config
 
-## Struttura del repo
+# 3. Setup credentials
+echo "GITHUB_TOKEN=..." > ~/opencode-config/.dev.vars
+
+# 4. Run
+cd ~/opencode-config && opencode
+```
+
+## Agenti
+
+- `orchestrator` - Coordina workflow
+- `explorer` - Search codice
+- `librarian` - Search docs
+- `oracle` - Architecture analysis
+- `designer` - UI/UX
+- `fixer` - Rapid implementation
+- `observer` - Status check
+
+## Lanes
+
+| Comando | Quando usare |
+|---------|--------------|
+| `/quick` | Task semplici |
+| `/medium` | Task medi, multi-file |
+| `/full` | Task complessi, multi-phase |
+| `/debug` | Troubleshooting |
+
+## Skills
+
+| Skill | Scopo |
+|-------|-------|
+| `clonedeps` | Clone dependency source code |
+| `codemap` | Generate codebase maps |
+| `deepwork` | High-stakes coding workflow |
+| `oh-my-opencode-slim` | Tune config |
+| `reflect` | Learn from past sessions |
+| `simplify` | Simplify code |
+| `verification-planning` | Plan verification |
+| `worktrees` | Isolated coding lanes |
+
+## MCP Servers
+
+- `with-context` - Session tracking
+- `github` - GitHub API
+- `filesystem` - File access
+- `sequential-thinking` - Reasoning
+- `memory` - Knowledge graph
+
+## Directory Structure
 
 ```
 opencode-config/
-├── global/
-│   └── opencode.jsonc         # Config globale (~/.config/opencode/opencode.jsonc)
-├── scripts/
-│   └── start-opencode.sh      # Script di avvio Linux/Bash
-├── repo-examples/
-│   ├── mongo/
-│   │   ├── opencode.jsonc     # Config repo con MongoDB MCP
-│   │   └── env.sh.example     # Variabili d'ambiente MongoDB
-│   └── sqlserver/
-│       ├── opencode.jsonc     # Config repo con SQL Server MCP
-│       └── env.sh.example     # Variabili d'ambiente SQL Server
-├── mcp/
-│   ├── GITHUB_MCP.md          # Come configurare GitHub MCP (remote vs locale)
-│   └── CONTEXT7.md            # Come configurare Context7
-└── docs/
-    ├── SETUP.md               # Guida setup completo
-    ├── PERMISSIONS.md         # Gestione permessi e sicurezza
-    ├── DEBUG.md               # Troubleshooting e debug MCP
-    └── CHANGELOG.md           # Storico modifiche configurazione
+├── opencode.jsonc    # Main config
+├── tui.json          # Theme/keybindings
+├── agents/           # Custom agents
+├── commands/         # Lanes
+├── skills/           # npm skills
+├── rules/            # Always-on rules
+└── .dev.vars         # Credentials
 ```
 
----
-
-## Installazione rapida
-
-### 1. Copia la config globale
+## Updates
 
 ```bash
-mkdir -p ~/.config/opencode
-cp global/opencode.jsonc ~/.config/opencode/opencode.jsonc
+cd ~/opencode-config && git pull
 ```
-
-### 2. Installa lo script di avvio
-
-```bash
-cp scripts/start-opencode.sh ~/start-opencode.sh
-chmod +x ~/start-opencode.sh
-```
-
-### 3. Configura le variabili d'ambiente
-
-Modifica `~/start-opencode.sh` e inserisci il tuo GitHub PAT e password server:
-
-```bash
-export GITHUB_PERSONAL_ACCESS_TOKEN="ghp_xxx"
-export OPENCODE_SERVER_PASSWORD="tua-password"
-```
-
-### 4. Per un repo specifico con database
-
-```bash
-mkdir -p /path/to/repo/.opencode
-
-# MongoDB
-cp repo-examples/mongo/opencode.jsonc /path/to/repo/.opencode/opencode.jsonc
-cp repo-examples/mongo/env.sh.example /path/to/repo/.opencode/env.sh
-# Modifica env.sh con la tua connection string
-
-# SQL Server
-cp repo-examples/sqlserver/opencode.jsonc /path/to/repo/.opencode/opencode.jsonc
-cp repo-examples/sqlserver/env.sh.example /path/to/repo/.opencode/env.sh
-# Modifica env.sh con le tue credenziali
-```
-
-### 5. Avvio
-
-```bash
-# Avvia nella directory corrente
-~/start-opencode.sh
-
-# Avvia su un repo specifico
-~/start-opencode.sh ~/git/mio-repo
-```
-
----
-
-## Note importanti
-
-- Aggiungi `.opencode/env.sh` al `.gitignore` di ogni repo per non committare le credenziali
-- Il server web OpenCode ascolta su `0.0.0.0:80` — imposta sempre `OPENCODE_SERVER_PASSWORD`
-- I server MCP locali richiedono Node.js installato sulla macchina
-- Per GitHub MCP si consiglia la modalità **remote** (vedi `mcp/GITHUB_MCP.md`)
