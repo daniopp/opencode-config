@@ -29,19 +29,27 @@ Il body del markdown è il system prompt.
 
 ## Agenti esistenti
 
-| Agente | Mode | Modello | Permessi chiave |
-|---|---|---|---|
-| `orchestrator` | primary | mercury-2.5-preview | task allowlist sui 6 specialisti |
-| `explorer` | subagent | solar-pro4 | read-only, bash solo letture |
-| `librarian` | subagent | glm-5.3-flash | webfetch/websearch, niente shell |
-| `oracle` | subagent | muse-spark-1.2-contributor | read-only, bash solo letture |
-| `fixer` | subagent | granite-4.2-8b | edit allow, eredita matrice bash globale |
-| `designer` | subagent | muse-spark-1.2-contributor | edit allow, eredita matrice bash globale |
-| `observer` | subagent | mercury-2.5-preview | read-only, bash solo letture |
+| Agente | Mode | Permessi chiave |
+|---|---|---|
+| `orchestrator` | primary | task allowlist sui 6 specialisti |
+| `explorer` | subagent | read-only, bash solo letture |
+| `librarian` | subagent | webfetch/websearch, niente shell |
+| `oracle` | subagent | read-only, bash solo letture |
+| `fixer` | subagent | edit allow, eredita matrice bash globale |
+| `designer` | subagent | edit allow, eredita matrice bash globale |
+| `observer` | subagent | read-only, bash solo letture |
 
 I subagent hanno `task: deny` (non spawnano altri agenti);
 `subagent_depth: 1` in `opencode.jsonc` impone il limite anche a livello di
 config.
+
+## Modelli
+
+La configurazione usa due modelli:
+- **Primario:** `inception/mercury-2.5-preview`
+- **Economico:** `openrouter/inclusionai/ling-3.0-flash`
+
+Gli agenti usano i modelli dal config globale.
 
 ## Esempio
 
