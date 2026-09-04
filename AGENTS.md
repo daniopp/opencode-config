@@ -25,20 +25,20 @@ Matrice permessi (`opencode.jsonc`), pattern elithrar:
 
 ## Plugin
 
-- `oh-my-opencode-slim` — preset modelli per agente
 - `opencode-keepalive` — keepalive
 
-## Agenzi forniti da oh-my-opencode-slim
+## Agenti (nativi, `agents/*.md`)
 
-- `orchestrator` — coordinatore principale
-- `oracle` — analisi architetturale
-- `designer` — UI/UX
+- `orchestrator` — coordinatore principale (primary)
+- `explorer` — ricerca codice (read-only)
+- `librarian` — ricerca documentazione (read-only)
+- `oracle` — analisi architetturale (read-only)
 - `fixer` — implementazione rapida
-- `explorer` — ricerca codice
-- `librarian` — ricerca documentazione
-- `council` — discussione multi-agente
-- `councillor` — analisi individuale
-- `observer` — monitoraggio
+- `designer` — UI/UX
+- `observer` — monitoraggio (read-only)
+
+I subagent non spawnano altri subagent (`subagent_depth: 1`); l'orchestrator
+delega via `task` tool con allowlist su questi 6 specialisti.
 
 ## Lane disponibili
 

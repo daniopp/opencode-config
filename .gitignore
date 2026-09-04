@@ -7,3 +7,13 @@
 # File generati da OpenCode
 .opencode/sessions/
 .opencode/cache/
+
+# Generici
+node_modules/
+logs/
+memory/
+pilot/
+*.bak
+*.swp
+*.swo
+*.token
