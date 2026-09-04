@@ -1,16 +1,14 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
-  // Modello primario
-  "model": "openrouter/stealth/ox-alpha",
+  // Modello primario (cascata su z-ai/glm-5.3-flash)
+  "model": "inception/mercury-2.5-preview",
 
   // Modello economico per task leggeri
   "small_model": "openrouter/inclusionai/ling-3.0-flash",
 
-  // Plugin: solo keepalive - gli agenti sono nativi (agents/*.md)
-  "plugin": [
-    "opencode-keepalive"
-  ],
+  // Plugin: nessuno
+  "plugin": [],
 
   // ⭐ MATRICE PERMESSI (pattern elithrar)
   "permission": {
