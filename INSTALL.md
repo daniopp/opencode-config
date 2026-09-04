@@ -141,27 +141,37 @@ Questa configurazione usa agenti custom in `agents/*.md` invece di quelli built-
 | `fixer` | Implementazione rapida e scope |
 | `observer` | Monitoring read-only |
 
+**Per dettagli su ciascun agente, vedi [`agents/README.md`](agents/README.md).**
+
 ### Lanes (comandi)
 
-| Lane | Uso |
-|------|-----|
-| `/quick` | Task semplici, rapide iterazioni |
-| `/medium` | Task medi, multi-file |
-| `/full` | Task complessi, multi-fase |
-| `/debug` | Debug e troubleshooting |
+Le lanes definiscono il workflow di lavoro:
+
+| Lane | Uso | Budget token |
+|------|-----|--------------|
+| `/quick` | Task semplici, rapide iterazioni | ~8K |
+| `/medium` | Task medi, multi-file | ~16K |
+| `/full` | Task complessi, multi-fase | ~32K |
+| `/debug` | Troubleshooting e analisi errori | ~16K |
+
+**Per dettagli su ciascuna lane, vedi [`commands/README.md`](commands/README.md).**
 
 ### Skills
 
 Available npm skills in `skills/`:
 
-- `clonedeps` - Clona dipendenze per inspect source code
-- `codemap` - Genera mappe gerarchiche del codebase
-- `deepwork` - Workflow ad alto costo per task complessi
-- `oh-my-opencode-slim` - Tunning configurazione opencode
-- `reflect` - Review e improvement workflow
-- `simplify` - Simplificazione codice
-- `verification-planning` - Planning verifica per task non-triviali
-- `worktrees` - Gestione Git worktrees per coding isolate
+| Skill | Scopo |
+|-------|-------|
+| `clonedeps` | Clone dependency source code per inspection |
+| `codemap` | Generate codebase maps |
+| `deepwork` | High-stakes coding workflow |
+| `oh-my-opencode-slim` | Tune configuration |
+| `reflect` | Learn from past sessions |
+| `simplify` | Simplify code for clarity |
+| `verification-planning` | Plan verification for non-trivial tasks |
+| `worktrees` | Isolated coding lanes with Git worktrees |
+
+**Per dettagli su ciascuna skill, vedi [`skills/README.md`](skills/README.md).**
 
 ### MCP Servers
 
@@ -175,9 +185,9 @@ Configurati in `opencode.jsonc`:
 | `sequential-thinking` | Complex reasoning |
 | `memory` | Persistent knowledge graph |
 
+**Per dettagli su ciascun MCP server, vedi [`README.md`](README.md).**
+
 ### Perm
-
-
 
 Configurati in `opencode.jsonc`:
 
@@ -187,6 +197,14 @@ Configurati in `opencode.jsonc`:
 | `edit` | allow | Copre write e patch |
 | `bash` | ask | Allowlist granulare (git, ls, rg, ecc.) |
 | `external_directory` | ask | Allow su `~/git/**`, `/tmp/**` |
+
+### Opencode Documentation
+
+Per informazioni più dettagliate su opencode CLI:
+
+- **Documentazione ufficiale:** [opencode.ai/docs](https://opencode.ai/docs)
+- **Configurazione:** [opencode.ai/config](https://opencode.ai/config)
+- **Model Provider:** [opencode.ai/models](https://opencode.ai/models)
 
 ## Updating
 
