@@ -7,14 +7,16 @@
 npm install -g @opencode/ai
 
 # 2. Clone config
-git clone https://github.com/your-org/opencode-config.git ~/opencode-config
+git clone https://github.com/danismeup/opencode-config.git ~/opencode-config
 
 # 3. Setup credentials
-echo "GITHUB_TOKEN=..." > ~/opencode-config/.dev.vars
+echo "GITHUB_TOKEN=your_token" > ~/opencode-config/.dev.vars
 
 # 4. Run
 cd ~/opencode-config && opencode
 ```
+
+**Per guide dettagliate (WSL, MCP servers, troubleshooting), vedi [INSTALL.md](INSTALL.md).**
 
 ## Agenti
 
