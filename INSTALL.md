@@ -42,6 +42,51 @@ cd ~/opencode-config
 opencode
 ```
 
+## Installation su WSL (Windows Subsystem for Linux)
+
+Questi passi sono ottimizzati per WSL su Windows:
+
+### Prerequisites WSL
+
+```bash
+# 1. Install Node.js via nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+source ~/.bashrc
+nvm install --lts
+
+# 2. Verifica Node.js
+node --version
+npm --version
+
+# 3. Install GitHub CLI (se non presente)
+sudo apt update && sudo apt install gh
+gh auth login
+```
+
+### Setup Opencode in WSL
+
+```bash
+# 1. Install opencode CLI
+npm install -g @opencode/ai
+
+# 2. Clone config
+git clone https://github.com/danismeup/opencode-config.git ~/opencode-config
+cd ~/opencode-config
+
+# 3. Setup credentials (GITHUB_TOKEN)
+echo "GITHUB_TOKEN=your_token" > .dev.vars
+
+# 4. Run
+opencode
+```
+
+### Note WSL
+
+- I path di config (`~/opencode-config`) funzionano nativamente in WSL
+- MCP servers funzionano senza modifiche
+- Se usi Windows Terminal, apri direttamente una sessione WSL
+- Per accedere da client Windows, usa il TUI nella terminale WSL
+
 ## Configuration Overview
 
 ### Agenti
