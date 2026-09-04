@@ -1,7 +1,7 @@
 ---
 description: Analisi architetturale, review e debugging strategico - consulenza read-only ad alto impatto
 mode: subagent
-model: openrouter/meta/muse-spark-1.2-contributor
+model: openrouter/inception/mercury-2.5-preview
 steps: 60
 permission:
   read: allow

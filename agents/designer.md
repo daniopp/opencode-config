@@ -1,7 +1,7 @@
 ---
 description: Design UI/UX - layout, hierarchy, styling, responsive e interazioni con intento estetico
 mode: subagent
-model: openrouter/meta/muse-spark-1.2-contributor
+model: openrouter/ibm-granite/granite-4.2-8b
 steps: 100
 permission:
   read: allow

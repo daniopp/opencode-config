@@ -1,7 +1,7 @@
 ---
 description: Ricerca e ricognizione codebase read-only - trova file, simboli e pattern, restituisce mappe compresse
 mode: subagent
-model: openrouter/upstage/solar-pro4
+model: openrouter/inception/mercury-2.5-preview
 steps: 40
 permission:
   read: allow
