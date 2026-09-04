@@ -102,5 +102,58 @@
   "snapshot": true,
 
   // Sharing manuale
-  "share": "manual"
+  "share": "manual",
+
+  // Server MCP (Model Context Protocol)
+  "mcp": {
+    "with-context": {
+      "type": "local",
+      "command": [
+        "/home/daniele/.nvm/versions/node/v24.18.0/bin/npx",
+        "-y",
+        "with-context-mcp"
+      ],
+      "enabled": true
+    },
+    "github": {
+      "type": "local",
+      "command": [
+        "/home/daniele/.nvm/versions/node/v24.18.0/bin/npx",
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_TOKEN}"
+      },
+      "enabled": true
+    },
+    "filesystem": {
+      "type": "local",
+      "command": [
+        "/home/daniele/.nvm/versions/node/v24.18.0/bin/npx",
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/home/daniele/git"
+      ],
+      "enabled": true
+    },
+    "sequential-thinking": {
+      "type": "local",
+      "command": [
+        "/home/daniele/.nvm/versions/node/v24.18.0/bin/npx",
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "enabled": true
+    },
+    "memory": {
+      "type": "local",
+      "command": [
+        "/home/daniele/.nvm/versions/node/v24.18.0/bin/npx",
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "enabled": true
+    }
+  }
 }
