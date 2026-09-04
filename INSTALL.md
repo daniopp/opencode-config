@@ -87,6 +87,44 @@ opencode
 - Se usi Windows Terminal, apri direttamente una sessione WSL
 - Per accedere da client Windows, usa il TUI nella terminale WSL
 
+## Model Providers e API Keys
+
+Questa configurazione usa `inception/mercury-2.5-preview` come modello primario. Ecco come configurare diversi provider:
+
+### Opencode Mercury (default)
+
+Nessuna API key richiesta - il modello è già incluso nella CLI.
+
+### OpenRouter
+
+1. Ottieni la tua API key da [openrouter.ai](https://openrouter.ai/keys)
+2. Aggiorna `opencode.jsonc`:
+
+```json
+{
+  "model": "openrouter/inception/mercury-2.5-preview",
+  "small_model": "openrouter/inclusionai/ling-3.0-flash"
+}
+```
+
+3. Aggiungi la key in `.dev.vars`:
+
+```bash
+OPENROUTER_API_KEY=your_api_key_here
+```
+
+### Opencode Zen/Go
+
+1. Registrati su [opencode.ai](https://opencode.ai)
+2. Ottieni la tua API key dal dashboard
+3. Aggiungi in `.dev.vars`:
+
+```bash
+OPENCODE_API_KEY=your_api_key_here
+```
+
+4. La CLI userà automaticamente il provider configurato.
+
 ## Configuration Overview
 
 ### Agenti
