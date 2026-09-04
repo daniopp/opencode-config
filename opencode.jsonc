@@ -1,0 +1,112 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  
+  // Modello primario
+  "model": "openrouter/stealth/ox-alpha",
+  
+  // Modello economico per task leggeri
+  "small_model": "openrouter/inclusionai/ling-3.0-flash",
+  
+  // Plugin: oh-my-opencode-slim (per now) + keepalive
+  "plugin": [
+    "oh-my-opencode-slim",
+    "opencode-keepalive"
+  ],
+  
+  // ⭐ MATRICE PERMESSI (pattern elithrar)
+  "permission": {
+    // Controllo loop infinito - ora ask invece di deny
+    "doom_loop": "ask",
+    
+    // Lettura: permesso di default, negazione per segreti
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.dev.vars": "deny",
+      "*.env.example": "allow"
+    },
+    
+    // Modifica file: permesso di default (copre anche write e patch)
+    "edit": {
+      "*": "allow"
+    },
+    
+    // Shell: default ask + allowlist granulare a 4 tier
+    "bash": {
+      "*": "ask",
+      // TIER 1: letture → allow
+      "git status *": "allow",
+      "git diff *": "allow",
+      "git log *": "allow",
+      "ls *": "allow",
+      "cat *": "allow",
+      "rg *": "allow",
+      "jq *": "allow",
+      "grep *": "allow",
+      "find *": "allow",
+      // TIER 2: scritture sicure → allow
+      "git add *": "allow",
+      "git commit *": "allow",
+      "mkdir *": "allow",
+      "cp *": "allow",
+      "mv *": "allow",
+      "touch *": "allow",
+      "gh pr list *": "allow",
+      "gh pr view *": "allow",
+      // TIER 3: irreversibili → ask (default, già sopra)
+      // TIER 4: distruttivi → deny
+      "rm -rf *": "deny",
+      "git reset --hard *": "deny",
+      "git push --force *": "deny",
+      "gh release delete *": "deny"
+    },
+    
+    // Sandbox: solo nelle directory di lavoro
+    "external_directory": {
+      "*": "ask",
+      "~/git/**": "allow",
+      "/tmp/**": "allow",
+      "/private/tmp/**": "allow"
+    },
+    
+    // Web e accesso remoto
+    "webfetch": "allow",
+    "websearch": "allow"
+  },
+  
+  // Agenti: limitazione steps + disabilitati (compatibilità oh-my-opencode-slim)
+  "agent": {
+    "explore": { "disable": true },
+    "general": { "disable": true },
+    "orchestrator": { "steps": 250 },
+    "oracle": { "steps": 60 },
+    "designer": { "steps": 100 },
+    "fixer": { "steps": 120 },
+    "explorer": { "steps": 40 },
+    "librarian": { "steps": 50 },
+    "council": { "steps": 40 },
+    "councillor": { "steps": 40 },
+    "observer": { "steps": 30 }
+  },
+  
+  // LSP built-in
+  "lsp": true,
+  
+  // Compaction automatica (riduce bisogno di plugin di context pruning)
+  "compaction": {
+    "auto": true,
+    "prune": true
+  },
+  
+  // File watcher ignore
+  "watcher": {
+    "ignore": ["node_modules/**", "dist/**", ".git/**"]
+  },
+  
+  // Undo/revert (utile per sicurezza)
+  "snapshot": true,
+  
+  // Sharing manuale
+  "share": "manual"
+}

@@ -1,0 +1,376 @@
+{
+  "stripOrchestratorModel": true,
+  "backgroundJobs": {
+    "wallClockTimeoutMs": 900000,
+    "abortGraceMs": 10000,
+    "maxSessionsPerAgent": 2,
+    "orchestratorWake": {
+      "enabled": true,
+      "intervalMs": 900000
+    }
+  },
+  "preset": "default",
+  "presets": {
+    "default": {
+        "orchestrator": {
+          "model": [
+            "openrouter/inception/mercury-2.5-preview",
+            "openrouter/z-ai/glm-5.3-flash",
+            "openrouter/deepseek/deepseek-v4-flash-0731"
+          ]
+        },
+        "oracle": {
+          "model": [
+            "openrouter/meta/muse-spark-1.2-contributor",
+            "openrouter/z-ai/glm-5.3-flash",
+            "openrouter/upstage/solar-pro4"
+          ]
+        },
+        "designer": {
+          "model": [
+            "openrouter/meta/muse-spark-1.2-contributor",
+            "openrouter/z-ai/glm-5.3-flash",
+            "openrouter/tencent/hy3-preview"
+          ]
+        },
+        "council": {
+          "model": [
+            "openrouter/meta/muse-spark-1.2-contributor",
+            "openrouter/z-ai/glm-5.3-flash",
+            "openrouter/inclusionai/ling-3.0-flash"
+          ]
+        },
+        "councillor": {
+          "model": [
+            "openrouter/meta/muse-spark-1.2-contributor",
+            "openrouter/z-ai/glm-5.3-flash",
+            "openrouter/inclusionai/ling-3.0-flash"
+          ]
+        },
+        "explorer": {
+          "model": [
+            "openrouter/inception/mercury-2.5-preview",
+            "openrouter/z-ai/glm-5.3-flash",
+            "openrouter/poolside/laguna-s-2.1"
+          ]
+        },
+        "librarian": {
+          "model": [
+            "openrouter/z-ai/glm-5.3-flash",
+            "openrouter/inclusionai/ling-3.0-flash",
+            "openrouter/opencode-go/deepseek-v4-flash"
+          ]
+        },
+        "fixer": {
+          "model": [
+            "openrouter/ibm-granite/granite-4.2-8b",
+            "openrouter/inception/mercury-2.5-preview",
+            "openrouter/opencode-go/deepseek-v4-flash"
+          ]
+        },
+        "observer": {
+          "model": [
+            "openrouter/inception/mercury-2.5-preview",
+            "openrouter/inclusionai/ling-3.0-flash"
+          ]
+        }
+    },
+    "free": {
+        "orchestrator": {
+          "model": [
+            "openrouter/nvidia/nemotron-3.5-lightning:free",
+            "openrouter/thinkingmachines/inkling-small:free",
+            "openrouter/thinkingmachines/inkling:free",
+            "openrouter/z-ai/glm-5.2:free"
+          ]
+        },
+        "oracle": {
+          "model": [
+            "openrouter/thinkingmachines/inkling:free",
+            "openrouter/z-ai/glm-5.2:free"
+          ]
+        },
+        "designer": {
+          "model": [
+            "openrouter/thinkingmachines/inkling:free",
+            "openrouter/z-ai/glm-5.2:free"
+          ]
+        },
+        "council": {
+          "model": [
+            "openrouter/thinkingmachines/inkling:free",
+            "openrouter/z-ai/glm-5.2:free"
+          ]
+        },
+        "councillor": {
+          "model": [
+            "openrouter/thinkingmachines/inkling:free",
+            "openrouter/z-ai/glm-5.2:free"
+          ]
+        },
+        "explorer": {
+          "model": [
+            "openrouter/nvidia/nemotron-3.5-lightning:free",
+            "openrouter/thinkingmachines/inkling-small:free"
+          ]
+        },
+        "librarian": {
+          "model": [
+            "openrouter/inclusionai/ling-3.0-flash-fin",
+            "openrouter/thinkingmachines/inkling-small:free"
+          ]
+        },
+        "fixer": {
+          "model": [
+            "openrouter/nvidia/nemotron-3.5-lightning:free",
+            "openrouter/thinkingmachines/inkling:free"
+          ]
+        },
+        "observer": {
+          "model": [
+            "openrouter/inclusionai/ling-3.0-flash-fin",
+            "openrouter/nvidia/nemotron-3.5-lightning:free"
+          ]
+        }
+    },
+    "cheap": {
+      "orchestrator": {
+        "model": [
+          "openrouter/inception/mercury-2.5-preview",
+          "openrouter/z-ai/glm-flash-latest"
+        ]
+      },
+      "oracle": {
+        "model": [
+          "openrouter/meta/muse-spark-1.2-contributor",
+          "openrouter/z-ai/glm-flash-latest"
+        ]
+      },
+      "designer": {
+        "model": [
+          "openrouter/meta/muse-spark-1.2-contributor",
+          "openrouter/z-ai/glm-flash-latest"
+        ]
+      },
+      "council": {
+        "model": [
+          "openrouter/meta/muse-spark-1.2-contributor",
+          "openrouter/ibm-granite/granite-4.2-8b"
+        ]
+      },
+      "councillor": {
+        "model": [
+          "openrouter/meta/muse-spark-1.2-contributor",
+          "openrouter/ibm-granite/granite-4.2-8b"
+        ]
+      },
+      "explorer": {
+        "model": [
+          "openrouter/inception/mercury-2.5-preview",
+          "openrouter/inclusionai/ling-3.0-flash-fin"
+        ]
+      },
+      "librarian": {
+        "model": [
+          "openrouter/z-ai/glm-flash-latest",
+          "openrouter/inclusionai/ling-3.0-flash-fin"
+        ]
+      },
+      "fixer": {
+        "model": [
+          "openrouter/ibm-granite/granite-4.2-8b",
+          "openrouter/inception/mercury-2.5-preview"
+        ]
+      },
+      "observer": {
+        "model": [
+          "openrouter/inception/mercury-2.5-preview",
+          "openrouter/inclusionai/ling-3.0-flash-fin"
+        ]
+      }
+    },
+    "strong": {
+      "orchestrator": {
+        "model": [
+          "openrouter/anthropic/claude-fable-5.1",
+          "openrouter/anthropic/claude-fable-5",
+          "openrouter/anthropic/claude-opus-5",
+          "opencode/claude-fable-5",
+          "opencode/claude-opus-5"
+        ]
+      },
+      "oracle": {
+        "model": [
+          "openrouter/anthropic/claude-opus-5",
+          "openrouter/anthropic/claude-fable-5.1"
+        ]
+      },
+      "designer": {
+        "model": [
+          "openrouter/anthropic/claude-opus-5",
+          "openrouter/anthropic/claude-fable-5.1"
+        ]
+      },
+      "council": {
+        "model": [
+          "openrouter/anthropic/claude-opus-5",
+          "openrouter/anthropic/claude-fable-5.1"
+        ]
+      },
+      "councillor": {
+        "model": [
+          "openrouter/anthropic/claude-opus-5",
+          "openrouter/anthropic/claude-fable-5.1"
+        ]
+      },
+      "explorer": {
+        "model": [
+          "openrouter/meta/muse-spark-1.2-contributor",
+          "openrouter/z-ai/glm-5.3-flash"
+        ]
+      },
+      "librarian": {
+        "model": [
+          "openrouter/z-ai/glm-5.3-flash",
+          "openrouter/inclusionai/ling-3.0-flash"
+        ]
+      },
+      "fixer": {
+        "model": [
+          "openrouter/anthropic/claude-fable-5.1",
+          "openrouter/ibm-granite/granite-4.2-8b"
+        ]
+      },
+      "observer": {
+        "model": [
+          "openrouter/inception/mercury-2.5-preview",
+          "openrouter/z-ai/glm-5.3-flash"
+        ]
+      }
+    },
+    "standard": {
+        "orchestrator": {
+          "model": [
+            "openrouter/inception/mercury-2.5-preview",
+            "openrouter/nvidia/nemotron-3.5-lightning:free",
+            "openrouter/thinkingmachines/inkling-small:free"
+          ]
+        },
+        "oracle": {
+          "model": [
+            "openrouter/z-ai/glm-5.3-flash",
+            "openrouter/thinkingmachines/inkling:free",
+            "openrouter/z-ai/glm-5.2:free"
+          ]
+        },
+        "designer": {
+          "model": [
+            "openrouter/z-ai/glm-5.3-flash",
+            "openrouter/thinkingmachines/inkling:free",
+            "openrouter/z-ai/glm-5.2:free"
+          ]
+        },
+        "council": {
+          "model": [
+            "openrouter/meta/muse-spark-1.2-contributor",
+            "openrouter/thinkingmachines/inkling:free",
+            "openrouter/z-ai/glm-5.2:free"
+          ]
+        },
+        "councillor": {
+          "model": [
+            "openrouter/meta/muse-spark-1.2-contributor",
+            "openrouter/thinkingmachines/inkling:free"
+          ]
+        },
+        "explorer": {
+          "model": [
+            "openrouter/inception/mercury-2.5-preview",
+            "openrouter/nvidia/nemotron-3.5-lightning:free"
+          ]
+        },
+        "librarian": {
+          "model": [
+            "openrouter/z-ai/glm-flash-latest",
+            "openrouter/inclusionai/ling-3.0-flash-fin"
+          ]
+        },
+        "fixer": {
+          "model": [
+            "openrouter/ibm-granite/granite-4.2-8b",
+            "openrouter/nvidia/nemotron-3.5-lightning:free"
+          ]
+        },
+        "observer": {
+          "model": [
+            "openrouter/inception/mercury-2.5-preview",
+            "openrouter/nvidia/nemotron-3.5-lightning:free"
+          ]
+        }
+    },
+    "ultra": {      
+        "orchestrator": {
+          "model": [
+            "openrouter/anthropic/claude-fable-5.1",
+            "openrouter/openai/gpt-5.6-luna-pro",
+            "openrouter/google/gemini-3.1-pro-preview"
+          ]
+        },
+        "oracle": {
+          "model": [
+            "openrouter/anthropic/claude-opus-5",
+            "openrouter/openai/gpt-5.6-sol",
+            "openrouter/google/gemini-3.1-pro-preview"
+          ]
+        },
+        "designer": {
+          "model": [
+            "openrouter/anthropic/claude-opus-5",
+            "openrouter/openai/gpt-5.6-sol",
+            "openrouter/google/gemini-3.1-pro-preview"
+          ]
+        },
+        "council": {
+          "model": [
+            "openrouter/anthropic/claude-opus-5",
+            "openrouter/openai/gpt-5.6-sol",
+            "openrouter/google/gemini-3.1-pro-preview"
+          ]
+        },
+        "councillor": {
+          "model": [
+            "openrouter/anthropic/claude-opus-5",
+            "openrouter/openai/gpt-5.6-sol",
+            "openrouter/google/gemini-3.1-pro-preview"
+          ]
+        },
+        "explorer": {
+          "model": [
+            "openrouter/anthropic/claude-fable-5.1",
+            "openrouter/upstage/solar-pro4",
+            "openrouter/tencent/hy3-preview"
+          ]
+        },
+        "librarian": {
+          "model": [
+            "openrouter/anthropic/claude-fable-5.1",
+            "openrouter/upstage/solar-pro4",
+            "openrouter/poolside/laguna-s-2.1"
+          ]
+        },
+        "fixer": {
+          "model": [
+            "openrouter/anthropic/claude-fable-5.1",
+            "openrouter/upstage/solar-pro4",
+            "openrouter/poolside/laguna-s-2.1"
+          ]
+        },
+        "observer": {
+          "model": [
+            "openrouter/anthropic/claude-fable-5.1",
+            "openrouter/upstage/solar-pro4"
+          ]
+        }
+    }
+  }
+}
