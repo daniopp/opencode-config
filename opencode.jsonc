@@ -2,17 +2,17 @@
   "$schema": "https://opencode.ai/config.json",
 
   // Modello primario (cascata su z-ai/glm-5.3-flash)
-  "model": "inception/mercury-2.5-preview",
+  "model": "openrouter/inception/mercury-2.5",
 
   // Modello economico per task leggeri
-  "small_model": "openrouter/inclusionai/ling-3.0-flash",
+  "small_model": "openrouter/z-ai/glm-5.3-flash",
 
   // Plugin: nessuno
   "plugin": [],
 
-  // ⭐ MATRICE PERMESSI (pattern elithrar)
+    // ⭐ MATRICE PERMESSI (pattern elithrar)
   "permission": {
-    // Controllo loop infinito - ask invece di deny
+    // Controllo loop infinito - ask invece di deny (chiave validata nello schema ufficiale)
     "doom_loop": "ask",
 
     // Lettura: permesso di default, negazione per segreti
@@ -20,8 +20,14 @@
       "*": "allow",
       "*.env": "deny",
       "*.env.*": "deny",
+      "**/.env": "deny",
+      "**/.env.*": "deny",
+      "**/*.env": "deny",
+      "**/*.env.*": "deny",
       "*.dev.vars": "deny",
-      "*.env.example": "allow"
+      "**/*.dev.vars": "deny",
+      "*.env.example": "allow",
+      "**/*.env.example": "allow"
     },
 
     // Modifica file: permesso di default (copre anche write e patch)
@@ -32,16 +38,25 @@
     // Shell: default ask + allowlist granulare a 4 tier
     "bash": {
       "*": "ask",
-      // TIER 1: letture → allow
+      // TIER 1: letture → allow (cat/grep/find/ls sono duplicati dei tool nativi, esclusi)
+      "git status": "allow",
       "git status *": "allow",
       "git diff *": "allow",
       "git log *": "allow",
-      "ls *": "allow",
-      "cat *": "allow",
+      "git show *": "allow",
+      "git branch": "allow",
+      "git branch *": "allow",
+      "git remote *": "allow",
       "rg *": "allow",
       "jq *": "allow",
-      "grep *": "allow",
-      "find *": "allow",
+      "wc *": "allow",
+      "which *": "allow",
+      "gh pr list": "allow",
+      "gh pr list *": "allow",
+      "gh pr view *": "allow",
+      "gh issue list": "allow",
+      "gh issue list *": "allow",
+      "gh issue view *": "allow",
       // TIER 2: scritture sicure → allow
       "git add *": "allow",
       "git commit *": "allow",
@@ -49,14 +64,17 @@
       "cp *": "allow",
       "mv *": "allow",
       "touch *": "allow",
-      "gh pr list *": "allow",
-      "gh pr view *": "allow",
       // TIER 3: irreversibili → ask (default, già sopra)
       // TIER 4: distruttivi → deny
       "rm -rf *": "deny",
       "git reset --hard *": "deny",
       "git push --force *": "deny",
-      "gh release delete *": "deny"
+      "git clean -f *": "deny",
+      "git clean -fd *": "deny",
+      "gh release delete *": "deny",
+      "gh pr delete *": "deny",
+	  //TIER 5: eseguzioni
+	  "dotnet *" : "allow",
     },
 
     // Sandbox: solo nelle directory di lavoro
@@ -79,6 +97,11 @@
     "scout": { "disable": true }
   },
 
+  // Collegamento al file di regole contenuto nella cartella rules
+  "instructions": [
+    "C:/Users/daniele.oppezzo_smeu/.config/opencode/rules/rules.md"
+  ],
+
   // Profondità nesting subagent: 1 = i subagent non spawnano altri subagent
   "subagent_depth": 1,
 
@@ -96,62 +119,18 @@
     "ignore": ["node_modules/**", "dist/**", ".git/**"]
   },
 
-  // Undo/revert (utile per sicurezza)
+  // Undo/revert (utile per sicurezza) - chiave validata nello schema ufficiale
   "snapshot": true,
 
   // Sharing manuale
   "share": "manual",
 
   // Server MCP (Model Context Protocol)
-  "mcp": {
-    "with-context": {
-      "type": "local",
-      "command": [
-        "/home/daniele/.nvm/versions/node/v24.18.0/bin/npx",
-        "-y",
-        "with-context-mcp"
-      ],
-      "enabled": true
-    },
-    "github": {
-      "type": "local",
-      "command": [
-        "/home/daniele/.nvm/versions/node/v24.18.0/bin/npx",
-        "-y",
-        "@modelcontextprotocol/server-github"
-      ],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "{env:GITHUB_TOKEN}"
-      },
-      "enabled": true
-    },
-    "filesystem": {
-      "type": "local",
-      "command": [
-        "/home/daniele/.nvm/versions/node/v24.18.0/bin/npx",
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "/home/daniele/git"
-      ],
-      "enabled": true
-    },
-    "sequential-thinking": {
-      "type": "local",
-      "command": [
-        "/home/daniele/.nvm/versions/node/v24.18.0/bin/npx",
-        "-y",
-        "@modelcontextprotocol/server-sequential-thinking"
-      ],
-      "enabled": true
-    },
-    "memory": {
-      "type": "local",
-      "command": [
-        "/home/daniele/.nvm/versions/node/v24.18.0/bin/npx",
-        "-y",
-        "@modelcontextprotocol/server-memory"
-      ],
-      "enabled": true
-    }
-  }
+  // RIMOSSI (zero invocazioni nello storico sessioni, verificato su opencode.db):
+  // - with-context (33 tool): nessun uso
+  // - filesystem (14 tool): duplica i tool nativi read/glob/grep
+  // - sequential-thinking: nessun uso
+  // - memory: nessun uso (i tool memory_* usati sono built-in di opencode)
+  // - github: sostituito da `gh` CLI autenticata (allowlistata)
+  "mcp": {}
 }

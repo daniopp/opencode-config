@@ -113,7 +113,7 @@ keeps them readable to OpenCode.
 
 ### Phase 1: Planning & Setup
 1. Identify the task scope and determine a short `<slug>` for the worktree.
-2. Formulate a branch name. Default to `omos/<slug>` unless project/user conventions dictate otherwise.
+2. Formulate a branch name. Default to `omos/<slug>` only when the project has no branch convention. When a project convention exists, follow it exactly — for EVODOC projects: `<tipo>/<numero-issue>-breve-descrizione-kebab-case` (e.g. `feature/125-import-documenti`), branch always created from `dev`.
 3. Validate repository safety. Ask the user for confirmation to initialize the lane.
 4. Before creating the lane, ensure the managed ignore blocks are present using
    the Ignore File Setup rules above.

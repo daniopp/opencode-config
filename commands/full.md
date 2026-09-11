@@ -16,8 +16,8 @@ Per lavoro complesso ad alto rischio.
 
 3. **Plan** - salva come `plans/{feature-name}/plan.md`
 
-4. **Adversarial review** - manda il piano a `reviewer-agent`:
-   - Se complesso, second review opzionale
+4. **Adversarial review** - manda il piano a `reviewer`:
+   - Se complesso, second review opzionale (anche a `oracle`)
    - Incorpora solo obiezioni supportate da evidenze
 
 5. **Execution plan** - salva come `plans/{feature}/execution.md`:
@@ -29,7 +29,7 @@ Per lavoro complesso ad alto rischio.
 
 7. **Execution** - segui l'execution plan track-by-track
 
-8. **Verifier** - `verifier-agent` conferma il completamento
+8. **Verifier** - `verifier` conferma il completamento contro i criteri di validazione
 
 9. **Wrap-up** - full summary
 

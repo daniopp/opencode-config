@@ -1,6 +1,6 @@
 ---
 name: clonedeps
-description: Clone important project dependency source code into an ignored local workspace so OpenCode can inspect library internals. Use when the user asks to clone dependencies, inspect dependency/source internals, understand SDK/framework behavior from source, debug library implementation details, or make core dependency repos locally readable. Do not use for ordinary API/docs questions where @librarian is enough.
+description: Clone important project dependency source code into an ignored local workspace so OpenCode can inspect library internals. Use when the user asks to clone dependencies, inspect dependency/source internals, understand SDK/framework behavior from source, debug library implementation details, or make core dependency repos locally readable. Covers npm, NuGet/.NET packages (e.g. SmeUP SDKs), and other ecosystems. Do not use for ordinary API/docs questions where @librarian is enough.
 ---
 
 # Clonedeps Skill
@@ -228,6 +228,16 @@ Read-only dependency source repositories are available under
 
 Also keep `.slim/clonedeps.json` updated as the structured manifest, but do not
 make agents read it for the basic repo list.
+
+## Ecosystem Notes
+
+### NuGet / .NET (EVODOC)
+
+- Read `*.csproj` files (`PackageReference` entries) to enumerate dependencies and exact versions; check `packages.config` only for legacy projects.
+- Resolve the official source repo for each package: public packages usually expose the GitHub repository URL on nuget.org; internal SmeUP packages live under the `smeup` GitHub org. If a package comes from a private feed with no public source, stop and ask the user.
+- Prefer the tag matching the exact NuGet version (`v1.2.3`, `1.2.3`, or repo-specific variants); if no tag matches, ask librarian to find the correct commit/ref.
+- Do not clone BCL/framework packages (`Microsoft.*`, `System.*`, `Newtonsoft.Json`) unless directly relevant to the task; prefer `@librarian` for their docs. Transitive dependencies are not worth cloning.
+- Cloned C# repos are read-only source: never run `dotnet restore`, `dotnet build`, or tests inside them.
 
 ## Cleanup
 

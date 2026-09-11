@@ -27,15 +27,15 @@ Per triage e fix guidati da ipotesi.
    - Fix steps
    - Verification steps
 
-5. **Critique** (opzionale, se rischio alto) - review del fix plan
+5. **Critique** (opzionale, se rischio alto) - manda il fix plan a `reviewer`
 
 6. **Approval gate** - obbligatoria, chiedi `[y/N/edit]` sul file
 
 7. **Execution** - usa:
-   - `implementation-agent` per fix locali
-   - `test-fixer-agent` per fallimenti complessi
+   - `fixer` per fix locali
+   - `fixer` per fallimenti complessi (con test output nel prompt)
 
-8. **Verifier** - `verifier-agent` conferma
+8. **Verifier** - `verifier` conferma contro i verification steps del fix plan
 
 9. **Wrap-up** - what caused it, how it was fixed
 

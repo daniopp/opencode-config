@@ -122,12 +122,21 @@ After simplifying, confirm:
 - Project conventions still match
 - No behavior, error handling, or side effects changed
 
-## Guidance for This Repository
+## Guidance for This Setup
 
-- Prefer straightforward TypeScript over clever compression
+These rules are generic. The target project's conventions and `AGENTS.md` always win over this list.
+
+- Prefer straightforward code over clever compression in any language
 - Preserve existing runtime behavior, tests, and hooks
 - Favor explicit names and smaller focused helpers when they improve readability
 - Keep refactors tightly scoped to the task or review feedback
+
+For C#/.NET projects following EVODOC rules:
+
+- Prefer `List<T>` over `Collection<T>` (JSON.NET serialization compatibility)
+- Allman brace style: `{}` always on separate lines; no stray blank lines inside blocks
+- Prefer `var` when the type is evident; prefer LINQ over manual loops
+- Naming: public `PascalCase`, private `camelCase`, private readonly fields `_camelCase`, constants `UPPER_SNAKE_CASE`
 
 ## Final-state verification
 
