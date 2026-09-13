@@ -5,11 +5,11 @@ Configurazione globale opencode.
 ## File principali
 
 - `opencode.jsonc` — config principale (questa)
-- `tui.json` — tema e keybinds
+- `tui.json` — config TUI (attualmente quasi vuota, placeholder)
 - `agents/` — agenti .md personalizzati
 - `commands/` — lane (/quick, /medium, /full, /debug)
+- `rules/` — regole always-on (`rules.md` = regole di sviluppo EVODOC, caricate via `instructions`)
 - `skills/` — skill npm
-- `rules/` — regole always-on
 
 ## Permessi
 
@@ -20,34 +20,45 @@ Matrice permessi (`opencode.jsonc`), pattern elithrar:
 | `doom_loop` | ask | Conferma prima di ripetere |
 | `read` | allow | deny su `*.env*`, `*.dev.vars` |
 | `edit` | allow | copre anche write/patch |
-| `bash` | ask | allowlist per sottocomando, deny su `rm -rf`, `git push --force` |
+| `bash` | ask | allowlist a 4 tier calibrata sullo storico sessioni (letture/scritture sicure → allow, distruttivi → deny) |
 | `external_directory` | ask | solo `~/git/**`, `/tmp/**` |
 
 ## Plugin
 
-- `opencode-keepalive` — keepalive
+Nessuno (`plugin: []` in entrambi i config).
+
+## GitHub
+
+Uso esclusivo della CLI `gh` (autenticata su tutte le macchine, allowlistata nei permessi bash). Nessun MCP server github: il token `GITHUB_TOKEN` era invalido e il server duplicava le funzioni di `gh`.
 
 ## Agenti (nativi, `agents/*.md`)
 
-- `orchestrator` — coordinatore principale (primary)
-- `explorer` — ricerca codice (read-only)
-- `librarian` — ricerca documentazione (read-only)
-- `oracle` — analisi architetturale (read-only)
-- `fixer` — implementazione rapida
-- `designer` — UI/UX
-- `observer` — monitoraggio (read-only)
+- `orchestrator` — coordinatore principale (primary, `openrouter/z-ai/glm-5.3-flash`)
+- `explorer`, `fixer`, `librarian`, `observer`, `oracle`, `reviewer`, `verifier` — specialisti (`openrouter/deepseek/deepseek-v4-flash-0731`)
+- `designer` — UI/UX (`openrouter/meta/muse-spark-1.3-contributor`)
 
 I subagent non spawnano altri subagent (`subagent_depth: 1`); l'orchestrator
-delega via `task` tool con allowlist su questi 6 specialisti.
+delega via `task` tool con allowlist su 8 specialisti.
 
 ## Lane disponibili
 
 Usa `/quick`, `/medium`, `/full`, `/debug` nel TUI.
 
+## Sync con il repo
+
+Config live `~/.config/opencode` ↔ repo `~/git/opencode-config` (`danismeup/opencode-config`):
+
+- `scripts/sync.sh status|diff|push|pull` nel repo (allowlistato in bash). Divergenze note (sync saltato di proposito): `opencode.jsonc` = path `instructions` Windows (repo) vs Linux (locale); `tui.json` = plugin `oh-my-opencode-slim` (repo) vs vuoto (locale)
+- Comando `/sync-config` — l'orchestrator esegue status → push → commit → push
+- Progetti fidati: copiare `repo-examples/opencode-project-trusted.jsonc` nella root del progetto come `opencode.jsonc` — bash passa a allow-by-default con deny sui distruttivi (`rm -rf`, `sudo`, `push --force`, `reset --hard`, `clean -f`, `restore`, `prune`)
+
+## MCP servers
+
+Nessuno (`mcp: {}`). Rimossi dopo verifica su opencode.db (zero invocazioni nello storico sessioni):
+`with-context` (33 tool), `filesystem` (duplica i tool nativi), `sequential-thinking`, `memory`,
+`github` (sostituito da CLI `gh`). I tool `memory_*` usati in sessione sono built-in di opencode.
+
 ## Prossimi passi
 
 1. [ ] Aggiungere agenti custom in `agents/` (opzionale)
-2. [ ] Creare `AGENTS.md` con regole globali (< 10 righe)
-3. [ ] Aggiungere pre-commit: validate-jsonc, markdownlint, detect-private-key
-4. [ ] Documentare MCP servers aggiuntivi
-5. [ ] Migrare skills npm → markdown (.opzionale)
+2. [ ] Aggiungere pre-commit: validate-jsonc, markdownlint, detect-private-key

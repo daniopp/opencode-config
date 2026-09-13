@@ -57,7 +57,7 @@
     // Shell: default ask + allowlist granulare a 4 tier
     "bash": {
       "*": "ask",
-      // TIER 1: letture → allow (cat/grep/find/ls sono duplicati dei tool nativi, esclusi)
+      // TIER 1: letture → allow (da storico sessioni: ls/grep/find/sed sono tra i comandi più usati)
       "git status": "allow",
       "git status *": "allow",
       "git diff *": "allow",
@@ -70,6 +70,17 @@
       "jq *": "allow",
       "wc *": "allow",
       "which *": "allow",
+      "ls": "allow",
+      "ls *": "allow",
+      "grep *": "allow",
+      "find *": "allow",
+      "sed -n *": "allow",
+      "echo *": "allow",
+      "docker ps": "allow",
+      "docker ps *": "allow",
+      "docker images": "allow",
+      "docker logs *": "allow",
+      "npx tsc *": "allow",
       "gh pr list": "allow",
       "gh pr list *": "allow",
       "gh pr view *": "allow",
@@ -83,11 +94,16 @@
       "cp *": "allow",
       "mv *": "allow",
       "touch *": "allow",
+      "git push": "allow",
+      "git push *": "allow",
+      // Sync config live <-> repo (rsync, nessun commit automatico)
+      "scripts/sync.sh *": "allow",
+      "/home/daniele/git/opencode-config/scripts/sync.sh *": "allow",
       // TIER 3: irreversibili → ask (default, già sopra)
-      // TIER 4: distruttivi → deny
+      // TIER 4: distruttivi → deny (vince l'ULTIMA regola che matcha: i narrow stanno dopo i broad)
       "rm -rf *": "deny",
       "git reset --hard *": "deny",
-      "git push --force *": "deny",
+      "git push --force*": "deny",
       "git clean -f *": "deny",
       "git clean -fd *": "deny",
       "gh release delete *": "deny",

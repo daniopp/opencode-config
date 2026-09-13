@@ -1,0 +1,38 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // ─────────────────────────────────────────────────────────────────
+  // Config di PROGETTO per ambiente FIDATO (opencode si fonde con
+  // quella globale; le regole qui sovrascrivono l'ask globale).
+  //
+  // Installazione:
+  //   cp ~/git/opencode-config/repo-examples/opencode-project-trusted.jsonc <progetto>/opencode.jsonc
+  //
+  // Effetto: bash passa a allow-by-default, resta deny su tutto ciò
+  // che è distruttivo o irreversibile. Ordine regole: broad PRIMA,
+  // narrow DOPO (vince l'ultima regola che matcha).
+  // ─────────────────────────────────────────────────────────────────
+
+  "permission": {
+    "bash": {
+      // Default fidato: tutto consentito
+      "*": "allow",
+
+      // ── irreversibili / distruttivi → deny ──
+      "rm -rf *": "deny",
+      "sudo *": "deny",
+      "git push --force*": "deny",
+      "git -C * push --force*": "deny",
+      "git reset --hard*": "deny",
+      "git -C * reset --hard*": "deny",
+      "git clean -f*": "deny",
+      "git checkout -- *": "deny",
+      "git restore *": "deny",
+      "docker system prune*": "deny",
+      "docker volume rm *": "deny",
+      "gh release delete *": "deny",
+      "gh pr delete *": "deny",
+      "dotnet ef database drop*": "deny"
+    }
+  }
+}
