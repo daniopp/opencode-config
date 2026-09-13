@@ -1,11 +1,30 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
-  // Modello primario (cascata su z-ai/glm-5.3-flash)
-  "model": "openrouter/inception/mercury-2.5",
+  // Modello primario: GLM 5.3 Flash — contesto 1M, multimodale (text+image), reasoning
+  // Listino OpenRouter/Z.AI: $0.15 in / $0.50 out per M token, cache read $0.03
+  "model": "openrouter/z-ai/glm-5.3-flash",
 
-  // Modello economico per task leggeri
-  "small_model": "openrouter/z-ai/glm-5.3-flash",
+  // Modello economico per task leggeri (title, summary, compaction):
+  // DeepSeek V4 Flash 0731 — $0.05 in / $0.16 out per M token, context 1M
+  "small_model": "openrouter/deepseek/deepseek-v4-flash-0731",
+
+  // Override espliciti sul modello primario (il resto dei modelli usa il registry models.dev)
+  // - limit: abilita auto-compaction corretta su sessioni repo-scale (finestra 1M)
+  // - cost: listino first-party Z.AI su OpenRouter ($/M token), per statistiche accurate
+  // - options: sampling consigliato Z.ai per coding agentico (benchmark NL2Repo: temp 1.0 / top_p 1.0)
+  "provider": {
+    "openrouter": {
+      "models": {
+        "z-ai/glm-5.3-flash": {
+          "name": "GLM 5.3 Flash",
+          "limit": { "context": 1048576, "output": 131072 },
+          "cost": { "input": 0.15, "output": 0.5, "cache_read": 0.03 },
+          "options": { "temperature": 1.0, "top_p": 1.0 }
+        }
+      }
+    }
+  },
 
   // Plugin: nessuno
   "plugin": [],
