@@ -48,7 +48,7 @@ Usa `/quick`, `/medium`, `/full`, `/debug` nel TUI.
 
 Config live `~/.config/opencode` ↔ repo `~/git/opencode-config` (`danismeup/opencode-config`):
 
-- `scripts/sync.sh status|diff|push|pull` nel repo (allowlistato in bash). Divergenze note (sync saltato di proposito): `opencode.jsonc` = path `instructions` Windows (repo) vs Linux (locale); `tui.json` = plugin `oh-my-opencode-slim` (repo) vs vuoto (locale)
+- `scripts/sync.sh status|diff|push|pull` nel repo (allowlistato in bash). Divergenza nota (sync saltato di proposito): `opencode.jsonc` = path `instructions` Windows (repo) vs Linux (locale)
 - Comando `/sync-config` — l'orchestrator esegue status → push → commit → push
 - Progetti fidati: copiare `repo-examples/opencode-project-trusted.jsonc` nella root del progetto come `opencode.jsonc` — bash passa a allow-by-default con deny sui distruttivi (`rm -rf`, `sudo`, `push --force`, `reset --hard`, `clean -f`, `restore`, `prune`)
 

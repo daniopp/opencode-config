@@ -10,7 +10,7 @@ Passi:
 
 1. `scripts/sync.sh status` — mostra lo stato e le divergenze note
 2. `scripts/sync.sh push` — copia local → repo (agents, commands, rules, skills, AGENTS.md, tui.json)
-3. Se la modifica riguarda `opencode.jsonc` o `tui.json`: sono divergenti DI PROPOSITO (repo: `instructions` Windows e plugin `oh-my-opencode-slim`; locale: `instructions` Linux e plugin vuoto) quindi lo script li salta — applica il delta A MANO con edit sul file del repo, preservando le divergenze. NON usare `--force` salvo richiesta esplicita dell'utente.
+3. Se la modifica riguarda `opencode.jsonc`: è divergente DI PROPOSITO (path `instructions` Windows nel repo vs Linux in locale) quindi lo script lo salta — applica il delta A MANO con edit sul file del repo, preservando il path `instructions` Windows e il TIER 5 `dotnet`. NON usare `--force` salvo richiesta esplicita dell'utente.
 4. `git status --short` e `git diff --stat` — revisione del delta
 5. Commit con messaggio `config: <breve descrizione>` e `git push`
 

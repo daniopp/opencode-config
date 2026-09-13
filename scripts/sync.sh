@@ -30,7 +30,6 @@ COPY=(opencode.jsonc tui.json AGENTS.md package.json package-lock.json skills)
 # Divergenze note e intenzionali repo<->locale: sync saltato senza --force
 declare -A DIVERGENT=(
   ["opencode.jsonc"]="instructions: path Windows (repo) vs path Linux (locale)"
-  ["tui.json"]="plugin: oh-my-opencode-slim (repo) vs vuoto (locale)"
 )
 
 BLU='\033[1;36m'; YLW='\033[1;33m'; GRN='\033[1;32m'; RST='\033[0m'
