@@ -50,7 +50,7 @@ Config live `~/.config/opencode` ↔ repo `~/git/opencode-config` (`danismeup/op
 
 - `scripts/sync.sh status|diff|push|pull` nel repo (allowlistato in bash). Divergenza nota (sync saltato di proposito): `opencode.jsonc` = path `instructions` Windows (repo) vs Linux (locale)
 - Comando `/sync-config` — l'orchestrator esegue status → push → commit → push
-- Progetti fidati: copiare `repo-examples/opencode-project-trusted.jsonc` nella root del progetto come `opencode.jsonc` — bash passa a allow-by-default con deny sui distruttivi (`rm -rf`, `sudo`, `push --force`, `reset --hard`, `clean -f`, `restore`, `prune`)
+- Progetti fidati: copiare `repo-examples/opencode-project-trusted.jsonc` nella root del progetto come `opencode.jsonc` — bash passa a allow-by-default con deny sui distruttivi (`rm -rf`, `sudo`, `push --force`, `reset --hard`, `clean -f`, `restore`, `prune`). Attivi su: `~/git/proloco-workspace`, `~/git/proloco-workspace/eco-system`, `/opt/proloco/proloco-workspace`, `/opt/proloco/proloco-workspace/eco-system`
 
 ## MCP servers
 
