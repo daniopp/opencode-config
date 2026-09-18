@@ -1,5 +1,41 @@
 # Changelog
 
+## 2026-09-18 (3) - usage reporting, comando /usage, roadmap BMAD completata
+
+### Aggiunto
+- `scripts/usage-report.py` — report consumi token e costo dalle sessioni opencode (DB read-only): subcomandi `summary|export|sessions`, filtri `--days/--since/--until/--project/--model/--agent`, `--format json`, ledger CSV upsert
+- `commands/usage.md` — comando TUI `/usage` per il report consumi token e costo
+- Skill `spec-archive` — archivio delta-spec duraturo nel brownfield (pattern OpenSpec)
+- Estensione skill `project-kb-setup` — verified context block (`kb:context`) + standards per-progetto
+
+### Aggiornato
+- `docs/BMAD-ASSESSMENT.md` — roadmap completata (a)-(d): `project-kb-setup` estesa, skill `spec-archive`, valutazione Spec Kit risolta (pilota SÌ su modalità `commands`, non `--skills`)
+
+## 2026-09-18 (2) - opencode.jsonc cross-platform, risolta divergenza instructions
+
+### Modificato
+- `opencode.jsonc` (repo + live, ora byte-identici): `instructions` in formato `~/` → `~/.config/opencode/rules/rules.md`. Eliminata la divergenza nota repo↔live (prima: path Windows `C:/Users/...` nel repo vs path Linux `/home/daniele/...` in locale).
+- `scripts/sync.sh` — svuotata la mappa `DIVERGENT` (il meccanismo resta disponibile per divergenze future)
+- `commands/sync-config.md` — rimossa la gestione manuale del path `instructions`
+- `AGENTS.md` (repo + live), `README.md` — note sulla divergenza aggiornate
+
+### Note tecniche
+- Verificato sul sorgente opencode (`packages/opencode/src/session/instruction.ts`): `~` è espanso con `os.homedir()` (→ `/home/daniele` su Linux, `C:\Users\<user>` su Windows); i path mancanti sono ignorati in silenzio (fail-safe); i path relativi sono risolti dalla cwd del progetto — mai usarli nella config globale.
+- La config globale di opencode è `~/.config/opencode` su TUTTE le piattaforme (opencode pinna `xdg-basedir`, che non ha branch `%APPDATA%` su Windows).
+- OpenCode 2.0 (beta): il campo `instructions` diventa inerte — in V2 le regole globali vanno in `~/.config/opencode/AGENTS.md`. Da tenere a mente alla migrazione.
+
+## 2026-09-18 - Valutazione BMAD, skill story-craft, pulizie documentazione
+
+### Aggiunto
+- `docs/BMAD-ASSESSMENT.md` — valutazione BMAD v6 e framework spec-driven (GitHub Spec Kit, OpenSpec, Kiro, task-master-ai, Agent OS, Backlog.md, Codev), gap analysis vs config, decisione: homegrown + pattern presi in prestito
+- Skill `story-craft` — story self-contained con contesto inline, acceptance criteria e hard constraints per i dispatch a `fixer` in `/medium` e `/full` (adattamento del formato story BMAD)
+
+### Corretto
+- `agents/README.md` — tabella agenti allineata ai modelli reali (GLM 5.3 Flash primario, DeepSeek V4 Flash specialisti, muse-spark-1.3 designer), aggiunti `reviewer` e `verifier`, nota storica plugin OMO aggiornata (repo + live)
+- `rules/README.md` — sostituito il placeholder con la descrizione reale del contenuto di `rules.md` (repo + live)
+- `memory/user-prefs.md` — rimosse le policy del plugin rimosso `oh-my-opencode-slim` (catene modelli, guard slim) (repo + live, fuori sync)
+- `README.md` — riga skill `story-craft`, nuova sezione Documenti, directory tree aggiornata
+
 ## 2026-06-24 - Setup iniziale
 
 ### Aggiunto

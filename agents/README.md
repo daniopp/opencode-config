@@ -31,13 +31,15 @@ Il body del markdown è il system prompt.
 
 | Agente | Mode | Modello | Permessi chiave |
 |---|---|---|---|
-| `orchestrator` | primary | mercury-2.5-preview | task allowlist sui 6 specialisti |
-| `explorer` | subagent | solar-pro4 | read-only, bash solo letture |
-| `librarian` | subagent | glm-5.3-flash | webfetch/websearch, niente shell |
-| `oracle` | subagent | muse-spark-1.2-contributor | read-only, bash solo letture |
-| `fixer` | subagent | granite-4.2-8b | edit allow, eredita matrice bash globale |
-| `designer` | subagent | muse-spark-1.2-contributor | edit allow, eredita matrice bash globale |
-| `observer` | subagent | mercury-2.5-preview | read-only, bash solo letture |
+| `orchestrator` | primary | `openrouter/z-ai/glm-5.3-flash` | task allowlist sugli 8 specialisti |
+| `explorer` | subagent | `openrouter/deepseek/deepseek-v4-flash-0731` | read-only (solo read/grep/glob, niente bash) |
+| `librarian` | subagent | `openrouter/deepseek/deepseek-v4-flash-0731` | webfetch/websearch, niente shell |
+| `oracle` | subagent | `openrouter/deepseek/deepseek-v4-flash-0731` | read-only, advisor strategico |
+| `fixer` | subagent | `openrouter/deepseek/deepseek-v4-flash-0731` | edit allow, bash solo test runner + git status/diff |
+| `reviewer` | subagent | `openrouter/deepseek/deepseek-v4-flash-0731` | read-only, review avversariale con evidenze |
+| `verifier` | subagent | `openrouter/deepseek/deepseek-v4-flash-0731` | read-only, verifica completion con evidenze |
+| `observer` | subagent | `openrouter/deepseek/deepseek-v4-flash-0731` | read-only, monitoraggio |
+| `designer` | subagent | `openrouter/meta/muse-spark-1.3-contributor` | edit allow, eredita matrice bash globale |
 
 I subagent hanno `task: deny` (non spawnano altri agenti);
 `subagent_depth: 1` in `opencode.jsonc` impone il limite anche a livello di
@@ -63,5 +65,5 @@ Agente specializzato in TypeScript e Node.js...
 ## Nota storica
 
 Prima di questa migrazione gli agenti erano forniti dal plugin
-`oh-my-opencode-slim` (vedi `oh-my-opencode-slim.jsonc`, ora inattivo, tenuto
-solo come riferimento per i preset modelli).
+`oh-my-opencode-slim`, successivamente rimosso (`plugin: []` in entrambi i
+config).

@@ -108,8 +108,8 @@
       "git clean -fd *": "deny",
       "gh release delete *": "deny",
       "gh pr delete *": "deny",
-	  //TIER 5: eseguzioni
-	  "dotnet *" : "allow",
+      // TIER 5: esecuzioni
+      "dotnet *": "allow"
     },
 
     // Sandbox: solo nelle directory di lavoro
@@ -133,8 +133,11 @@
   },
 
   // Collegamento al file di regole contenuto nella cartella rules
+  // Formato `~/` cross-platform: opencode espande `~` con os.homedir() (funziona
+  // uguale su Linux e Windows, dove la config globale è comunque ~/.config/opencode).
+  // NON usare path relativi (risolti dalla cwd del progetto) né path assoluti macchina-specifici.
   "instructions": [
-    "C:/Users/daniele.oppezzo_smeu/.config/opencode/rules/rules.md"
+    "~/.config/opencode/rules/rules.md"
   ],
 
   // Profondità nesting subagent: 1 = i subagent non spawnano altri subagent

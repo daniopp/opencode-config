@@ -63,6 +63,8 @@ opencode
 | `project-kb-setup` | Knowledge base AI dentro il repo |
 | `reflect` | Learn from past sessions |
 | `simplify` | Simplify code |
+| `spec-archive` | Archivio delta-spec duraturo nel brownfield (pattern OpenSpec) |
+| `story-craft` | Story self-contained con contesto inline, acceptance criteria e hard constraints (prima del dispatch a `fixer` in /medium e /full) |
 | `verification-planning` | Plan verification |
 | `worktrees` | Isolated coding lanes |
 
@@ -89,6 +91,18 @@ Restano deny: `rm -rf`, `sudo`, `git push --force`, `git reset --hard`, `git cle
 
 Nessuno (`mcp: {}`). Rimossi dopo verifica su opencode.db (zero invocazioni nello storico): `with-context`, `filesystem`, `sequential-thinking`, `memory`, `github` (sostituito dalla CLI `gh`).
 
+## Documenti
+
+- [INSTALL.md](INSTALL.md) — guida installazione dettagliata
+- [ARCHITECTURE.md](ARCHITECTURE.md) — architettura della config
+- [docs/SETUP.md](docs/SETUP.md) · [docs/PERMISSIONS.md](docs/PERMISSIONS.md) · [docs/DEBUG.md](docs/DEBUG.md) · [docs/CHANGELOG.md](docs/CHANGELOG.md)
+- [docs/BMAD-ASSESSMENT.md](docs/BMAD-ASSESSMENT.md) — valutazione BMAD v6 e framework spec-driven, gap analysis e strategia (homegrown + skill `story-craft`, `spec-archive`, `project-kb-setup` estesa; roadmap completata)
+
+## Tools / Script
+
+- `scripts/usage-report.py` — report consumi token e costo dalle sessioni opencode (DB read-only). Subcomandi `summary|export|sessions`, filtri `--days/--since/--until/--project/--model/--agent`, `--format json`, ledger CSV upsert.
+- Comando `/usage` — report consumi token e costo dal TUI (vedi [commands/usage.md](commands/usage.md)).
+
 ## Directory Structure
 
 ```
@@ -100,6 +114,9 @@ opencode-config/
 ├── commands/         # Lane + /sync-config
 ├── rules/            # Always-on rules
 ├── skills/           # Skills markdown
+├── memory/           # Memoria utente (esclusa dal sync)
+├── docs/             # Guide (setup, permessi, debug, changelog, decisioni)
+├── mcp/ · global/    # Note MCP, config alternative
 ├── scripts/          # sync.sh (sync live <-> repo)
 ├── repo-examples/    # Template (es. opencode-project-trusted.jsonc)
 └── .dev.vars         # Credentials
@@ -114,7 +131,7 @@ scripts/sync.sh push     # locale -> repo (poi commit/push manuali o /sync-confi
 scripts/sync.sh pull     # repo -> locale
 ```
 
-Divergenza nota gestita dallo script: `opencode.jsonc` sezione `instructions` (path Windows nel repo vs Linux in locale).
+Nessuna divergenza nota: `opencode.jsonc` è identico su tutte le macchine — `instructions` usa il formato `~/`, che opencode espande alla home utente su Linux e Windows (la config globale è `~/.config/opencode` su entrambe le piattaforme).
 
 ## Updates
 

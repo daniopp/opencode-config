@@ -28,9 +28,9 @@ MIRROR=(agents commands rules)          # mirror esatto (--delete)
 COPY=(opencode.jsonc tui.json AGENTS.md package.json package-lock.json skills)
 
 # Divergenze note e intenzionali repo<->locale: sync saltato senza --force
-declare -A DIVERGENT=(
-  ["opencode.jsonc"]="instructions: path Windows (repo) vs path Linux (locale)"
-)
+# Vuota dal 2026-09-18: opencode.jsonc usa il path `~/` nelle instructions,
+# valido su Linux e Windows (meccanismo resta disponibile per divergenze future)
+declare -A DIVERGENT=()
 
 BLU='\033[1;36m'; YLW='\033[1;33m'; GRN='\033[1;32m'; RST='\033[0m'
 log()  { printf "%b▸ %s%b\n" "$BLU" "$*" "$RST"; }

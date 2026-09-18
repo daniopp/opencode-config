@@ -8,13 +8,12 @@ Lavora con workdir `/home/daniele/git/opencode-config` per tutti i comandi.
 
 Passi:
 
-1. `scripts/sync.sh status` — mostra lo stato e le divergenze note
-2. `scripts/sync.sh push` — copia local → repo (agents, commands, rules, skills, AGENTS.md, tui.json)
-3. Se la modifica riguarda `opencode.jsonc`: è divergente DI PROPOSITO (path `instructions` Windows nel repo vs Linux in locale) quindi lo script lo salta — applica il delta A MANO con edit sul file del repo, preservando il path `instructions` Windows e il TIER 5 `dotnet`. NON usare `--force` salvo richiesta esplicita dell'utente.
-4. `git status --short` e `git diff --stat` — revisione del delta
-5. Commit con messaggio `config: <breve descrizione>` e `git push`
+1. `scripts/sync.sh status` — mostra lo stato e le eventuali divergenze
+2. `scripts/sync.sh push` — copia local → repo (agents, commands, rules, skills, AGENTS.md, tui.json, opencode.jsonc)
+3. `git status --short` e `git diff --stat` — revisione del delta
+4. Commit con messaggio `config: <breve descrizione>` e `git push`
 
 Regole:
-- Non modificare MAI la sezione `instructions` del file `opencode.jsonc` nel repo (path Windows della macchina di lavoro)
+- `opencode.jsonc` è identico su tutte le macchine: `instructions` usa il formato `~/` (`~/.config/opencode/rules/rules.md`, espanso da opencode con `os.homedir()` su Linux e Windows). NON reintrodurre path assoluti macchina-specifici né path relativi (risolti dalla cwd del progetto).
 - Non sincronizzare mai `logs/`, `memory/`, `pilot/`, `node_modules/`, `.gitignore`
 - Se `status` mostra divergenze inattese, fermati e segnala prima di procedere
