@@ -61,4 +61,4 @@ Nessuno (`mcp: {}`). Rimossi dopo verifica su opencode.db (zero invocazioni nell
 ## Prossimi passi
 
 1. [ ] Aggiungere agenti custom in `agents/` (opzionale)
-2. [ ] Aggiungere pre-commit: validate-jsonc, markdownlint, detect-private-key
+2. [x] Pre-commit hook attivati: `scripts/githooks/pre-commit` (validate-jsonc, detect-private-key, markdownlint best-effort) + `scripts/install-hooks.sh` (`git config core.hooksPath scripts/githooks`)

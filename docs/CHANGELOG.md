@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-09-19 (2) - Completamenti: pre-commit hooks, pilota Spec Kit, sync live
+
+### Aggiunto
+- `scripts/githooks/pre-commit` + `scripts/install-hooks.sh` — hook pre-commit (validate-jsonc con supporto argomenti, detect-private-key, markdownlint best-effort); attivazione con `./scripts/install-hooks.sh` (`core.hooksPath = scripts/githooks`). Fix post-verifica: `REPO_ROOT` via `git rev-parse --show-toplevel` (il `/..` originale era off-by-one e rendeva inerte il check)
+- `plans/roadmap-patterns-wave2/stories/007-pre-commit-hooks.story.md` — story completata
+- Pilota Spec Kit su `spike/speckit-pilot` (commit `446685e`): `specify init . --integration opencode`, constitution EVODOC v1.0.0, ciclo end-to-end su feature reale (`--top N` per `usage-report.py`) con converged zero gap
+
+### Aggiornato
+- `docs/BMAD-ASSESSMENT.md` — esito pilota nella roadmap (d), sezione Misura aggiornata a `usage-report.py` (sostituisce il vecchio `logs/token-tracker`)
+- Live config sincronizzata (`scripts/sync.sh pull`): wave 1+2 attive dal riavvio opencode
+
 ## 2026-09-19 - Wave 2: pattern adottati (rules, verifier, story-craft, reflect, frontmatter)
 
 ### Aggiunto

@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+# pre-commit — validate-jsonc + detect-private-key + markdownlint (best-effort)
+# Attivato da: scripts/install-hooks.sh (git config core.hooksPath scripts/githooks)
+set -euo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
+
+fail() {
+    echo "pre-commit: FAIL $*" >&2
+    exit 1
+}
+
+# Opera solo sui file staged (aggiunti/modificati/copiati)
+mapfile -t files < <(git diff --cached --name-only --diff-filter=ACM)
+if [ "${#files[@]}" -eq 0 ]; then
+    echo "pre-commit: nessun file staged, ok"
+    exit 0
+fi
+echo "pre-commit: ${#files[@]} file staged"
+
+# 1) validate-jsonc: valida ogni *.jsonc staged
+for f in "${files[@]}"; do
+    case "$f" in
+        *.jsonc)
+            if ! scripts/validate-jsonc.sh "$f" 2>&1; then
+                fail "JSONC non valido: $f"
+            fi
+            ;;
+    esac
+done
+
+# 2) detect-private-key: rifiuta se lo staged diff (righe aggiunte, solo file ACM)
+#    contiene blocchi chiave privata o credenziali con valore.
+#    I marker PEM richiedono i delimitatori ----- reali per non dare falsi
+#    positivi su documentazione/regex che citano i pattern (es. questa stessa
+#    riga non matcha: serve "-----BEGIN" e "KEY-----" sulla stessa riga).
+STAGED_DIFF="$(git diff --cached --no-color --diff-filter=ACM -- "${files[@]}" || true)"
+if grep -E '^\+' <<<"$STAGED_DIFF" \
+    | grep -v '^+++' \
+    | grep -E \
+        -e '-----BEGIN (RSA |OPENSSH |EC |DSA )?PRIVATE KEY-----' \
+        -e 'aws_access_key_id[[:space:]]*[=:][[:space:]]*(AKIA|ASIA)[A-Z0-9]{16}' \
+        -e 'slack_webhook[[:space:]]*[=:][[:space:]]*https://hooks\.slack\.com/' \
+        >/dev/null 2>&1; then
+    fail "rilevate possibili chiavi private o credenziali nel diff staged"
+fi
+
+# 3) markdownlint (best-effort: nessuna dipendenza obbligatoria)
+md_files=()
+for f in "${files[@]}"; do
+    case "$f" in
+        *.md) md_files+=("$f") ;;
+    esac
+done
+
+if [ "${#md_files[@]}" -gt 0 ]; then
+    MDL_CMD=""
+    if command -v markdownlint >/dev/null 2>&1; then
+        MDL_CMD="markdownlint"
+    elif timeout 5 npx --no-install markdownlint-cli --version >/dev/null 2>&1; then
+        MDL_CMD="npx --no-install markdownlint-cli"
+    fi
+    if [ -z "$MDL_CMD" ]; then
+        echo "pre-commit: markdownlint non disponibile: skip"
+    else
+        if ! $MDL_CMD "${md_files[@]}" 2>&1; then
+            fail "markdownlint ha segnalato errori nei file .md staged"
+        fi
+    fi
+fi
+
+echo "pre-commit: tutti i controlli superati"

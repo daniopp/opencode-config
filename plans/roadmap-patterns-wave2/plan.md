@@ -13,6 +13,12 @@ Fonte: valutazione librarian 2026-09-18 (2 task, fonti verificate).
 | 004 | Reflect evidence-based + cleanup OMO residui | `skills/reflect/SKILL.md` | done |
 | 005 | Allineamento agentskills.io frontmatter | `skills/*/SKILL.md` (solo frontmatter) | done |
 | 006 | Docs: README + CHANGELOG + assessment wave 2 | `README.md`, `docs/CHANGELOG.md`, `docs/BMAD-ASSESSMENT.md` | done |
+| 007 | Pre-commit hooks (validate-jsonc, detect-private-key, markdownlint) | `scripts/githooks/pre-commit`, `scripts/install-hooks.sh` | done |
+
+## Follow-up wave 2 (2026-09-19)
+- Sync live config eseguito (`scripts/sync.sh pull`): wave 1+2 attive al prossimo riavvio opencode
+- Story 007: pre-commit hook attivati su main; bug fix REPO_ROOT (off-by-one rilevato dal test negativo con chiave privata finta: prima del fix il check era inerte, exit=0 su file con chiave)
+- Pilota Spec Kit eseguito: commit `446685e` su `spike/speckit-pilot` — init + constitution + ciclo end-to-end su feature reale (`--top`), converged con zero gap
 
 ## Regole di parallelismo
 - 001, 002, 003, 004 in parallelo (file disgiunti).

@@ -1,6 +1,17 @@
 #!/bin/bash
 # Validate JSONC syntax
-for file in *.jsonc; do
+# Uso:
+#   scripts/validate-jsonc.sh              valida tutti i *.jsonc della directory corrente
+#   scripts/validate-jsonc.sh <file>...    valida i file indicati (usato dal pre-commit hook)
+set -euo pipefail
+
+if [ $# -gt 0 ]; then
+    FILES=("$@")
+else
+    FILES=(*.jsonc)
+fi
+
+for file in "${FILES[@]}"; do
     if [ -f "$file" ]; then
         node -e "
             const fs = require('fs');
@@ -16,11 +27,10 @@ for file in *.jsonc; do
             }).join('\n');
             s = s.replace(/,\s*([}\]])/g, '\$1');
             JSON.parse(s);
-        " 2>&1
-        if [ $? -ne 0 ]; then
-            echo "❌ Invalid JSONC: $file"
+        " 2>&1 || {
+            echo "❌ Invalid JSONC: $file" >&2
             exit 1
-        fi
+        }
         echo "✅ Valid JSONC: $file"
     fi
 done

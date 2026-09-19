@@ -104,6 +104,7 @@ Nessuno (`mcp: {}`). Rimossi dopo verifica su opencode.db (zero invocazioni nell
 
 - `scripts/usage-report.py` — report consumi token e costo dalle sessioni opencode (DB read-only). Subcomandi `summary|export|sessions`, filtri `--days/--since/--until/--project/--model/--agent`, `--format json`, ledger CSV upsert.
 - Comando `/usage` — report consumi token e costo dal TUI (vedi [commands/usage.md](commands/usage.md)).
+- `scripts/install-hooks.sh` — attiva i pre-commit hook del repo (validate-jsonc, detect-private-key, markdownlint best-effort): `./scripts/install-hooks.sh` (imposta `git config core.hooksPath scripts/githooks`).
 
 ## Directory Structure
 
