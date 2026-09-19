@@ -1,6 +1,6 @@
 # Valutazione BMAD v6 e framework spec-driven
 
-> Data: 2026-09-18 · Status: **decisione presa** — non adottare BMAD integrale; riutilizzare i pattern vincenti (skill `story-craft` e `spec-archive`, `project-kb-setup` estesa; roadmap completata)
+> Data: 2026-09-18 · Status: **decisione presa + wave 2 completata** — non adottare BMAD integrale; riutilizzare i pattern vincenti (skill `story-craft` e `spec-archive`, `project-kb-setup` estesa; roadmap completata; wave 2: 7 pattern adottati, vedi sezione in fondo)
 
 ## Domanda di partenza
 
@@ -66,3 +66,21 @@ Note: Vibe Kanban in sunset (2026-04) — non adottare. Tessl: pivot verso gover
 - openspec.dev/docs/existing-projects · github.com/Fission-AI/OpenSpec
 - kiro.dev/docs · docs.task-master.dev · buildermethods.com/agent-os
 - github.com/MrLesk/Backlog.md · github.com/cluesmith/codev
+
+## Wave 2 — pattern adottati (2026-09-18)
+
+Seconda wave (stories 001-005): altri 7 pattern presi in prestito dai framework valutati e integrati nella config — sempre senza adottare i framework stessi.
+
+| # | Pattern adottato | Dove | Fonte |
+|---|---|---|---|
+| 1 | Rules versionate: Governance SemVer + Layering + Cronologia | `rules/rules.md` (v1.0.0) · `rules/README.md` | Cursor rules layering |
+| 2 | Verifier three-dimensional check con graceful degradation | `agents/verifier.md` (passo 5, Verdict `PASS | CONCERNS | FAIL | UNVERIFIED`, source-ref obbligatoria, `### Convergence Tasks` append-only) | OpenSpec verify |
+| 3 | Gate di chiusura con verdetto e residual risk | `skills/completion-gate/SKILL.md` (`GATE: PASS | CONCERNS | FAIL`) | BMAD v6.12 TEA |
+| 4 | Dual-review multi-modello senza self-approval | `commands/full.md` (passo 8: reviewer + oracle modelli diversi, rebuttal fixer, disaccordo → escalazione umana) | Codev multi-model |
+| 5 | Scale check + cerimonia piena/ridotta, preserve-never-downgrade | `skills/story-craft/SKILL.md` (Step 0, Meta `Cerimonia: piena | ridotta`, Lifecycle) | GitHub Spec Kit constitution/converge |
+| 6 | Retrospective mode con evidenze git e verdetto | `skills/reflect/SKILL.md` (Retrospective Mode: 5 fasi Gather→Analyze→Discuss→Decide→Close, action item con follow-through) | BMAD v6.11/v6.12 retro |
+| 7 | Frontmatter agentskills.io con `compatibility` e validazione | 3 skill (`evodoc-pr`, `csharp-tests`, `clonedeps`); 17/17 skill validate | agentskills.io |
+
+**Verdetto**: i 7 pattern sono integrati nella config senza nuovi motori paralleli. Confermata la regola della decisione sopra: restano fuori BMAD integrale, harness Codev e framework spec-driven a cerimonia piena.
+
+**Fonti**: github.com/github/spec-kit (constitution + converge) · openspec.dev/docs/existing-projects · docs.bmad-method.org (TEA + retro, v6.11/v6.12) · github.com/cluesmith/codev (multi-model) · agentskills.io · Cursor rules layering.

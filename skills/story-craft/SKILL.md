@@ -17,6 +17,10 @@ This adapts the BMAD Method story discipline to this config's lanes, without ado
 
 ## 2. Story template
 
+### Step 0: Scale check
+
+Decide the ceremony AFTER investigating the change, not before (BMAD v6.12): confirm it, or LOWER it for simple changes. A simple change needs only a reduced story — Goal + Acceptance criteria (the 2-section spec) — and fits in one session. Record the decision in Meta as `Cerimonia: piena | ridotta`. Raising the ceremony requires an explicit justification.
+
 Write stories in the project's documentation language (Italian for EVODOC repos, per `rules.md`). Structure:
 
 ```markdown
@@ -26,6 +30,7 @@ Write stories in the project's documentation language (Italian for EVODOC repos,
 - Feature: plans/{feature}/plan.md
 - Status: draft | ready | in-progress | done | blocked
 - Blocked-by: (story IDs o "-")
+- Cerimonia: piena | ridotta
 
 ## Goal
 1–2 frasi: cosa deve essere vero a fine lavoro.
@@ -65,6 +70,7 @@ Write stories in the project's documentation language (Italian for EVODOC repos,
 2. **in-progress**: set before dispatching. Pass ONLY the story path in the task prompt (plus the standard subagent contract: one final message back).
 3. **done / blocked**: after the subagent returns, `verifier` checks each AC against evidence. All ACs green → `done`. Any failure → `blocked` + one-line reason; fix the story (missing context, wrong constraint, oversized scope) before re-dispatching.
 4. Status lives in the story file itself; the plan index mirrors it.
+5. **preserve-never-downgrade (BMAD v6.11)**: a status never regresses — `done` never returns to `in-progress`. Unblocking a `blocked` story is allowed only with an explicit note. `done` is immutable: a post-done fix is a new story, not a status change.
 
 ## 5. Why (token economics)
 

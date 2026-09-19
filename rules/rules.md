@@ -1,7 +1,25 @@
 # EVODOC - Regole di sviluppo (Team ZeroD / SmeUP)
 
+> Versione: 1.0.0 (2026-09-18)
+
 Fonte: wiki https://github.com/smeup/ZD_evoDoc2/wiki
 Queste regole sono vincolanti per tutti gli agent che lavorano sui progetti EVODOC.
+
+## Governance di questo file
+
+Questo file è un artefatto di governance versionato (pattern "constitution").
+Le modifiche seguono la semantica SemVer:
+
+- **MAJOR** — rimozione o indebolimento di un principio esistente
+- **MINOR** — aggiunta di una nuova regola
+- **PATCH** — chiarimento o correzione redazionale senza cambio di regola
+
+Procedura di modifica: una modifica = una PR su questo repo; la PR aggiorna la
+versione nel blocco `> Versione:` in testa al file e aggiunge una riga nella
+sezione `## Cronologia versioni`.
+
+Regola chiave: le violazioni si risolvono cambiando spec/piano/task, mai
+diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 
 ## Lingue
 | Categoria | Lingua |
@@ -87,3 +105,24 @@ Queste regole sono vincolanti per tutti gli agent che lavorano sui progetti EVOD
 - `EVO.006` nuove funzionalità · `EVO.007` integrazione smeup · `EVO.008` int. plain doc
 - `EVO.009` bugfix · `EVO.010` software testing
 - `DS-S709` solo riunioni interne · `GRN.OR1.02` smeup lab
+
+## Layering delle regole
+
+Le regole si organizzano su tre livelli (pattern Cursor):
+
+1. **Globali always-on** — solo gli invarianti EVODOC (questo file): obiettivo
+   sotto le 200 righe, stile "comandi non ragioni" (cosa fare, non il perché).
+2. **Dominio-specifico** — regole del singolo progetto in
+   `.opencode/rules/*.md`, caricate via glob in `instructions` (opencode lo
+   supporta), es.:
+   ```jsonc
+   "instructions": ["~/.config/opencode/rules/rules.md", ".opencode/rules/*.md"]
+   ```
+3. **Manuale** — lane e comandi (`.opencode/commands/*.md`), non always-on.
+
+## Cronologia versioni
+
+- `1.0.0 (2026-09-18)` — versione iniziale governata: riepiloga il contenuto
+  preesistente (Lingue, Nomenclatura, Regole C#/VB.NET, Gestione delle
+  eccezioni, Test, Workflow di sviluppo GitHub, Branching e versioning,
+  Commesse) senza alcun cambiamento di regole.

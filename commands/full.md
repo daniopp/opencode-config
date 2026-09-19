@@ -29,7 +29,11 @@ Per lavoro complesso ad alto rischio.
 
 7. **Execution** - segui l'execution plan track-by-track
 
-8. **Verifier** - `verifier` conferma il completamento contro i criteri di validazione
+8. **Verifier** - `verifier` conferma il completamento contro i criteri di validazione:
+   - **Dual-review** per diff ad alto rischio: seconda review indipendente con modello diverso (es. `reviewer` + `oracle`)
+   - **Rebuttal** consentito: il `fixer` può contestare un finding solo con motivazione ed evidenze
+   - **Disaccordo** tra i reviewer: escalazione all'utente, mai media tra verdetti
+   - **Self-approval vietato**: chi ha implementato non verifica il proprio lavoro
 
 9. **Wrap-up** - full summary
 

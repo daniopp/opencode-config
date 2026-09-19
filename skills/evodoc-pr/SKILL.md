@@ -1,6 +1,7 @@
 ---
 name: evodoc-pr
 description: End-to-end EVODOC GitHub workflow from issue to squash merge on dev. Use when starting work on an EVODOC/SmeUP GitHub issue, creating a feature/fix branch, opening or updating a PR, or merging to dev. Encodes the binding workflow rules. Do not use for repositories outside the EVODOC workflow, personal projects, or local-only experiments.
+compatibility: "requires: gh CLI, git"
 ---
 
 # EVODOC PR Workflow

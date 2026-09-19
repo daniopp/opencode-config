@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-09-19 - Wave 2: pattern adottati (rules, verifier, story-craft, reflect, frontmatter)
+
+### Aggiunto
+- `rules/rules.md` — v1.0.0 con sezioni Governance SemVer, Layering e Cronologia (+39/-0)
+- `rules/README.md` — sezioni Governance e Layering (+15/-0)
+- `agents/verifier.md` — passo 5 "Three-Dimensional Check (Graceful Degradation)", Verdict `PASS | CONCERNS | FAIL | UNVERIFIED` con source-ref obbligatoria, sezione `### Convergence Tasks` append-only (`T{NNN} <desc> per <source-ref> (<gap-type>)`)
+- `skills/completion-gate/SKILL.md` — chiusura `GATE: PASS | CONCERNS | FAIL` + residual risk con evidenza
+- `commands/full.md` — passo 8 con dual-review (reviewer + oracle modelli diversi), rebuttal fixer, disaccordo → escalazione umana, no self-approval
+- `skills/story-craft/SKILL.md` — Step 0 Scale check, Meta con `Cerimonia: piena | ridotta`, preserve-never-downgrade nel Lifecycle
+- `skills/reflect/SKILL.md` — sezione Retrospective Mode (5 fasi Gather→Analyze→Discuss→Decide→Close, evidenze git, verdetto accepted/accepted-with-open-items/rejected, action item con follow-through in `plans/{feature}/retro.md` o `~/.config/opencode/reflections/retro.md`)
+- Frontmatter agentskills.io — `compatibility` aggiunto a 3 skill (`evodoc-pr`: gh CLI+git; `csharp-tests`: .NET SDK; `clonedeps`: git, npm, dotnet); 17/17 skill validate
+- `docs/BMAD-ASSESSMENT.md` — sezione finale `## Wave 2 — pattern adottati (2026-09-18)` con 7 item, verdetto e fonti
+
+### Modificato
+- `skills/reflect/SKILL.md` — rimossi 5 riferimenti stantii a oh-my-opencode-slim
+
 ## 2026-09-18 (3) - usage reporting, comando /usage, roadmap BMAD completata
 
 ### Aggiunto

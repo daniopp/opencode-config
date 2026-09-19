@@ -60,3 +60,14 @@ Close the task with the orchestrator output format: summary of what was done,
 verification map with evidence (files, checks run), and notes with residual
 risks. The gate is "passed" only when sections 1–5 have explicit answers —
 "not applicable" is an acceptable answer, silence is not.
+
+The report MUST close with an explicit verdict line:
+
+- `GATE: PASS | CONCERNS | FAIL` - one word, followed by the motivation in a
+  single sentence;
+- `CONCERNS` = the work is complete but residual risks or non-blocking gaps
+  remain; `FAIL` = a check failed or an item is unverified without declared
+  evidence.
+
+Every residual risk listed in section 5 MUST carry concrete evidence
+(`path:line` or command output); an unlocatable risk is not a closed gate.

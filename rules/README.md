@@ -21,3 +21,18 @@ a tutti gli agenti.
 - Solo regole sempre-applicabili, non contestuali a un singolo progetto
 - Niente segreti o credenziali
 - Le regole sono vincolanti per tutti gli agenti (orchestrator e subagent)
+
+## Governance e versioning
+
+`rules.md` è un artefatto di governance versionato: la versione SemVer è nel
+blocco `> Versione:` in testa al file; semantica MAJOR/MINOR/PATCH e procedura
+di modifica (una modifica = PR su questo repo con aggiornamento di versione e
+cronologia) sono in `## Governance di questo file`; lo storico in
+`## Cronologia versioni`. I principi non si diluiscono per chiudere un conflitto.
+
+## Layering delle regole
+
+Le regole sono organizzate su tre livelli: globali always-on (solo invarianti
+EVODOC, sotto le 200 righe, "comandi non ragioni"), dominio-specifico
+(`.opencode/rules/*.md` nel progetto, caricati via glob in `instructions`) e
+manuale (lane e comandi).

@@ -20,7 +20,7 @@ Use Reflect when the user asks to:
 - run `/reflect --sessions` for session archaeology;
 - learn from recent sessions or repeated workflows;
 - find work they keep doing manually;
-- improve their oh-my-opencode-slim setup based on actual usage using oh-my-opencode-slim skill;
+- improve their opencode skills or configuration based on actual usage;
 - review whether a recurring process should become a reusable playbook;
 - turn repeated workflow friction into a safer future default.
 
@@ -57,7 +57,7 @@ For each session, analyze and produce a structured summary:
 ```json
 {
   "session": "ses_14de9c68effegtZtlATm42wnz7",
-  "project": "/home/user/Projects/oh-my-opencode-slim",
+  "project": "/home/user/Projects/my-app",
   "timestamp": "2026-06-10T15:08:45.427Z",
   "goal": "Fix CI failure",
   "success": true,
@@ -84,7 +84,7 @@ For each session, analyze and produce a structured summary:
 
 ### Storage and Caching
 
-Store session summaries in `~/.config/opencode/oh-my-opencode-slim/reflections/sessions/`.
+Store session summaries in `~/.config/opencode/reflections/sessions/`.
 
 **Cache logic:**
 1. Check if `<session-id>.json` exists in reflections directory
@@ -157,6 +157,60 @@ Needs more evidence
 - Continue with remaining sessions
 - Report failures at end: "3 sessions skipped due to load errors"
 
+## Retrospective Mode
+
+When the user asks for a retrospective (e.g. `/reflect --retro` or `/reflect
+--retro <feature>`), run an evidence-based retro on a defined period instead of a
+general reflection. Follow the BMAD retro pattern: **Gather → Analyze → Discuss
+opt-in → Decide → Close**.
+
+### Phase 1: Gather (follow-through first)
+
+1. **Follow-through on previous action items** - Every retro starts by checking
+   the action items recorded in the previous round's retro file (see Phase 5).
+   Mark each as `✅ done | ⏳ open | ❌ dropped` before gathering anything new.
+2. **Collect git evidence** - Beyond conversation and session sources, gather
+   real evidence from the repository for the period under review:
+   ```bash
+   git log --since="<period start>" --oneline --stat
+   git diff <start-commit>..<end-commit> --stat
+   ```
+   Record the diff range (`<start-commit>..<end-commit>`), the commit hashes, and
+   the files touched during the period.
+3. **Collect non-git evidence** - Session summaries, project notes, agent assets,
+   and the sources listed in [Evidence Sources](#evidence-sources).
+
+### Phase 2: Analyze
+
+Turn the gathered evidence into findings. Every finding must carry a source
+reference: the diff range, the relevant commit hashes, or the files touched that
+support it. Do not report observations that cannot be traced to a source.
+
+### Phase 3: Discuss (opt-in)
+
+Present the findings to the user and invite discussion. This phase is opt-in:
+skip it when the user asked for a silent or time-boxed retro.
+
+### Phase 4: Decide
+
+For each finding, decide the outcome and record a final verdict:
+
+- `accepted` - the pattern or change is confirmed and no work remains;
+- `accepted-with-open-items` - the pattern is confirmed but has open follow-ups;
+- `rejected` - required when any decided task is incomplete; do not close a retro
+  as accepted while work is left unfinished.
+
+### Phase 5: Close
+
+Every action decided in Phase 4 is written to a retro file with status
+`✅ done | ⏳ open | ❌ dropped`:
+
+- `plans/{feature}/retro.md` for project-level retros;
+- `~/.config/opencode/reflections/retro.md` for global retros.
+
+The retro file is the source of truth for the next round's follow-through
+(Phase 1).
+
 ## Core Contract
 
 Reflect must be conservative and evidence-driven.
@@ -180,7 +234,7 @@ Use available evidence in this order:
 2. Project-local guidance and memories, such as `AGENTS.md`, `.opencode/`,
    `.slim/`, notes, checkpoints, task progress files, and codemaps.
 3. Existing skills, commands, agents, prompt overrides, MCP permissions, and
-   oh-my-opencode-slim configuration.
+   current opencode configuration.
 4. Recent OpenCode logs or session artifacts if they are available and safe to
    inspect.
 5. External docs only when a proposed workflow depends on a third-party tool or
@@ -213,7 +267,7 @@ Before proposing anything, identify what already exists:
 - custom agents and their `orchestratorPrompt` guidance;
 - custom commands;
 - prompt overrides and append files;
-- active oh-my-opencode-slim preset, model routing, skills, and MCP permissions;
+- active opencode configuration, model routing, skills, and MCP permissions;
 - project playbooks, docs, codemaps, and local workflow notes.
 
 If an existing asset already covers the candidate, recommend extending or using

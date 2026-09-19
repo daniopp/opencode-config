@@ -42,7 +42,7 @@ opencode
 |---------|--------------|
 | `/quick` | Task semplici |
 | `/medium` | Task medi, multi-file |
-| `/full` | Task complessi, multi-phase |
+| `/full` | Task complessi, multi-phase (dual-review multi-modello) |
 | `/debug` | Troubleshooting |
 | `/sync-config` | Sync config live ↔ repo (status → push → commit → push) |
 
@@ -61,12 +61,14 @@ opencode
 | `evodoc-pr` | Workflow GitHub EVODOC end-to-end |
 | `gh-templates` | Template GitHub issue/PR/discussion |
 | `project-kb-setup` | Knowledge base AI dentro il repo |
-| `reflect` | Learn from past sessions |
+| `reflect` | Learn from past sessions + Retrospective Mode (5 fasi, evidenze git, verdetto) |
 | `simplify` | Simplify code |
 | `spec-archive` | Archivio delta-spec duraturo nel brownfield (pattern OpenSpec) |
-| `story-craft` | Story self-contained con contesto inline, acceptance criteria e hard constraints (prima del dispatch a `fixer` in /medium e /full) |
+| `story-craft` | Story self-contained con contesto inline, acceptance criteria e hard constraints, scale check e cerimonia piena/ridotta (prima del dispatch a `fixer` in /medium e /full) |
 | `verification-planning` | Plan verification |
 | `worktrees` | Isolated coding lanes |
+
+Nelle regole always-on, `rules/rules.md` è versionato (v1.0.0: Governance SemVer, Layering, Cronologia); indice in `rules/README.md`.
 
 ## Permessi
 
@@ -96,7 +98,7 @@ Nessuno (`mcp: {}`). Rimossi dopo verifica su opencode.db (zero invocazioni nell
 - [INSTALL.md](INSTALL.md) — guida installazione dettagliata
 - [ARCHITECTURE.md](ARCHITECTURE.md) — architettura della config
 - [docs/SETUP.md](docs/SETUP.md) · [docs/PERMISSIONS.md](docs/PERMISSIONS.md) · [docs/DEBUG.md](docs/DEBUG.md) · [docs/CHANGELOG.md](docs/CHANGELOG.md)
-- [docs/BMAD-ASSESSMENT.md](docs/BMAD-ASSESSMENT.md) — valutazione BMAD v6 e framework spec-driven, gap analysis e strategia (homegrown + skill `story-craft`, `spec-archive`, `project-kb-setup` estesa; roadmap completata)
+- [docs/BMAD-ASSESSMENT.md](docs/BMAD-ASSESSMENT.md) — valutazione BMAD v6 e framework spec-driven, gap analysis e strategia (homegrown + skill `story-craft`, `spec-archive`, `project-kb-setup` estesa; roadmap completata; wave 2 con pattern adottati)
 
 ## Tools / Script
 

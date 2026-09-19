@@ -1,6 +1,7 @@
 ---
 name: csharp-tests
 description: Create and audit C# tests following EVODOC conventions (XUnit + FluentAssertions, AAA pattern, naming rules). Use when writing new tests, scaffolding a test project, reviewing test quality, or fixing failing tests in EVODOC .NET projects. Do not use for non-C# projects or when the user asks for a different test framework.
+compatibility: "requires: .NET SDK (dotnet)"
 ---
 
 # C# Test Conventions (XUnit + FluentAssertions)
