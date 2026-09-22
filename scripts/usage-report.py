@@ -316,6 +316,14 @@ def export_ledger(sessions, out_path):
     print("Ledger aggiornato: {} ({} sessioni)".format(out_path, len(rows)))
 
 
+def positive_int(value):
+    """Tipo argparse: intero >= 1 (usato da --top)."""
+    n = int(value)
+    if n < 1:
+        raise argparse.ArgumentTypeError("deve essere un intero >= 1")
+    return n
+
+
 def build_parser():
     parser = argparse.ArgumentParser(
         prog="usage-report.py",
@@ -336,6 +344,7 @@ def build_parser():
 
     p_summary = sub.add_parser("summary", parents=[common, filters], help="Totali globali e breakdown")
     p_summary.add_argument("--format", choices=["text", "json"], default="text", help="Formato output (default: text)")
+    p_summary.add_argument("--top", type=positive_int, default=None, help="Limita ogni breakdown ai primi N elementi per costo")
 
     p_export = sub.add_parser("export", parents=[common], help="Upsert ledger CSV")
     p_export.add_argument("--out", default=str(LEDGER_DEFAULT), help="Percorso ledger CSV (default: ~/.local/share/opencode/usage/ledger.csv)")
@@ -352,6 +361,9 @@ def main(argv=None):
     try:
         if args.command == "summary":
             report = build_report(load_sessions(conn, args))
+            if args.top is not None:
+                for key in ("by_model", "by_agent", "by_project"):
+                    report[key] = report[key][:args.top]
             if args.format == "json":
                 print(json.dumps(report, indent=2, ensure_ascii=False))
             else:
