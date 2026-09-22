@@ -1,6 +1,6 @@
 # EVODOC - Regole di sviluppo (Team ZeroD / SmeUP)
 
-> Versione: 1.0.0 (2026-09-18)
+> Versione: 1.1.0 (2026-09-22)
 
 Fonte: wiki https://github.com/smeup/ZD_evoDoc2/wiki
 Queste regole sono vincolanti per tutti gli agent che lavorano sui progetti EVODOC.
@@ -65,6 +65,12 @@ diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 - **Mai loggare dati sensibili** (password, token, dati personali).
 - Non usare eccezioni per il controllo del flusso; eccezioni custom solo se aggiungono contesto.
 
+## Gestione dei segreti
+- Mai segreti nei repository: niente password, token, API key, chiavi, connection string nel codice, nei file versionati o nella cronologia git.
+- I segreti vivono fuori dal repo, a seconda dell'ambiente: `.env` locale (sempre in `.gitignore`), variabili d'ambiente (server/CI), GitHub Secrets (GitHub Actions).
+- Il codice li legge sempre allo stesso modo, indipendentemente dall'ambiente: **un unico meccanismo di accesso** (variabili d'ambiente / `IConfiguration`) con lo **stesso nome di variabile** in tutti gli ambienti.
+- Nomi in `UPPER_SNAKE_CASE`, senza suffissi d'ambiente (es. `API_KEY`, `CONNECTION_STRING`): cambia solo dove il valore è definito, mai come il codice lo legge.
+
 ## Test
 - Framework: **XUnit**; assertion con **Fluent Assertions**.
 - Progetto di test: `<nomeprogetto>.Tests`.
@@ -122,6 +128,10 @@ Le regole si organizzano su tre livelli (pattern Cursor):
 
 ## Cronologia versioni
 
+- `1.1.0 (2026-09-22)` — **MINOR**: nuova sezione "Gestione dei segreti"
+  (segreti mai nei repository, archiviati fuori dal repo a seconda
+  dell'ambiente — `.env`, variabili d'ambiente, GitHub Secrets — e letti dal
+  codice sempre con lo stesso meccanismo e lo stesso nome di variabile).
 - `1.0.0 (2026-09-18)` — versione iniziale governata: riepiloga il contenuto
   preesistente (Lingue, Nomenclatura, Regole C#/VB.NET, Gestione delle
   eccezioni, Test, Workflow di sviluppo GitHub, Branching e versioning,
