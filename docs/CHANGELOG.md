@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-09-25 - tooling: script set-models.sh, switch modelli in un comando
+
+### Aggiunto
+- `scripts/set-models.sh` — switch dei modelli opencode in un unico comando: aggiorna `model`/`small_model` in `opencode.jsonc` e il frontmatter `model:` di `agents/*.md` (orchestrator = PRIMARY, specialisti = SPECIALISTS, small_model = SMALL); risolve alias (`glm`, `dsv4`) oppure accetta direttamente `provider/modello`; `--dry-run` mostra la tabella what-would-change senza applicare nulla, `--no-sync` salta il deploy; valida con `validate-jsonc.sh` (se presente) e allinea la config live via `sync.sh pull` (PR #3)
+
 ## 2026-09-19 (2) - Completamenti: pre-commit hooks, pilota Spec Kit, sync live
 
 ### Aggiunto
