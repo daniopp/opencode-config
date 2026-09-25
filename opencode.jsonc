@@ -49,12 +49,14 @@
       "**/*.env.example": "allow"
     },
 
-    // Modifica file: permesso di default (copre anche write e patch)
-    "edit": {
-      "*": "allow"
-    },
+    // Modifica file: permesso di default (copre anche write e patch).
+    // Cross-platform: il matcher di opencode normalizza i percorsi (backslash -> slash)
+    // prima del matching e "*" equivale a ".*" (include i separatori di percorso),
+    // quindi la forma shorthand "allow" (= {"*": "allow"}) copre ogni file
+    // identicamente su Windows e Linux, senza pattern specifici per piattaforma.
+    "edit": "allow",
 
-    // Shell: default ask + allowlist granulare a 4 tier
+    // Shell: default ask + allowlist granulare a 6 tier
     "bash": {
       "*": "ask",
       // TIER 1: letture → allow (da storico sessioni: ls/grep/find/sed sono tra i comandi più usati)
@@ -108,8 +110,43 @@
       "git clean -fd *": "deny",
       "gh release delete *": "deny",
       "gh pr delete *": "deny",
+      "Remove-Item *-Recurse*": "deny",
+      "Remove-Item *-Force*": "deny",
       // TIER 5: esecuzioni
-      "dotnet *": "allow"
+      "dotnet *": "allow",
+
+      // TIER 6: cmdlet PowerShell — su Windows opencode esegue i comandi via pwsh,
+      // quindi ogni cmdlet non presente qui matcha "*" e richiede conferma.
+      // I cmdlet di pipeline hanno anche la forma bare: il pattern "X *" non
+      // matcha il comando "X" senza argomenti (es. "... | ConvertTo-Json").
+      // Letture (coerenti con "read": allow):
+      "Get-Content *": "allow",
+      "Get-Item *": "allow",
+      "Get-ChildItem *": "allow",
+      "Test-Path *": "allow",
+      "Select-String *": "allow",
+      "Select-Object": "allow",
+      "Select-Object *": "allow",
+      "Measure-Object": "allow",
+      "Measure-Object *": "allow",
+      "Sort-Object": "allow",
+      "Sort-Object *": "allow",
+      "ConvertFrom-Json": "allow",
+      "ConvertFrom-Json *": "allow",
+      "ConvertTo-Json": "allow",
+      "ConvertTo-Json *": "allow",
+      // Mantieni il deny dei segreti anche da shell (allinea con "read": *.env* deny)
+      "Get-Content *.env*": "deny",
+      // Scritture file (coerenti con "edit": allow)
+      "Out-File *": "allow",
+      "Set-Content *": "allow",
+      "Add-Content *": "allow",
+      "New-Item *": "allow",
+      "Copy-Item *": "allow",
+      "Move-Item *": "allow",
+      // Rete: allineato a "webfetch": allow. NB: Invoke-WebRequest può fare
+      // POST verso host arbitrari (esfiltrazione); per massima sicurezza: "ask".
+      "Invoke-WebRequest *": "allow"
     },
 
     // Sandbox: solo nelle directory di lavoro

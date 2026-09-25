@@ -193,7 +193,7 @@ Configurati in `opencode.jsonc`:
 |-----------|---------|------|
 | `read` | allow | Deny su `*.env*`, `*.dev.vars` |
 | `edit` | allow | Copre write e patch |
-| `bash` | ask | Allowlist 4 tier dallo storico sessioni (ls, grep, find, git, docker ps... → allow; distruttivi → deny) |
+| `bash` | ask | Allowlist 4 tier dallo storico sessioni (git, rg, docker ps... → allow; distruttivi → deny) + TIER 6 cmdlet PowerShell |
 | `external_directory` | ask | Allow su `~/git/**`, `/tmp/**` |
 
 ### Progetti fidati (bash allow-by-default)
