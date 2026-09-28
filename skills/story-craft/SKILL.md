@@ -11,9 +11,20 @@ This adapts the BMAD Method story discipline to this config's lanes, without ado
 
 ## 1. Where stories live
 
-- One folder per feature: `plans/{feature}/stories/`
-- One file per story: `NNN-{kebab-case-slug}.story.md` (NNN = zero-padded order)
-- The parent plan (`plans/{feature}/plan.md`) lists all story IDs and their status. Stories are the resumable state across sessions: a fresh session resumes from statuses on disk, not from chat history.
+EVODOC rule (`rules.md`): **no development documents in code repositories.**
+Stories are working orders, not repo artifacts.
+
+- Working folder, git-ignored: `.slim/stories/{feature}/`
+  (one file per story: `NNN-{kebab-case-slug}.story.md`, NNN = zero-padded
+  order; parent index `.slim/stories/{feature}/plan.md`).
+- **Persistent, resumable state = GitHub issue.** Mirror story statuses in
+  the EVOPLATFORM issue body (append-only via `gh issue edit`): a short
+  status section listing each story with `draft | ready | in-progress | done
+  | blocked`. A fresh session resumes from the issue, not from chat history.
+- `prepare-never-downgrade` applies to the issue mirror too: statuses there
+  never regress.
+- At squash merge: add one final issue comment with the story summary and
+  mark the effort section as completed — then stop updating the issue.
 
 ## 2. Story template
 
@@ -27,7 +38,7 @@ Write stories in the project's documentation language (Italian for EVODOC repos,
 # Story 001: {titolo}
 
 ## Meta
-- Feature: plans/{feature}/plan.md
+- Feature: .slim/stories/{feature}/plan.md
 - Status: draft | ready | in-progress | done | blocked
 - Blocked-by: (story IDs o "-")
 - Cerimonia: piena | ridotta
@@ -69,7 +80,8 @@ Write stories in the project's documentation language (Italian for EVODOC repos,
 1. **draft → ready**: the orchestrator (or planner) writes the story; acceptance criteria are individually checkable; every context path is verified to exist.
 2. **in-progress**: set before dispatching. Pass ONLY the story path in the task prompt (plus the standard subagent contract: one final message back).
 3. **done / blocked**: after the subagent returns, `verifier` checks each AC against evidence. All ACs green → `done`. Any failure → `blocked` + one-line reason; fix the story (missing context, wrong constraint, oversized scope) before re-dispatching.
-4. Status lives in the story file itself; the plan index mirrors it.
+4. Status lives in the story file in `.slim/` and is mirrored in the issue
+   body (single source of truth for resumption: the issue).
 5. **preserve-never-downgrade (BMAD v6.11)**: a status never regresses — `done` never returns to `in-progress`. Unblocking a `blocked` story is allowed only with an explicit note. `done` is immutable: a post-done fix is a new story, not a status change.
 
 ## 5. Why (token economics)

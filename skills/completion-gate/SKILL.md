@@ -36,7 +36,11 @@ Binding honesty rules:
 - re-read the validation/checklist section of the primary skill used for the
   task (e.g. `csharp-tests` coverage checklist, `evodoc-pr` completion
   checklist, `docs-sync` destination check, `auto-docs` changelog entry);
-- confirm each item is satisfied; report any gap instead of glossing over it.
+- confirm each item is satisfied; report any gap instead of glossing over it;
+- confirm **no development documents** were introduced in the repo
+  (`docs/dev/`, master plans, blueprints, ADR files, repo-wiki working-doc
+  pages) — prohibited by `rules.md`; the only allowed artifact is
+  `CHANGELOG.md`.
 
 ## 4. Evidence Check
 
