@@ -1,46 +1,36 @@
 ---
 name: auto-docs
-description: Proactively maintain development documentation during analyses and implementations without waiting to be asked - docs/dev/ master plans and blueprints, plus CHANGELOG.md entries for every change. Use during any non-trivial analysis or implementation task in an EVODOC repository. Do not use for trivial one-off edits, ephemeral working state (deepwork keeps .slim/), or when the user explicitly opts out for the task.
+description: Maintain CHANGELOG.md (Keep a Changelog) and keep the GitHub issue up to date as a byproduct of implementation work, without ever creating development documents. Use during non-trivial implementation tasks in EVODOC repositories. Do not use for trivial one-off edits, ephemeral working state (.slim/), or product documentation (docs-sync).
 ---
 
 # Auto Documentation
 
-You keep development documentation alive as a byproduct of work —
-proactively, without waiting for an explicit request. Two deliverables belong
-to every non-trivial task: `docs/dev/` artifacts and `CHANGELOG.md` entries.
+You keep the audit trail alive as a byproduct of work — proactively, without
+waiting for an explicit request.
 
-## Deliverable vs Working State
+EVODOC rule (`rules.md`, "Documentazione di sviluppo"): **no development
+documents anywhere** — not in code repositories, not on the repo wiki, not in
+any central memory. The audit trail already exists: GitHub **issue** (scope,
+motivations) → **PR body** (`Refs smeup/evoplatform-projects#`) → **squash
+merge title** (`<tipo>: <descrizione> (#PR)`). Do not duplicate it.
 
-- `docs/dev/` and `CHANGELOG.md` are **committed deliverables** (they travel
-  in the same PR as the code, see `evodoc-pr`);
-- ephemeral session/progress state stays in `.slim/` (git-ignored, see
-  `deepwork`) — never confuse the two;
-- product-facing documentation (README, wiki) is handled by `docs-sync`;
-  `docs/dev/` documents the **work**, not the product.
+## What you maintain
 
-## docs/dev/ Structure
+1. **CHANGELOG.md** — the only committed development artifact (section below).
+2. **The GitHub issue** — keep its status accurate:
+   - add a concise progress comment when multi-session work is paused or
+     blocked, with what was done and what is next (evidence by `path:line`);
+   - on squash merge, close the loop: the merge title stays `<tipo>: <descrizione> (#PR)`, per `evodoc-pr`.
 
-Create only what the work needs; keep names stable across the repo:
+## What you must NOT create
 
-```text
-docs/dev/
-  master-plan.md              # current effort: goal, scope, phases, status
-  blueprints/<slug>.md        # technical blueprint per feature/subsystem
-  decisions/NNNN-<slug>.md    # optional ADR for significant choices
-```
+- `docs/dev/` of any kind: master-plan, blueprint, `decisions/*.md`, ADR files;
+- wiki pages documenting the development process (product wiki is `docs-sync`);
+- any file duplicating what the issue or PR body already records.
 
-- **master-plan.md** — goal, scope in/out, phase list with status
-  (pending / in progress / done), links to blueprints, issues, and key files.
-  Update the status at every phase completion.
-- **blueprints/<slug>.md** — one per feature or subsystem under work: context
-  and problem, chosen design, interfaces and data flow, risks, open
-  questions. Start it during the analysis phase, keep it current during
-  implementation.
-- **decisions/NNNN-<slug>.md** — architecture decision record when a
-  meaningful choice is made: context, options considered, decision,
-  consequences.
-
-Language: Italian prose, English identifiers (EVODOC rule).
+Exception: if the user explicitly requests a development document — create it
+where they ask, then **report the conflict with `rules.md`** and suggest
+recording the deviation in the PR description or an issue comment.
 
 ## CHANGELOG.md
 
@@ -72,19 +62,22 @@ Rules:
 - do not duplicate the commit history — entries describe changes relevant to
   readers, not every commit.
 
-## Proactivity Rules
+## Deliverable vs Working State
 
-- default is **proactive**: create/update the artifacts without being asked;
-- first creation in a repo that has neither `docs/dev/` nor `CHANGELOG.md`:
-  proceed and clearly report the new files — do not block on permission;
-- skip only when the repo has an explicit rule against dev docs or the user
-  opts out for the task;
-- keep files lean: stale content is updated or removed, never left to rot.
+- `CHANGELOG.md` is a **committed deliverable** (it travels in the same PR as
+  the code, see `evodoc-pr`);
+- ephemeral session/progress state stays in `.slim/` (git-ignored, see
+  `deepwork`) — never confuse the two;
+- product-facing documentation (README, wiki) is handled by `docs-sync`;
+- on `/full` lanes, the resumable story state lives in the **issue body**
+  (see `story-craft`): never as a file in the repo.
 
 ## Relation to Other Skills
 
-- `evodoc-pr` — docs/dev and CHANGELOG updates travel in the same PR;
+- `evodoc-pr` — CHANGELOG updates travel in the same PR; mental but no new
+  files;
 - `docs-sync` — product documentation (README, wiki) boundary;
-- `deepwork` — ephemeral plan state (`.slim/`) vs committed master plan;
-- `completion-gate` — the gate verifies changelog entries and docs/dev status
-  updates actually happened.
+- `deepwork` — ephemeral plan state (`.slim/`) vs durable state on the issue;
+- `story-craft` — story files in `.slim/` + persistent state on the issue body; never committed dev docs;
+- `completion-gate` — the gate verifies the changelog entry exists and no
+  development documents were introduced.

@@ -26,8 +26,9 @@ A task:
 - internal refactor or bug fix with no impact on anything documented;
 - changes only to agent/skill files (`AGENTS.md`, `.agents/`, skill folders) —
   those belong to knowledge-base maintenance;
-- development documentation (`docs/dev/`, `CHANGELOG.md`) — `auto-docs`
-  handles those as committed deliverables;
+- development documentation is prohibited in code repositories per
+  `rules.md`; the only development artifact is `CHANGELOG.md`, handled by
+  `auto-docs`;
 - purely local or experimental work never intended for delivery.
 
 ## Destination Selection (EVODOC)
@@ -60,6 +61,7 @@ Determine the destination **before** editing:
 
 - `evodoc-pr` — docs changes travel in the same PR as the code change;
 - `auto-docs` — boundary: `docs-sync` covers product documentation only;
-  development artifacts (`docs/dev/`, `CHANGELOG.md`) belong to `auto-docs`;
+  `CHANGELOG.md` belongs to `auto-docs`; no other development artifacts
+  exist (`rules.md`);
 - `completion-gate` — the touched-files check must confirm docs were updated
   when this skill triggered.

@@ -22,8 +22,12 @@ not as the default implementation worker.
 ## Setup and Deepwork State
 
 - create and maintain a local markdown progress file under `.slim/deepwork/`;
-- save code/doc deliverables to project paths (e.g. `src/`, `docs/`); reserve
+- save code deliverables to project paths (e.g. `src/`, `tests/`); reserve
   `.slim/deepwork/` strictly for progress files;
+- never create development documents in the repo (`docs/dev/`, master plans,
+  blueprints — prohibited by `rules.md`); DURABLE cross-session state goes to
+  the EVOPLATFORM issue body (append-only via `gh`, see `story-craft`);
+  `.slim/` is local and dies with the work;
 
 ### Deepwork File
 
