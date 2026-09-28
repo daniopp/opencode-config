@@ -132,13 +132,13 @@ Questa configurazione usa agenti custom in `agents/*.md` invece di quelli built-
 | Agente | Scopo | Modello |
 |--------|-------|---------|
 | `orchestrator` | Coordinatore principale, gestione workflow | `z-ai/glm-5.3-flash` |
-| `explorer` | Ricerca codice read-only | `deepseek-v4-flash-0731` |
-| `librarian` | Ricerca documentazione read-only | `deepseek-v4-flash-0731` |
-| `oracle` | Analisi architetturale read-only | `deepseek-v4-flash-0731` |
-| `reviewer` | Review avversariale di piani e codice | `deepseek-v4-flash-0731` |
-| `verifier` | Verifica completamento con evidenze | `deepseek-v4-flash-0731` |
-| `fixer` | Implementazione rapida e scoped | `deepseek-v4-flash-0731` |
-| `observer` | Monitoring read-only | `deepseek-v4-flash-0731` |
+| `explorer` | Ricerca codice read-only | `deepseek-v4.1-flash` |
+| `librarian` | Ricerca documentazione read-only | `deepseek-v4.1-flash` |
+| `oracle` | Analisi architetturale read-only | `deepseek-v4.1-flash` |
+| `reviewer` | Review avversariale di piani e codice | `deepseek-v4.1-flash` |
+| `verifier` | Verifica completamento con evidenze | `deepseek-v4.1-flash` |
+| `fixer` | Implementazione rapida e scoped | `deepseek-v4.1-flash` |
+| `observer` | Monitoring read-only | `deepseek-v4.1-flash` |
 | `designer` | UI/UX design e implementation | `meta/muse-spark-1.3-contributor` |
 
 **Per dettagli su ciascun agente, vedi [`agents/README.md`](agents/README.md).**

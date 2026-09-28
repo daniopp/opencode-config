@@ -34,7 +34,7 @@ Uso esclusivo della CLI `gh` (autenticata su tutte le macchine, allowlistata nei
 ## Agenti (nativi, `agents/*.md`)
 
 - `orchestrator` — coordinatore principale (primary, `openrouter/z-ai/glm-5.3-flash`)
-- `explorer`, `fixer`, `librarian`, `observer`, `oracle`, `reviewer`, `verifier` — specialisti (`openrouter/deepseek/deepseek-v4-flash-0731`)
+- `explorer`, `fixer`, `librarian`, `observer`, `oracle`, `reviewer`, `verifier` — specialisti (`openrouter/deepseek/deepseek-v4.1-flash`)
 - `designer` — UI/UX (`openrouter/meta/muse-spark-1.3-contributor`)
 
 I subagent non spawnano altri subagent (`subagent_depth: 1`); l'orchestrator

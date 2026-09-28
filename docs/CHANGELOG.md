@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-09-28 - chore: specialisti su DeepSeek V4.1 Flash, alias dsv41
+
+### Modificato
+- `agents/{explorer,fixer,librarian,observer,oracle,reviewer,verifier}.md` — `model:` da `openrouter/deepseek/deepseek-v4-flash-0731` a `openrouter/deepseek/deepseek-v4.1-flash`; `orchestrator` resta su `z-ai/glm-5.3-flash` e `small_model` resta su V4 Flash 0731
+- `AGENTS.md`, `INSTALL.md`, `agents/README.md` — tabelle dei modelli degli specialisti allineate a V4.1 Flash
+
+### Aggiunto
+- `scripts/set-models.sh` — alias `dsv41` (DeepSeek V4.1 Flash) accanto ad `dsv4`, che resta l'alias del `small_model`
+
 ## 2026-09-25 - tooling: script set-models.sh, switch modelli in un comando
 
 ### Aggiunto

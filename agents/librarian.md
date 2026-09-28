@@ -1,7 +1,7 @@
 ---
 description: External research specialist - official documentation, API references, version-specific web retrieval with cited sources
 mode: subagent
-model: openrouter/deepseek/deepseek-v4-flash-0731
+model: openrouter/deepseek/deepseek-v4.1-flash
 steps: 25
 permission:
   read: allow

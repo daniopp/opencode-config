@@ -27,7 +27,8 @@ REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # ---------------------------------------------------------------------------
 declare -A MODELS=(
   [glm]="openrouter/z-ai/glm-5.3-flash"                   # GLM 5.3 Flash (Z.AI)
-  [dsv4]="openrouter/deepseek/deepseek-v4-flash-0731"     # DeepSeek V4 Flash 0731
+  [dsv4]="openrouter/deepseek/deepseek-v4-flash-0731"     # DeepSeek V4 Flash 0731 (small_model)
+  [dsv41]="openrouter/deepseek/deepseek-v4.1-flash"       # DeepSeek V4.1 Flash (specialists)
 )
 
 BLU='\033[1;36m'; YLW='\033[1;33m'; GRN='\033[1;32m'; RST='\033[0m'
