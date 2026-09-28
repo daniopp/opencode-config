@@ -1,6 +1,6 @@
 # EVODOC - Regole di sviluppo (Team ZeroD / SmeUP)
 
-> Versione: 1.1.0 (2026-09-22)
+> Versione: 1.2.0 (2026-09-28)
 
 Fonte: wiki https://github.com/smeup/ZD_evoDoc2/wiki
 Queste regole sono vincolanti per tutti gli agent che lavorano sui progetti EVODOC.
@@ -71,6 +71,20 @@ diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 - Il codice li legge sempre allo stesso modo, indipendentemente dall'ambiente: **un unico meccanismo di accesso** (variabili d'ambiente / `IConfiguration`) con lo **stesso nome di variabile** in tutti gli ambienti.
 - Nomi in `UPPER_SNAKE_CASE`, senza suffissi d'ambiente (es. `API_KEY`, `CONNECTION_STRING`): cambia solo dove il valore è definito, mai come il codice lo legge.
 
+## Documentazione di sviluppo
+- **Nessun documento di sviluppo nei repository di codice**: niente `docs/dev/`,
+  master-plan, blueprint, note di analisi o `decisions/`. Non vanno né nei repo,
+  né sulla wiki del repo, né su alcuna "memory" centrale.
+- L'audit trail è già garantito dal workflow: **issue** (scope e motivazioni),
+  **PR body** (`Refs smeup/evoplatform-projects#`) e **messaggio di squash merge**
+  (`<tipo>: <descrizione> (#PR)`).
+- Decisioni architetturali significative: registrale nella **descrizione della PR**.
+- Unico artefatto di sviluppo commitato: `CHANGELOG.md` (stile Keep a Changelog).
+- Lane `/full` (feature multi-sessione): lo stato riassumibile della story vive nel
+  **body dell'issue EVOPLATFORM** (aggiornamenti append-only via `gh`); a squash
+  merge chiuderla con un commento finale. Niente file della story nel repo.
+- Stato effimero di sessione: solo in `.slim/` (git-ignored), muore a fine lavoro.
+
 ## Test
 - Framework: **XUnit**; assertion con **Fluent Assertions**.
 - Progetto di test: `<nomeprogetto>.Tests`.
@@ -128,6 +142,11 @@ Le regole si organizzano su tre livelli (pattern Cursor):
 
 ## Cronologia versioni
 
+- `1.2.0 (2026-09-28)` — **MINOR**: nuova sezione "Documentazione di sviluppo"
+  (nessun documento di sviluppo nei repo di codice — niente `docs/dev/`,
+  master-plan, blueprint, wiki, memory centrali; audit trail = issue + PR +
+  squash merge; decisioni nella descrizione della PR; unico artefatto di
+  sviluppo commitato `CHANGELOG.md`; story multi-sessione nel body dell'issue).
 - `1.1.0 (2026-09-22)` — **MINOR**: nuova sezione "Gestione dei segreti"
   (segreti mai nei repository, archiviati fuori dal repo a seconda
   dell'ambiente — `.env`, variabili d'ambiente, GitHub Secrets — e letti dal
