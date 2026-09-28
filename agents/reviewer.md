@@ -1,7 +1,7 @@
 ---
 description: Adversarial plan reviewer - critiques implementation plans and code changes with evidence-based objections. Read-only.
 mode: subagent
-model: openrouter/deepseek/deepseek-v4-flash-0731
+model: openrouter/deepseek/deepseek-v4.1-flash
 steps: 20
 permission:
   read: allow

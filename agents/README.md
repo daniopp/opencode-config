@@ -32,13 +32,13 @@ Il body del markdown è il system prompt.
 | Agente | Mode | Modello | Permessi chiave |
 |---|---|---|---|
 | `orchestrator` | primary | `openrouter/z-ai/glm-5.3-flash` | task allowlist sugli 8 specialisti |
-| `explorer` | subagent | `openrouter/deepseek/deepseek-v4-flash-0731` | read-only (solo read/grep/glob, niente bash) |
-| `librarian` | subagent | `openrouter/deepseek/deepseek-v4-flash-0731` | webfetch/websearch, niente shell |
-| `oracle` | subagent | `openrouter/deepseek/deepseek-v4-flash-0731` | read-only, advisor strategico |
-| `fixer` | subagent | `openrouter/deepseek/deepseek-v4-flash-0731` | edit allow, bash solo test runner + git status/diff |
-| `reviewer` | subagent | `openrouter/deepseek/deepseek-v4-flash-0731` | read-only, review avversariale con evidenze |
-| `verifier` | subagent | `openrouter/deepseek/deepseek-v4-flash-0731` | read-only, verifica completion con evidenze |
-| `observer` | subagent | `openrouter/deepseek/deepseek-v4-flash-0731` | read-only, monitoraggio |
+| `explorer` | subagent | `openrouter/deepseek/deepseek-v4.1-flash` | read-only (solo read/grep/glob, niente bash) |
+| `librarian` | subagent | `openrouter/deepseek/deepseek-v4.1-flash` | webfetch/websearch, niente shell |
+| `oracle` | subagent | `openrouter/deepseek/deepseek-v4.1-flash` | read-only, advisor strategico |
+| `fixer` | subagent | `openrouter/deepseek/deepseek-v4.1-flash` | edit allow, bash solo test runner + git status/diff |
+| `reviewer` | subagent | `openrouter/deepseek/deepseek-v4.1-flash` | read-only, review avversariale con evidenze |
+| `verifier` | subagent | `openrouter/deepseek/deepseek-v4.1-flash` | read-only, verifica completion con evidenze |
+| `observer` | subagent | `openrouter/deepseek/deepseek-v4.1-flash` | read-only, monitoraggio |
 | `designer` | subagent | `openrouter/meta/muse-spark-1.3-contributor` | edit allow, eredita matrice bash globale |
 
 I subagent hanno `task: deny` (non spawnano altri agenti);
