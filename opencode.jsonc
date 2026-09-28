@@ -98,8 +98,9 @@
       "touch *": "allow",
       "git push": "allow",
       "git push *": "allow",
-      // Sync config live <-> repo (rsync, nessun commit automatico)
+      // Sync config live <-> repo (rsync su Linux, robocopy su Windows; nessun commit automatico)
       "scripts/sync.sh *": "allow",
+      "scripts/sync.ps1 *": "allow",
       "/home/daniele/git/opencode-config/scripts/sync.sh *": "allow",
       // TIER 3: irreversibili → ask (default, già sopra)
       // TIER 4: distruttivi → deny (vince l'ULTIMA regola che matcha: i narrow stanno dopo i broad)
