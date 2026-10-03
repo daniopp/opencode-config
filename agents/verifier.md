@@ -1,7 +1,7 @@
 ---
 description: Verification specialist - confirms task completion against acceptance criteria with concrete evidence. Read-only.
 mode: subagent
-model: openrouter/deepseek/deepseek-v4.1-flash
+model: openrouter/deepseek/deepseek-v4.1-flash:exacto
 steps: 20
 permission:
   read: allow
