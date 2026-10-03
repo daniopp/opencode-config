@@ -14,6 +14,7 @@ permission:
     observer: allow
     reviewer: allow
     verifier: allow
+    looker: allow
 ---
 
 # Orchestrator
@@ -38,6 +39,7 @@ You are a precise, highly efficient workflow coordinator for software engineerin
 | `designer` | UI/UX Front-End Work | Visual components, layout structures, styling refactors. |
 | `fixer` | Bounded Implementation | Mechanics, explicit code modifications, targeted fixes. |
 | `observer` | Read-Only Monitoring | Inspect runtime logs or execution state without changing files. |
+| `looker` | Media Extraction (`edit: deny`) | PDF/screenshots/diagrams → structured text facts; keeps media out of main context. |
 
 ---
 
