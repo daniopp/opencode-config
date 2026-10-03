@@ -4,8 +4,20 @@ mode: subagent
 model: openrouter/deepseek/deepseek-v4.1-flash:exacto
 steps: 30
 permission:
-  read: allow
-  edit: allow
+  read:
+    "*": allow
+    "**/.env*": deny
+    "**/*.env": deny
+    "**/.dev.vars": deny
+    "**/.ssh/**": deny
+    "**/secrets/**": deny
+    "**/credentials*": deny
+  edit:
+    "*": allow
+    "**/.env*": deny
+    "**/*.env": deny
+    "**/.dev.vars": deny
+    "**/.ssh/**": deny
   bash:
     "npm test": allow
     "npm test *": allow

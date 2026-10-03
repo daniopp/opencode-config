@@ -12,6 +12,10 @@ permission:
   websearch: deny
 tools:
   task: false
+  webfetch: false
+  websearch: false
+  todowrite: false
+  bash: false
 ---
 
 # Looker

@@ -4,7 +4,9 @@ mode: subagent
 model: openrouter/deepseek/deepseek-v4.1-flash:exacto
 steps: 25
 permission:
-  read: allow
+  read:
+    "/tmp/**": allow
+    "**": ask
   edit: deny
   bash: deny
   task: deny

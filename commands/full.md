@@ -14,7 +14,7 @@ Per lavoro complesso ad alto rischio.
 
 2. **Discovery completo** - esplora il contesto necessario
 
-3. **Plan** - salva come `plans/{feature-name}/plan.md`
+3. **Plan** - salva come `plans/{feature-name}/plan.md`. Per feature multi-sessione usa lo skill `story-craft`: story self-contained con contesto inline, acceptance criteria verificabili, hard constraints e stato persistente riprendibile.
 
 4. **Adversarial review** - manda il piano a `reviewer`:
    - Se complesso, second review opzionale (anche a `oracle`)

@@ -13,6 +13,10 @@ permission:
     git diff *: allow
     git log: allow
     git log *: allow
+    "gh pr view *": allow
+    "gh pr view": allow
+    "gh pr diff *": allow
+    "gh pr list": allow
     ls: allow
     ls *: allow
   task: deny
