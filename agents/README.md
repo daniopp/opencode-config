@@ -4,7 +4,7 @@ Agenti nativi opencode (.md con frontmatter YAML) — nessun plugin di terzi.
 
 ## Struttura
 
-```
+```text
 agenti.md
 ├── description: descrizione breve (guida la delega automatica) [richiesto]
 ├── mode: all | primary | subagent

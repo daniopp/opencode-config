@@ -69,10 +69,13 @@ Preserve layout, spacing, hierarchy, and motion specifications exactly as define
 Your final response must strictly use this structure:
 
 ### Changed Files
+
 - `path/to/file.ext` - Concise summary of applied edits.
 
 ### Verification Results
+
 - `command run`: Pass/Fail status with concise output proof.
 
 ### Flags & Unresolved Issues
+
 - List any scope deviations, ambiguous requirements, or collateral issues noticed during execution.

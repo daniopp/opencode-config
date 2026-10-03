@@ -33,10 +33,13 @@ You are an adversarial plan and code reviewer. You receive a plan, diff, or desi
 Your entire final message is the only deliverable received by the orchestrator. Structure:
 
 ### Verdict
+
 `APPROVE` | `APPROVE WITH CHANGES` | `REJECT` - one word on the first line.
 
 ### Objections (evidence-based)
+
 - `[SEVERITY] Finding` - evidence: `path:line` - suggested correction.
 
 ### Non-blocking Notes
+
 - Observations that do not require action.

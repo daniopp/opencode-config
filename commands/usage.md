@@ -1,6 +1,7 @@
 ---
 description: Report consumi token e costo dalle sessioni opencode
 ---
+# Usage
 
 Riporta i consumi token e il costo dalle sessioni opencode. $ARGUMENTS
 
@@ -17,5 +18,6 @@ Passi:
    esegui `python3 scripts/usage-report.py export` e riporta il path del ledger
 
 Regole:
+
 - Lo script accede al DB opencode SOLO in lettura (`?mode=ro`): non scrivere mai
   sul database né eseguire comandi che lo modifichino

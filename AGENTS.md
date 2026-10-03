@@ -34,7 +34,7 @@ Uso esclusivo della CLI `gh` (autenticata su tutte le macchine, allowlistata nei
 ## Agenti (nativi, `agents/*.md`)
 
 - `orchestrator` — coordinatore principale (primary, `openrouter/z-ai/glm-5.3-flash`)
-- `explorer`, `fixer`, `librarian`, `observer`, `oracle`, `reviewer`, `verifier` — specialisti (`openrouter/deepseek/deepseek-v4.1-flash`)
+- `explorer`, `fixer`, `librarian`, `looker`, `observer`, `oracle`, `reviewer`, `verifier` — specialisti (`openrouter/deepseek/...`: flash per"rilegatura", `v4-pro` per `oracle`; `looker` = vision su `minimax-m3`)
 - `designer` — UI/UX (`openrouter/meta/muse-spark-1.3-contributor`)
 
 I subagent non spawnano altri subagent (`subagent_depth: 1`); l'orchestrator
@@ -61,4 +61,4 @@ Nessuno (`mcp: {}`). Rimossi dopo verifica su opencode.db (zero invocazioni nell
 ## Prossimi passi
 
 1. [ ] Aggiungere agenti custom in `agents/` (opzionale)
-2. [ ] Aggiungere pre-commit: validate-jsonc, markdownlint, detect-private-key
+2. [x] Aggiungere pre-commit: validate-jsonc, markdownlint, detect-private-key (attivi da `scripts/githooks/pre-commit`; markdownlint config in `.markdownlint.jsonc`)

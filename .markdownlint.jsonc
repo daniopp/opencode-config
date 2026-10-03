@@ -1,0 +1,10 @@
+{
+  // MD013 line-length: disattivato (docs con tabelle larghe e prompt)
+  "MD013": false,
+  // MD060 table-column-style: disattivato (stilistico)
+  "MD060": false,
+  // MD033 inline HTML: attivo di default, ok
+  // MD041 first-line-heading: queste doc .md per agenti iniziano spesso con frontmatter
+  "front_matter_title": "",
+  "MD024": { "siblings_only": true }
+}
