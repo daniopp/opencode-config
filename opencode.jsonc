@@ -1,15 +1,24 @@
 {
   "$schema": "https://opencode.ai/config.json",
 
-  // Modello primario: GLM 5.3 Flash — contesto 1M, multimodale (text+image), reasoning
-  // Listino OpenRouter/Z.AI: $0.15 in / $0.50 out per M token, cache read $0.03
-  "model": "openrouter/z-ai/glm-5.3-flash",
+  // Modello primario: GLM 5.3 Flash via OpenCode Go (limit mensile Go: $60, Go Plus: $180)
+  // Listino: $0.15 in / $0.50 out per M token, cache read $0.03 (stesso listino di OpenRouter)
+  // Se la quota Go si esaurisce, la ricaduta su modelli free/saldo Zen la fa il server Go;
+  // per usare il saldo OpenRouter basta passare con /models a `openrouter/z-ai/glm-5.3-flash`
+  // (override `provider.openrouter` sotto resta per quello switch manuale).
+  "model": "opencode-go/glm-5.3-flash",
+
+  // Agente primario attivo all'avvio (TUI, run, desktop: vale ovunque)
+  "default_agent": "orchestrator",
 
   // Modello economico per task leggeri (title, summary, compaction):
   // DeepSeek V4 Flash 0731 — $0.05 in / $0.16 out per M token, context 1M
   "small_model": "openrouter/deepseek/deepseek-v4-flash-0731",
 
-  // Override espliciti sul modello primario (il resto dei modelli usa il registry models.dev)
+  // Override espliciti sulla variante OpenRouter di GLM 5.3 Flash — fallback manuale
+  // pay-per-use (`openrouter/z-ai/glm-5.3-flash` quando la quota Go è finita).
+  // Il resto dei modelli usa il registry models.dev: per `opencode-go/glm-5.3-flash`
+  // i metadati limit/cost su models.dev sono già corretti, nessun override serve.
   // - limit: abilita auto-compaction corretta su sessioni repo-scale (finestra 1M)
   // - cost: listino first-party Z.AI su OpenRouter ($/M token), per statistiche accurate
   // - options: sampling consigliato Z.ai per coding agentico (benchmark NL2Repo: temp 1.0 / top_p 1.0)

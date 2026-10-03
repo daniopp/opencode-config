@@ -1,7 +1,7 @@
 ---
 description: Multimodal media specialist - analyzes PDFs, images, screenshots and diagrams, returning extracted facts as text. Saves orchestrator context by keeping media out of the main session.
 mode: subagent
-model: openrouter/minimax/minimax-m3:exacto
+model: openrouter/minimax/minimax-m3
 steps: 15
 permission:
   read: allow

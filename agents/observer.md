@@ -1,7 +1,7 @@
 ---
 description: Read-only monitoring specialist - inspects session, task, and git states without mutating files.
 mode: subagent
-model: openrouter/deepseek/deepseek-v4.1-flash:exacto
+model: openrouter/deepseek/deepseek-v4.1-flash
 steps: 20
 permission:
   read: allow

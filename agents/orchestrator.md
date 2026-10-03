@@ -1,7 +1,7 @@
 ---
 description: Primary workflow coordinator - plans, delegates to specialists, verifies, and integrates results with strict token-budget limits.
 mode: primary
-model: openrouter/z-ai/glm-5.3-flash:exacto
+model: openrouter/z-ai/glm-5.3-flash
 steps: 100
 permission:
   task:

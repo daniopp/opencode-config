@@ -1,7 +1,7 @@
 ---
 description: Rapid, scoped implementation - executes explicit code changes without making architectural decisions
 mode: subagent
-model: openrouter/deepseek/deepseek-v4.1-flash:exacto
+model: openrouter/deepseek/deepseek-v4.1-flash
 steps: 30
 permission:
   read:

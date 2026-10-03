@@ -1,7 +1,7 @@
 ---
 description: Read-only codebase reconnaissance - finds files, symbols, and patterns, returning compressed maps
 mode: subagent
-model: openrouter/deepseek/deepseek-v4.1-flash:exacto
+model: openrouter/deepseek/deepseek-v4.1-flash
 steps: 25
 permission:
   read: allow

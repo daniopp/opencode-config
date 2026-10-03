@@ -1,7 +1,7 @@
 ---
 description: High-impact strategic technical advisor for architecture decisions, risk analysis, code reviews, and deep debugging. Read-only.
 mode: subagent
-model: openrouter/deepseek/deepseek-v4-pro:exacto
+model: openrouter/deepseek/deepseek-v4-pro
 steps: 25
 permission:
   read: allow
