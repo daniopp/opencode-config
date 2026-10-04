@@ -4,7 +4,15 @@ mode: subagent
 model: openrouter/deepseek/deepseek-v4.1-flash
 steps: 20
 permission:
-  read: allow
+  # read sempre a mappa: la scalar "allow" by-passa le deny globali sui segreti
+  read:
+    "*": allow
+    "**/.env*": deny
+    "**/*.env": deny
+    "**/.dev.vars": deny
+    "**/.ssh/**": deny
+    "**/secrets/**": deny
+    "**/credentials*": deny
   edit: deny
   bash: deny
   task: deny

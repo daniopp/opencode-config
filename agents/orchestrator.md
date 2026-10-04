@@ -1,7 +1,8 @@
 ---
 description: Primary workflow coordinator - plans, delegates to specialists, verifies, and integrates results with strict token-budget limits.
 mode: primary
-model: openrouter/z-ai/glm-5.3-flash
+# nessun override model a livello agente: vale il globale opencode.jsonc
+# (opencode-go/glm-5.3-flash); un override qui bypasserebbe lo switch globale
 steps: 100
 permission:
   task:

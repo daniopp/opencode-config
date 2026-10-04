@@ -31,10 +31,10 @@ Il body del markdown è il system prompt.
 
 | Agente | Mode | Modello | Permessi chiave |
 |---|---|---|---|
-| `orchestrator` | primary | `openrouter/z-ai/glm-5.3-flash` | task allowlist sugli 8 specialisti |
+| `orchestrator` | primary | `opencode-go/glm-5.3-flash` (dal config globale, nessun override) | task allowlist sugli 8 specialisti |
 | `explorer` | subagent | `openrouter/deepseek/deepseek-v4.1-flash` | read-only (solo read/grep/glob, niente bash) |
 | `librarian` | subagent | `openrouter/deepseek/deepseek-v4.1-flash` | webfetch/websearch, niente shell |
-| `oracle` | subagent | `openrouter/deepseek/deepseek-v4.1-flash` | read-only, advisor strategico |
+| `oracle` | subagent | `openrouter/deepseek/deepseek-v4-pro` | read-only, advisor strategico |
 | `fixer` | subagent | `openrouter/deepseek/deepseek-v4.1-flash` | edit allow, bash solo test runner + git status/diff |
 | `reviewer` | subagent | `openrouter/deepseek/deepseek-v4.1-flash` | read-only, review avversariale con evidenze |
 | `verifier` | subagent | `openrouter/deepseek/deepseek-v4.1-flash` | read-only, verifica completion con evidenze |
@@ -53,8 +53,17 @@ description: "Agente specializzato in TypeScript"
 mode: primary
 temperature: 0.2
 permission:
-  read: allow
-  edit: allow
+  # read/edit sempre a mappa: la scalar "allow" è un override che by-passa
+  # le deny globali sui percorsi sensibili (.env*, .ssh, secrets, credentials)
+  read:
+    "*": allow
+    "**/.env*": deny
+    "**/*.env": deny
+    "**/.dev.vars": deny
+    "**/.ssh/**": deny
+    "**/secrets/**": deny
+    "**/credentials*": deny
+  edit: deny
   bash: ask
 ---
 

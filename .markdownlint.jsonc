@@ -4,7 +4,7 @@
   // MD060 table-column-style: disattivato (stilistico)
   "MD060": false,
   // MD033 inline HTML: attivo di default, ok
-  // MD041 first-line-heading: queste doc .md per agenti iniziano spesso con frontmatter
-  "front_matter_title": "",
+  // MD041 first-line-heading: leaving default — markdownlint-cli esenta di default
+  // i file che iniziano con frontmatter YAML; nessuna chiave extra necessaria
   "MD024": { "siblings_only": true }
 }

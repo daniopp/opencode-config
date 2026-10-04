@@ -4,7 +4,16 @@ mode: subagent
 model: openrouter/minimax/minimax-m3
 steps: 15
 permission:
-  read: allow
+  # Mappa read esplicita: la scalar "allow" è un override della matrice
+  # globale e by-passerebbe le deny sui percorsi sensibili
+  read:
+    "*": allow
+    "**/.env*": deny
+    "**/*.env": deny
+    "**/.dev.vars": deny
+    "**/.ssh/**": deny
+    "**/secrets/**": deny
+    "**/credentials*": deny
   edit: deny
   bash: deny
   task: deny

@@ -1,6 +1,6 @@
 # EVODOC - Regole di sviluppo (Team ZeroD / SmeUP)
 
-> Versione: 1.2.1 (2026-10-03)
+> Versione: 1.2.2 (2026-10-04)
 
 Fonte: wiki <https://github.com/smeup/ZD_evoDoc2/wiki>
 Queste regole sono vincolanti per tutti gli agent che lavorano sui progetti EVODOC.
@@ -152,12 +152,15 @@ Le regole si organizzano su tre livelli (pattern Cursor):
 
    ```jsonc
    "instructions": ["~/.config/opencode/rules/rules.md", ".opencode/rules/*.md"]
-   ```text
+   ```
 
 3. **Manuale** — lane e comandi (`.opencode/commands/*.md`), non always-on.
 
 ## Cronologia versioni
 
+- `1.2.2 (2026-10-04)` — **PATCH**: correzione redazionale del fence di chiusura
+  errato nell'esempio `instructions` (apriva un blocco spurio rendendo il resto
+  del documento come codice); nessun cambio di regola.
 - `1.2.1 (2026-10-03)` — **PATCH**: correzione redazionale (linguaggio esplicito sul fence del blocco `Refs smeup/evoplatform-projects#`); nessun cambio di regola.
 - `1.2.0 (2026-09-28)` — **MINOR**: nuova sezione "Documentazione di sviluppo"
   (nessun documento di sviluppo nei repo di codice — niente `docs/dev/`,

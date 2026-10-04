@@ -18,6 +18,8 @@ permission:
     "**/*.env": deny
     "**/.dev.vars": deny
     "**/.ssh/**": deny
+    "**/secrets/**": deny
+    "**/credentials*": deny
   bash:
     "npm test": allow
     "npm test *": allow
