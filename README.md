@@ -68,7 +68,7 @@ opencode
 | `verification-planning` | Plan verification |
 | `worktrees` | Isolated coding lanes |
 
-Nelle regole always-on, `rules/rules.md` è versionato (v1.0.0: Governance SemVer, Layering, Cronologia); indice in `rules/README.md`.
+Nelle regole always-on, `rules/rules.md` è versionato (v1.3.0: Governance SemVer, Ambito, Layering, Cronologia); indice in `rules/README.md`.
 
 ## Permessi
 

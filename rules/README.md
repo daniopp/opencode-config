@@ -5,16 +5,19 @@ a tutti gli agenti.
 
 ## Regole attuali
 
-`rules.md` contiene le regole di sviluppo EVODOC (Team ZeroD / SmeUP):
+`rules.md` (v1.3.0) contiene le regole di sviluppo valide per **tutti i
+progetti** (anche fuori dal perimetro EVODOC); gli elementi con logica
+EVOPLATFORM/team sono marcati **[solo EVODOC]**:
 
+- **Ambito**: le regole valgono universalmente; audit trail di default per i progetti fuori perimetro usa il tracker del progetto (GitHub Issues/Projects del repo, non EVOPLATFORM), SemVer, branch da `main` di default
 - **Lingue**: documentazione in italiano, funzioni/variabili in inglese, messaggi di eccezione e log in italiano
 - **Nomenclatura**: PascalCase/camelCase, campi readonly `_` + camelCase, costanti UPPER_SNAKE_CASE, niente notazione ungherese
 - **C# / VB.NET**: sempre `List<T>` (mai `Collection<T>`), graffe stile Allman, preferire LINQ, pattern di creazione `JObject`
 - **Eccezioni**: rilancio con `throw;` (mai `throw ex;`), catch specifici, mai log di dati sensibili
 - **Test**: XUnit + Fluent Assertions, pattern AAA, naming `Metodo_StateUnderTest_ExpectedBehavior`
-- **Workflow GitHub EVODOC**: issue → branch da `dev` → PR → squash merge su `dev`, convenzioni titoli
-- **Branching/versioning**: SemVer per i microservizi, `YYYY.MM.DD.X` per i servizi legacy
-- **Commesse**: codici agenda SmeUP (EVO.006–010, DS-S709, GRN.OR1.02)
+- **Workflow GitHub EVODOC** `[solo EVODOC]`: issue EVOPLATFORM → branch da `dev` → PR con `Refs smeup/evoplatform-projects#` → squash merge su `dev`
+- **Branching/versioning** `[solo EVODOC]`: SemVer per i microservizi, `YYYY.MM.DD.X` per i servizi legacy
+- **Commesse** `[solo EVODOC]`: codici agenda SmeUP (EVO.006–010, DS-S709, GRN.OR1.02)
 
 ## Linee guida per nuove regole
 
@@ -33,6 +36,6 @@ cronologia) sono in `## Governance di questo file`; lo storico in
 ## Layering delle regole
 
 Le regole sono organizzate su tre livelli: globali always-on (solo invarianti
-EVODOC, sotto le 200 righe, "comandi non ragioni"), dominio-specifico
+universali, sotto le 200 righe, "comandi non ragioni"), dominio-specifico
 (`.opencode/rules/*.md` nel progetto, caricati via glob in `instructions`) e
 manuale (lane e comandi).

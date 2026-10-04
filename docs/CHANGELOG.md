@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-10-04 (2) - rules.md v1.3.0 — regole valide anche fuori dal perimetro EVODOC
+
+### Modificato
+
+- `rules/rules.md` → 1.3.0 (MINOR): titolo generico "Regole di sviluppo"; nuova sezione "Ambito" con i default per i progetti fuori perimetro (issue nel tracker di progetto, nessun blocco `Refs smeup/evoplatform-projects#`, feature branch da `main`, SemVer di default); tag `[solo EVODOC]` su Workflow EVOPLATFORM, naming repository, Branching e Commesse
+- `rules/README.md` — "Regole attuali" riscritte con l'ambito applicativo e i tag `[solo EVODOC]`; `AGENTS.md`, `README.md` — mention allineate
+
+### Note
+
+- Invariante `Universal+` confermato senza rimozioni di regole: audit trail issue/PR/squash resta universale (per i progetti esterni vale il tracker del repo); "Documentazione di sviluppo" (CHANGELOG unico), "Segreti" ed "Eccezioni" restano intatti
+- Il titolo perde il prefisso `EVODOC -` perché il documento ora copre due perimetri; la fonte wiki e il team SmeUP restano citati in testata e nella sezione "Ambito"
+
 ## 2026-10-04 - v1.3.0 — agente looker, OpenCode Go, permission gating segreti (PR #8)
 
 ### Aggiunto

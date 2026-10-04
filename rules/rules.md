@@ -1,9 +1,11 @@
-# EVODOC - Regole di sviluppo (Team ZeroD / SmeUP)
+# Regole di sviluppo (Team ZeroD / SmeUP)
 
-> Versione: 1.2.2 (2026-10-04)
+> Versione: 1.3.0 (2026-10-04)
 
 Fonte: wiki <https://github.com/smeup/ZD_evoDoc2/wiki>
-Queste regole sono vincolanti per tutti gli agent che lavorano sui progetti EVODOC.
+Queste regole sono vincolanti per tutti gli agent su **tutti i progetti**;
+le sezioni marcate **[solo EVODOC]** si applicano ai soli progetti del perimetro
+EVODOC (Team ZeroD / SmeUP) — vedi sezione "Ambito".
 
 ## Governance di questo file
 
@@ -21,6 +23,25 @@ sezione `## Cronologia versioni`.
 Regola chiave: le violazioni si risolvono cambiando spec/piano/task, mai
 diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 
+## Ambito
+
+Le regole valgono per **tutti i progetti**, EVODOC e non. Le sezioni marcate
+**[solo EVODOC]** si applicano esclusivamente ai progetti EVODOC (naming dei
+repository, workflow di sviluppo EVOPLATFORM, branching legacy/Jenkins,
+commesse SmeUP).
+
+Nei progetti fuori dal perimetro EVODOC restano validi gli invarianti di questo
+file con le seguenti differenze:
+
+- **audit trail**: issue/epic nel tracker del progetto (GitHub Projects del
+  progetto, non EVOPLATFORM); PR con `Refs <owner>/<repo>#<issue>`; messaggio
+  di squash merge `<tipo>: <descrizione> (#PR)` come in EVODOC.
+- **branch tipi**: `feature/`, `fix/`, `tech-debt/`, `chore/`, `spike/`,
+  `hotfix/` + breve descrizione kebab-case; base branch `main` (default) o
+  `dev` se previsto dal progetto.
+- **versioning**: `MAJOR.MINOR.PATCH` (SemVer) di default; override nel repo.
+- **CHANGELOG.md** resta l'unico artefatto di sviluppo commitato.
+
 ## Lingue
 
 | Categoria | Lingua |
@@ -37,7 +58,7 @@ diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 - Campi privati readonly: prefisso `_` + `camelCase` (es. `_readOnlyField`)
 - Costanti: `UPPER_SNAKE_CASE` (es. `MAX_VALUE`)
 - Evitare notazione ungherese
-- Repository: `_evodoc_-cosa-tecnologia-funzione` (es. `evodoc-library-dotnet-algorithm`);
+- Repository **[solo EVODOC]**: `_evodoc_-cosa-tecnologia-funzione` (es. `evodoc-library-dotnet-algorithm`);
   mondo DATA: `_kokos_-cosa-tecnologia-_evodoc_-funzione` (es. `kokos-me-dotnet-evodoc-evoengine`)
 
 > **ATTENZIONE (reteopsibilità dati):** NON rinominare proprietà di oggetti già
@@ -84,12 +105,12 @@ diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
   master-plan, blueprint, note di analisi o `decisions/`. Non vanno né nei repo,
   né sulla wiki del repo, né su alcuna "memory" centrale.
 - L'audit trail è già garantito dal workflow: **issue** (scope e motivazioni),
-  **PR body** (`Refs smeup/evoplatform-projects#`) e **messaggio di squash merge**
+  **PR body** (`Refs <owner>/<repo>#<issue>`) e **messaggio di squash merge**
   (`<tipo>: <descrizione> (#PR)`).
 - Decisioni architetturali significative: registrale nella **descrizione della PR**.
 - Unico artefatto di sviluppo commitato: `CHANGELOG.md` (stile Keep a Changelog).
 - Lane `/full` (feature multi-sessione): lo stato riassumibile della story vive nel
-  **body dell'issue EVOPLATFORM** (aggiornamenti append-only via `gh`); a squash
+  **body dell'epic di riferimento** (aggiornamenti append-only via `gh`); a squash
   merge chiuderla con un commento finale. Niente file della story nel repo.
 - Stato effimero di sessione: solo in `.slim/` (git-ignored), muore a fine lavoro.
 
@@ -103,7 +124,7 @@ diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 - Test isolati (mock/stub/DI), deterministici, rapidi, senza logica replicata.
 - Coprire happy path, casi di errore/edge case, comportamenti eccezionali.
 
-## Workflow di sviluppo (GitHub)
+## Workflow di sviluppo (GitHub) [solo EVODOC]
 
 1. **Task**: GitHub Project [EVOPLATFORM](https://github.com/orgs/smeup/projects/25) → issue assegnata da `Planned` a `In Progress`.
 2. **Branch**: creato **sempre da `dev`** via "Create branch" della issue.
@@ -124,7 +145,7 @@ diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 6. **Merge**: **Squash and Merge** su `dev`; il messaggio del commit squash deve essere `<tipo>: <breve descrizione> (#numeroPR)` (es. `fix: gestione errore durante l'upload (#245)`).
 7. **Dopo review approvata**: issue → `Ready to Test`, `Review Status = Approved`.
 
-## Branching e versioning
+## Branching e versioning [solo EVODOC]
 
 - Branch: `main` (produzione stabile), `dev` (testato, pronto per main), feature branch da `dev`.
 - Servizi legacy (repo: `ZD_evoDoc2`, `ZD_ClientUnico`, `ZD_Zerod.evoPortal`, `ZD_Zerod.evoServer.Connector`, `ZD_Zerod.evoENGINE`): versione `YYYY.MM.DD.X` impostata da Jenkins (non manuale).
@@ -134,7 +155,7 @@ diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 - Prerelease NuGet: workflow CI/CD manuale da GitHub Actions sul branch di lavoro (non più automatico per commit).
 - Sviluppi misti legacy+microservizio: sviluppare **prima** il microservizio/SDK, referenziare la prerelease feature nel legacy; **prima della PR del legacy rimuovere il riferimento feature** e puntare alla versione dev/stabile.
 
-## Commesse (ore su agenda SmeUP)
+## Commesse (ore su agenda SmeUP) [solo EVODOC]
 
 - `EVO.006` nuove funzionalità · `EVO.007` integrazione smeup · `EVO.008` int. plain doc
 - `EVO.009` bugfix · `EVO.010` software testing
@@ -144,7 +165,7 @@ diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 
 Le regole si organizzano su tre livelli (pattern Cursor):
 
-1. **Globali always-on** — solo gli invarianti EVODOC (questo file): obiettivo
+1. **Globali always-on** — solo gli invarianti (questo file): obiettivo
    sotto le 200 righe, stile "comandi non ragioni" (cosa fare, non il perché).
 2. **Dominio-specifico** — regole del singolo progetto in
    `.opencode/rules/*.md`, caricate via glob in `instructions` (opencode lo
@@ -158,6 +179,13 @@ Le regole si organizzano su tre livelli (pattern Cursor):
 
 ## Cronologia versioni
 
+- `1.3.0 (2026-10-04)` — **MINOR**: perimetro esteso: le regole coprono
+  **tutti i progetti**, non solo EVODOC. Nuova sezione "Ambito" con le
+  differenze per i progetti fuori perimetro (issue nel tracker del progetto,
+  nessun blocco `Refs smeup/evoplatform-projects#`, SemVer di default,
+  `dev` facoltativo); tag **[solo EVODOC]** su Workflow EVOPLATFORM, naming
+  repository, Branching e Commesse; titolo generico. Nessun principio
+  indebolito sui progetti EVODOC.
 - `1.2.2 (2026-10-04)` — **PATCH**: correzione redazionale del fence di chiusura
   errato nell'esempio `instructions` (apriva un blocco spurio rendendo il resto
   del documento come codice); nessun cambio di regola.
