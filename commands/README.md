@@ -17,6 +17,7 @@ subtask: true|false
 ## Lane disponibili
 
 Creare le lane di rischio:
+
 - `quick.md` - cambiamenti isolati, 1 file
 - `medium.md` - lavoro scoped, piano salvato
 - `full.md` - alto rischio, adversarial review

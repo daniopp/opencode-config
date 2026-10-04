@@ -4,8 +4,18 @@ mode: subagent
 model: openrouter/meta/muse-spark-1.3-contributor
 steps: 100
 permission:
-  read: allow
-  edit: allow
+  read:
+    "*": allow
+    "**/.env*": deny
+    "**/*.env": deny
+    "**/.dev.vars": deny
+    "**/.ssh/**": deny
+  edit:
+    "*": allow
+    "**/.env*": deny
+    "**/*.env": deny
+    "**/.dev.vars": deny
+    "**/.ssh/**": deny
   task: deny
   webfetch: allow  # Abilitato per consultazione doc (Tailwind, Framer Motion, WCAG)
 tools:

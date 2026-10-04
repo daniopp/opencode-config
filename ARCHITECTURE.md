@@ -5,13 +5,14 @@ Documentazione della configurazione opencode.
 ## Panoramica
 
 Questo repo contiene la configurazione globale opencode, strutturata per essere:
+
 - **Replicabile** su diverse macchine
 - **Versionabile** tramite git
 - **Manutenibile** tramite documentazione chiara
 
 ## Struttura delle directory
 
-```
+```text
 ~/.config/opencode/
 ├── opencode.jsonc         # Config principale con permessi granulari
 ├── tui.json               # Tema e keybinds
@@ -45,6 +46,7 @@ Questo repo contiene la configurazione globale opencode, strutturata per essere:
 ### opencode.jsonc
 
 Contiene:
+
 - **model** - Modello primario
 - **small_model** - Modello economico per task leggeri
 - **plugin** - Plugin npm
@@ -57,6 +59,7 @@ Contiene:
 ### tui.json
 
 Contiene:
+
 - **theme** - Tema UI
 - **keybinds** - Keybindings personalizzati
 
@@ -103,6 +106,7 @@ I preset modelli dell'ex-plugin sono in `oh-my-opencode-slim.jsonc`
 ### validate-jsonc.sh
 
 Valida la sintassi JSONC:
+
 ```bash
 ./scripts/validate-jsonc.sh
 ```

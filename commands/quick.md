@@ -29,6 +29,7 @@ Per piccoli cambiamenti isolati e meccanici.
 ## Gate approvazione
 
 Usa `question` per chiedere `[y/N/edit]` solo se:
+
 - Ambiguo
 - Distruttivo
 - User-visible in modo rischioso

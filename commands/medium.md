@@ -15,20 +15,22 @@ Per lavoro scoped con piano documentato.
 2. **Lightweight discovery** - esplora il contesto necessario
 
 3. **Scoped plan** - salva come `plans/{feature-name}/plan.md`:
-   - Obiettivo chiaro
-   - Scope definito
-   - Track di implementazione
-   - Criteri di successo
+    - Obiettivo chiaro
+    - Scope definito
+    - Track di implementazione
+    - Criteri di successo verificabili: ogni criterio con la sua evidenza concreta (test da passare, lint, `path:line`, output atteso)
 
-4. **Approval gate** - obbligatoria, chiedi `[y/N/edit]` sul file
+4. **Pre-flight review** - manda il piano a `reviewer` solo se ≥ 2 track o si toccano file condivisi; incorpora solo obiezioni supportate da evidenze
 
-5. **Execution** - segui i track nell'ordine
+5. **Approval gate** - obbligatoria, chiedi `[y/N/edit]` sul file
 
-6. **Monitoring** - se test falliscono:
-   - `implementation-agent` per fix locali e ovvi
-   - `test-fixer-agent` per fallimenti complessi
+6. **Execution** - segui i track nell'ordine
 
-7. **Wrap-up** - summary e verifica
+7. **Monitoring** - se test falliscono:
+   - `fixer` per fix locali e ovvi
+   - `oracle` per fallimenti complessi
+
+8. **Wrap-up** - summary e verifica
 
 ## Output
 

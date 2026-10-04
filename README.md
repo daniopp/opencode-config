@@ -108,7 +108,7 @@ Nessuno (`mcp: {}`). Rimossi dopo verifica su opencode.db (zero invocazioni nell
 
 ## Directory Structure
 
-```
+```text
 opencode-config/
 ├── opencode.jsonc    # Main config
 ├── tui.json          # TUI config

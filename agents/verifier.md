@@ -4,7 +4,15 @@ mode: subagent
 model: openrouter/deepseek/deepseek-v4.1-flash
 steps: 20
 permission:
-  read: allow
+  # read sempre a mappa: la scalar "allow" by-passa le deny globali sui segreti
+  read:
+    "*": allow
+    "**/.env*": deny
+    "**/*.env": deny
+    "**/.dev.vars": deny
+    "**/.ssh/**": deny
+    "**/secrets/**": deny
+    "**/credentials*": deny
   edit: deny
   bash:
     git status: allow
@@ -13,6 +21,10 @@ permission:
     git diff *: allow
     git log: allow
     git log *: allow
+    "gh pr view *": allow
+    "gh pr view": allow
+    "gh pr diff *": allow
+    "gh pr list": allow
   task: deny
   webfetch: deny
 tools:
@@ -45,21 +57,26 @@ You are a verification specialist. You receive a task description, its acceptanc
 Your entire final message is the only deliverable received by the orchestrator. Structure:
 
 ### Verdict
+
 `PASS` | `CONCERNS` | `FAIL` | `UNVERIFIED` - one word on the first line.
 `CONCERNS` means the work is complete but has non-blocking gaps/anomalies;
 `UNVERIFIED` means a criterion could not be checked with the available evidence.
 
 ### Criteria Checklist
+
 - `[PASS/FAIL/UNVERIFIED] Criterion` - evidence: `path:line` or command output excerpt.
 - Every finding MUST carry a source-ref: `path:line` (file:line) or a commit hash. No claim without a locatable reference.
 
 ### Anomalies
+
 - Unintended changes, regressions, or leftovers (e.g., debug code, temp files).
 
 ### Convergence Tasks
+
 Optional — present only when gaps/anomalies above are actionable. Classify
 each gap as `missing | partial | contradicts | unrequested` and emit it as an
 append-only task, never a rewrite of existing files:
+
 - `T{NNN} <desc> per <source-ref> (<gap-type>)`
 - `T{NNN}` is the next free sequential number; the source-ref points to the
   exact `path:line` or commit where the gap lives.

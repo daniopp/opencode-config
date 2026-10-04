@@ -4,7 +4,15 @@ mode: subagent
 model: openrouter/deepseek/deepseek-v4.1-flash
 steps: 20
 permission:
-  read: allow
+  # read sempre a mappa: la scalar "allow" by-passa le deny globali sui segreti
+  read:
+    "*": allow
+    "**/.env*": deny
+    "**/*.env": deny
+    "**/.dev.vars": deny
+    "**/.ssh/**": deny
+    "**/secrets/**": deny
+    "**/credentials*": deny
   edit: deny
   bash: deny
   task: deny
@@ -33,10 +41,13 @@ You are an adversarial plan and code reviewer. You receive a plan, diff, or desi
 Your entire final message is the only deliverable received by the orchestrator. Structure:
 
 ### Verdict
+
 `APPROVE` | `APPROVE WITH CHANGES` | `REJECT` - one word on the first line.
 
 ### Objections (evidence-based)
+
 - `[SEVERITY] Finding` - evidence: `path:line` - suggested correction.
 
 ### Non-blocking Notes
+
 - Observations that do not require action.

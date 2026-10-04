@@ -1,8 +1,8 @@
 # EVODOC - Regole di sviluppo (Team ZeroD / SmeUP)
 
-> Versione: 1.2.0 (2026-09-28)
+> Versione: 1.2.2 (2026-10-04)
 
-Fonte: wiki https://github.com/smeup/ZD_evoDoc2/wiki
+Fonte: wiki <https://github.com/smeup/ZD_evoDoc2/wiki>
 Queste regole sono vincolanti per tutti gli agent che lavorano sui progetti EVODOC.
 
 ## Governance di questo file
@@ -22,6 +22,7 @@ Regola chiave: le violazioni si risolvono cambiando spec/piano/task, mai
 diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 
 ## Lingue
+
 | Categoria | Lingua |
 |---|---|
 | Documentazione | Italiano |
@@ -30,6 +31,7 @@ diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 | Log | Italiano |
 
 ## Nomenclatura
+
 - Variabili pubbliche: `PascalCase`
 - Variabili private: `camelCase`
 - Campi privati readonly: prefisso `_` + `camelCase` (es. `_readOnlyField`)
@@ -43,14 +45,17 @@ diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 > Le nuove variabili seguono sempre le regole sopra.
 
 ## Regole C# / VB.NET
+
 - **Sempre `List<T>`, mai `Collection<T>`** (problemi di serializzazione/deserializzazione con JSON.NET).
 - Creazione `JObject` preferita:
+
   ```csharp
   var obj = new JObject() {
       new JProperty("XXX", "XXX"),
       new JProperty("YYY", "YYY")
   };
   ```
+
 - Seguire le linee guida di codifica Microsoft per .NET.
 - Graffe `{}` sempre su righe separate (stile Allman).
 - Indentazione coerente; una riga vuota tra metodi; **niente righe vuote casuali** all'interno dei blocchi.
@@ -58,6 +63,7 @@ diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 - Preferire LINQ (`.Where(...)`, `.Select(...)`, `.ToList()`) ai loop manuali.
 
 ## Gestione delle eccezioni
+
 - Incapsulare in try-catch solo il codice soggetto a errori reali; non catturare per ignorare.
 - Rilanciare con `throw;` (mai `throw ex;` che perde lo stack trace).
 - Preferire catch **specifici** (`ArgumentNullException`, ecc.); il catch generico `Exception` solo in servizi top-level o log centralizzato.
@@ -66,12 +72,14 @@ diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 - Non usare eccezioni per il controllo del flusso; eccezioni custom solo se aggiungono contesto.
 
 ## Gestione dei segreti
+
 - Mai segreti nei repository: niente password, token, API key, chiavi, connection string nel codice, nei file versionati o nella cronologia git.
 - I segreti vivono fuori dal repo, a seconda dell'ambiente: `.env` locale (sempre in `.gitignore`), variabili d'ambiente (server/CI), GitHub Secrets (GitHub Actions).
 - Il codice li legge sempre allo stesso modo, indipendentemente dall'ambiente: **un unico meccanismo di accesso** (variabili d'ambiente / `IConfiguration`) con lo **stesso nome di variabile** in tutti gli ambienti.
 - Nomi in `UPPER_SNAKE_CASE`, senza suffissi d'ambiente (es. `API_KEY`, `CONNECTION_STRING`): cambia solo dove il valore è definito, mai come il codice lo legge.
 
 ## Documentazione di sviluppo
+
 - **Nessun documento di sviluppo nei repository di codice**: niente `docs/dev/`,
   master-plan, blueprint, note di analisi o `decisions/`. Non vanno né nei repo,
   né sulla wiki del repo, né su alcuna "memory" centrale.
@@ -86,6 +94,7 @@ diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 - Stato effimero di sessione: solo in `.slim/` (git-ignored), muore a fine lavoro.
 
 ## Test
+
 - Framework: **XUnit**; assertion con **Fluent Assertions**.
 - Progetto di test: `<nomeprogetto>.Tests`.
 - Struttura: pattern **AAA** (Arrange – Act – Assert) con i tre commenti espliciti.
@@ -95,6 +104,7 @@ diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 - Coprire happy path, casi di errore/edge case, comportamenti eccezionali.
 
 ## Workflow di sviluppo (GitHub)
+
 1. **Task**: GitHub Project [EVOPLATFORM](https://github.com/orgs/smeup/projects/25) → issue assegnata da `Planned` a `In Progress`.
 2. **Branch**: creato **sempre da `dev`** via "Create branch" della issue.
    Formato: `<tipo>/<numero-issue>-<breve-descrizione-kebab-case>`.
@@ -103,9 +113,11 @@ diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
    Se la issue tocca più repository: **un branch per repository**, stesso nome in tutti, dalla stessa issue.
 3. **Sviluppo**: commit e push sul branch; i test automatici girano a ogni commit/PR.
 4. **Pull Request**: una per repository modificato. Nel corpo **aggiungere il numero issue** a:
-   ```
+
+   ```text
    Refs smeup/evoplatform-projects#
    ```
+
    Titolo PR: `<tipo>: <breve descrizione>` con tipi `feat | fix | tech-debt | refactor | chore | docs | test`.
    Esempio: `feat: aggiunta gestione PEC`. Vietati titoli generici (`fix`, `update`, `modifiche`).
 5. **Review**: a PR pronta → issue `Review Status = Waiting Review`; collegare tutte le PR nella sezione Development della issue. Con modifiche richieste → `Changes Requested`.
@@ -113,6 +125,7 @@ diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 7. **Dopo review approvata**: issue → `Ready to Test`, `Review Status = Approved`.
 
 ## Branching e versioning
+
 - Branch: `main` (produzione stabile), `dev` (testato, pronto per main), feature branch da `dev`.
 - Servizi legacy (repo: `ZD_evoDoc2`, `ZD_ClientUnico`, `ZD_Zerod.evoPortal`, `ZD_Zerod.evoServer.Connector`, `ZD_Zerod.evoENGINE`): versione `YYYY.MM.DD.X` impostata da Jenkins (non manuale).
 - Microservizi: **SemVer** `MAJOR.MINOR.PATCH`; breaking → MAJOR, nuove funzionalità compatibili → MINOR, bugfix → PATCH.
@@ -122,6 +135,7 @@ diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 - Sviluppi misti legacy+microservizio: sviluppare **prima** il microservizio/SDK, referenziare la prerelease feature nel legacy; **prima della PR del legacy rimuovere il riferimento feature** e puntare alla versione dev/stabile.
 
 ## Commesse (ore su agenda SmeUP)
+
 - `EVO.006` nuove funzionalità · `EVO.007` integrazione smeup · `EVO.008` int. plain doc
 - `EVO.009` bugfix · `EVO.010` software testing
 - `DS-S709` solo riunioni interne · `GRN.OR1.02` smeup lab
@@ -135,13 +149,19 @@ Le regole si organizzano su tre livelli (pattern Cursor):
 2. **Dominio-specifico** — regole del singolo progetto in
    `.opencode/rules/*.md`, caricate via glob in `instructions` (opencode lo
    supporta), es.:
+
    ```jsonc
    "instructions": ["~/.config/opencode/rules/rules.md", ".opencode/rules/*.md"]
    ```
+
 3. **Manuale** — lane e comandi (`.opencode/commands/*.md`), non always-on.
 
 ## Cronologia versioni
 
+- `1.2.2 (2026-10-04)` — **PATCH**: correzione redazionale del fence di chiusura
+  errato nell'esempio `instructions` (apriva un blocco spurio rendendo il resto
+  del documento come codice); nessun cambio di regola.
+- `1.2.1 (2026-10-03)` — **PATCH**: correzione redazionale (linguaggio esplicito sul fence del blocco `Refs smeup/evoplatform-projects#`); nessun cambio di regola.
 - `1.2.0 (2026-09-28)` — **MINOR**: nuova sezione "Documentazione di sviluppo"
   (nessun documento di sviluppo nei repo di codice — niente `docs/dev/`,
   master-plan, blueprint, wiki, memory centrali; audit trail = issue + PR +

@@ -4,7 +4,9 @@ mode: subagent
 model: openrouter/deepseek/deepseek-v4.1-flash
 steps: 25
 permission:
-  read: allow
+  read:
+    "/tmp/**": allow
+    "**": ask
   edit: deny
   bash: deny
   task: deny
@@ -37,13 +39,17 @@ You are an external documentation and web research specialist. You are the autho
 Your final message to the orchestrator must strictly follow this structure (respond in Italian if the initial prompt was in Italian, keeping technical terms in English):
 
 ### Direct Answer
+
 [Concise summary directly resolving the question]
 
 ### Technical Evidence
+
 - Function signatures, exact config keys, or code snippets retrieved from the search.
 
 ### Verified Sources
+
 - `[Source Title](URL)` - Short description of what this documentation source covers.
 
 ### Deprecations & Version Caveats
+
 - Version-specific gating, breaking changes, or features not supported natively.
