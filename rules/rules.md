@@ -1,6 +1,6 @@
 # Regole di sviluppo (Team ZeroD / SmeUP)
 
-> Versione: 1.3.0 (2026-10-04)
+> Versione: 1.4.0 (2026-10-05)
 
 Fonte: wiki <https://github.com/smeup/ZD_evoDoc2/wiki>
 Queste regole sono vincolanti per tutti gli agent su **tutti i progetti**;
@@ -56,7 +56,9 @@ file con le seguenti differenze:
 - Variabili pubbliche: `PascalCase`
 - Variabili private: `camelCase`
 - Campi privati readonly: prefisso `_` + `camelCase` (es. `_readOnlyField`)
-- Costanti: `UPPER_SNAKE_CASE` (es. `MAX_VALUE`)
+- Costanti: `PascalCase` (es. `MaxValue`), come da linee guida Microsoft.
+  `UPPER_SNAKE_CASE` solo dove la convenzione del linguaggio lo prevede
+  (`enum` in Python, costanti C-like).
 - Evitare notazione ungherese
 - Repository **[solo EVODOC]**: `_evodoc_-cosa-tecnologia-funzione` (es. `evodoc-library-dotnet-algorithm`);
   mondo DATA: `_kokos_-cosa-tecnologia-_evodoc_-funzione` (es. `kokos-me-dotnet-evodoc-evoengine`)
@@ -179,6 +181,13 @@ Le regole si organizzano su tre livelli (pattern Cursor):
 
 ## Cronologia versioni
 
+- `1.4.0 (2026-10-05)` — **MINOR**: le costanti passano da `UPPER_SNAKE_CASE` a
+  `PascalCase`, eliminando una contraddizione interna: la sezione "Regole
+  C# / VB.NET" imponeva già di seguire le linee guida Microsoft, che in C#
+  prescrivono `PascalCase` anche per le costanti. `UPPER_SNAKE_CASE` resta
+  indicato per i linguaggi la cui convenzione lo prevede (`enum` in Python,
+  costanti C-like). Nessun principio indebolito; decisione presa in
+  AutoDiario.it, che adottava `PascalCase` in contrasto con la regola.
 - `1.3.0 (2026-10-04)` — **MINOR**: perimetro esteso: le regole coprono
   **tutti i progetti**, non solo EVODOC. Nuova sezione "Ambito" con le
   differenze per i progetti fuori perimetro (issue nel tracker del progetto,

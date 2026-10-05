@@ -8,7 +8,7 @@ Configurazione globale opencode.
 - `tui.json` — config TUI (attualmente quasi vuota, placeholder)
 - `agents/` — agenti .md personalizzati
 - `commands/` — lane (/quick, /medium, /full, /debug)
-- `rules/` — regole always-on (`rules.md` v1.3.0 = regole di sviluppo valide per tutti i progetti, tag `[solo EVODOC]` sul perimetro EVODOC, caricate via `instructions`)
+- `rules/` — regole always-on (`rules.md` v1.4.0 = regole di sviluppo valide per tutti i progetti, tag `[solo EVODOC]` sul perimetro EVODOC, caricate via `instructions`)
 - `skills/` — skill npm
 
 ## Permessi

@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-10-05 - rules.md v1.4.0 — costanti in PascalCase
+
+### Modificato
+
+- `rules/rules.md` → 1.4.0 (MINOR): le costanti passano da `UPPER_SNAKE_CASE` a `PascalCase` (`MaxValue`), eliminando la contraddizione interna con "Seguire le linee guida Microsoft" che in C# prescrive `PascalCase` anche per le costanti; `UPPER_SNAKE_CASE` resta indicato per i linguaggi la cui convenzione lo prevede (`enum` in Python, costanti C-like)
+- `AGENTS.md`, `README.md`, `rules/README.md` — mention della versione allineate a 1.4.0
+
+### Note
+
+- Nessun principio indebolito: le regole "Documentazione di sviluppo", "Segreti", "Gestione delle eccezioni" e l'audit trail restano invariati; la modifica riguarda una sola convenzione di nomenclatura
+- Decisione nata in `AutoDiario.it`, dove il codice aveva adottato `PascalCase` in contrasto con la regola: il codice è stato lasciato com'è, la regola allineata al codice
+
 ## 2026-10-04 (2) - rules.md v1.3.0 — regole valide anche fuori dal perimetro EVODOC
 
 ### Modificato

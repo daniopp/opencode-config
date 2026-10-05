@@ -5,13 +5,13 @@ a tutti gli agenti.
 
 ## Regole attuali
 
-`rules.md` (v1.3.0) contiene le regole di sviluppo valide per **tutti i
+`rules.md` (v1.4.0) contiene le regole di sviluppo valide per **tutti i
 progetti** (anche fuori dal perimetro EVODOC); gli elementi con logica
 EVOPLATFORM/team sono marcati **[solo EVODOC]**:
 
 - **Ambito**: le regole valgono universalmente; audit trail di default per i progetti fuori perimetro usa il tracker del progetto (GitHub Issues/Projects del repo, non EVOPLATFORM), SemVer, branch da `main` di default
 - **Lingue**: documentazione in italiano, funzioni/variabili in inglese, messaggi di eccezione e log in italiano
-- **Nomenclatura**: PascalCase/camelCase, campi readonly `_` + camelCase, costanti UPPER_SNAKE_CASE, niente notazione ungherese
+- **Nomenclatura**: PascalCase/camelCase, campi readonly `_` + camelCase, costanti PascalCase (linee guida Microsoft), niente notazione ungherese
 - **C# / VB.NET**: sempre `List<T>` (mai `Collection<T>`), graffe stile Allman, preferire LINQ, pattern di creazione `JObject`
 - **Eccezioni**: rilancio con `throw;` (mai `throw ex;`), catch specifici, mai log di dati sensibili
 - **Test**: XUnit + Fluent Assertions, pattern AAA, naming `Metodo_StateUnderTest_ExpectedBehavior`
