@@ -34,7 +34,7 @@ Uso esclusivo della CLI `gh` (autenticata su tutte le macchine, allowlistata nei
 ## Agenti (nativi, `agents/*.md`)
 
 - `orchestrator` — coordinatore principale (primary, `opencode-go/glm-5.3-flash`)
-- `explorer`, `fixer`, `librarian`, `looker`, `observer`, `oracle`, `reviewer`, `verifier` — specialisti (`openrouter/deepseek/...`: flash per "rilegatura", `v4-pro` per `oracle`; `looker` = vision su `minimax-m3`)
+- `explorer`, `fixer`, `librarian`, `looker`, `observer`, `oracle`, `reviewer`, `verifier` — specialisti (`openrouter/deepseek/...`: flash per "rilegatura", `v4-pro` per `oracle`; `looker` = vision su `google/gemini-2.5-flash-lite`, supporto PDF nativo)
 - `designer` — UI/UX (`openrouter/meta/muse-spark-1.3-contributor`)
 
 I subagent non spawnano altri subagent (`subagent_depth: 1`); l'orchestrator

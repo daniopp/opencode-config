@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-10-05 (2) - looker: modello PDF-capable (gemini-2.5-flash-lite)
+
+### Modificato
+
+- `agents/looker.md` — modello da `openrouter/minimax/minimax-m3` (no input `file`, causa errore "Cannot read pdf") a `google/gemini-2.5-flash-lite`: input PDF+immagine nativi, ctx 1M, $0.10/M in e $0.40/M out (tier low-cost, scelta dopo scan di 466 modelli del catalogo OpenRouter)
+- `AGENTS.md` — inventario agenti allineato
+
+### Note
+
+- Modifica applicata sia al repo sia alla config live `~/.config/opencode/agents/looker.md` (i due file erano identici prima e dopo); richiede restart opencode per prendere effetto
+
 ## 2026-10-05 - rules.md v1.4.0 — costanti in PascalCase
 
 ### Modificato
