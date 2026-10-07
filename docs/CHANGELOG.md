@@ -1,5 +1,39 @@
 # Changelog
 
+## 2026-10-07 (2) - skill gh-pr-windows — fix gh pr create su Windows
+
+### Aggiunto
+
+- `skills/gh-pr-windows/SKILL.md` — skill on-demand per i fallimenti di `gh` (e subcommand che shellano git) su Windows: causa documentata `C:\src\depot_tools\git.bat` prima di `C:\Program Files\Git\cmd\git.exe` nel PATH (gh risolve il wrapper depot_tools, le chiamate git interne falliscono con `"merge" non è riconosciuto`); escalation PATH guard (`$env:PATH = "C:\Program Files\Git\cmd;$env:PATH"`) poi fallback REST `gh api repos/OWNER/REPO/pulls` (zero git locale)
+- `.gitattributes` — `*.sh text eol=lf`: gli script shell restano LF nel working tree Windows
+
+### Modificato
+
+- `scripts/sync.sh` — normalizzato a LF nel working tree: ora eseguibile dal bash tool Windows (WSL `/mnt/c` e Git Bash), prima bocciato da bash con `$'\r': command not found`
+
+### Note
+
+- Root cause riprodotta con `gh pr create --dry-run` (errore riproducibile, niente PR spurie); fix PATH verificato empiricamente (dry-run verde dopo il guard); sync locale↔repo verificata per hash SHA-256
+- Skill attiva al prossimo restart di opencode (le skill si caricano all'avvio)
+
+## 2026-10-07 - rules v2.0.0 su due file — invarianti universali + perimetro EVODOC
+
+### Aggiunto
+
+- `rules/evodoc.md` — 1.0.0: regole del perimetro EVODOC (repo `ZD_*` o con `evodoc`/`zerod` nel nome), fonte wiki ZD_evoDoc2 — workflow EVOPLATFORM, branching/versioning (legacy `YYYY.MM.DD.X` da Jenkins, SemVer microservizi), prerelease NuGet manuali, flusso misto legacy+micro, rilascio fine sprint, commesse SmeUP
+- `scripts/wiki-sync.ps1|.sh` — mirror wiki ZD_evoDoc2 in `wiki-mirror/` (git-ignored); `-InstallTask` crea task pianificata Windows giornaliera
+- `docs/CHANGELOG.md` — entry release precedenti allineate
+
+### Modificato
+
+- `rules/rules.md` → 2.0.0 (MAJOR): ristrutturazione su due file — invarianti universali per tutti i progetti smeup/danismeup/danifx; contenuti EVODOC migrati in `rules/evodoc.md`; dal wiki "Stile e best practice": regole sui commenti e `string.Empty`
+- `rules/README.md`, `AGENTS.md`, `README.md` — allineati alla struttura due-file e alla fonte wiki
+- `.gitignore` — `wiki-mirror/` escluso
+
+### Note
+
+- Nessun principio indebolito: il contenuto EVODOC conserva la stessa forza normativa nel file dedicato; MAJOR per la ristrutturazione documentale, non per indebolimento di regole
+
 ## 2026-10-05 (2) - looker: modello PDF-capable (gemini-2.5-flash-lite)
 
 ### Modificato
