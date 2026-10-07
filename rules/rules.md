@@ -1,11 +1,12 @@
 # Regole di sviluppo (Team ZeroD / SmeUP)
 
-> Versione: 1.4.0 (2026-10-05)
+> Versione: 2.0.0 (2026-10-07)
 
-Fonte: wiki <https://github.com/smeup/ZD_evoDoc2/wiki>
-Queste regole sono vincolanti per tutti gli agent su **tutti i progetti**;
-le sezioni marcate **[solo EVODOC]** si applicano ai soli progetti del perimetro
-EVODOC (Team ZeroD / SmeUP) — vedi sezione "Ambito".
+Regole **universali**: vincolanti per tutti gli agent su **tutti i progetti**
+(organization smeup e account danismeup/danifx), perimetro EVODOC incluso.
+Le regole **aggiuntive o sostitutive** del perimetro EVODOC (repo legacy `ZD_*`
+e repo con `evodoc` o `zerod` nel nome) stanno nel file `evodoc.md`, caricato
+insieme a questo.
 
 ## Governance di questo file
 
@@ -23,24 +24,17 @@ sezione `## Cronologia versioni`.
 Regola chiave: le violazioni si risolvono cambiando spec/piano/task, mai
 diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 
-## Ambito
+## Ambito e priorità
 
-Le regole valgono per **tutti i progetti**, EVODOC e non. Le sezioni marcate
-**[solo EVODOC]** si applicano esclusivamente ai progetti EVODOC (naming dei
-repository, workflow di sviluppo EVOPLATFORM, branching legacy/Jenkins,
-commesse SmeUP).
-
-Nei progetti fuori dal perimetro EVODOC restano validi gli invarianti di questo
-file con le seguenti differenze:
-
-- **audit trail**: issue/epic nel tracker del progetto (GitHub Projects del
-  progetto, non EVOPLATFORM); PR con `Refs <owner>/<repo>#<issue>`; messaggio
-  di squash merge `<tipo>: <descrizione> (#PR)` come in EVODOC.
-- **branch tipi**: `feature/`, `fix/`, `tech-debt/`, `chore/`, `spike/`,
-  `hotfix/` + breve descrizione kebab-case; base branch `main` (default) o
-  `dev` se previsto dal progetto.
-- **versioning**: `MAJOR.MINOR.PATCH` (SemVer) di default; override nel repo.
-- **CHANGELOG.md** resta l'unico artefatto di sviluppo commitato.
+1. Questo file vale per tutti i progetti.
+2. `evodoc.md` si applica ai soli progetti del perimetro EVODOC, riconosciuti
+   dal nome del repository; dove indicato, sostituisce o integra le regole
+   generali. Fonte primaria del perimetro: la wiki di sviluppo del team
+   <https://github.com/smeup/ZD_evoDoc2/wiki>.
+3. Progetti fuori perimetro: solo le regole generali di questo file, più le
+   best practice ufficiali del linguaggio/framework in uso.
+4. Regole conflittuali o dubbie: fermarsi e **chiedere** quale livello si
+   applica; le regole non si adattano al caso singolo senza conferma.
 
 ## Lingue
 
@@ -58,12 +52,11 @@ file con le seguenti differenze:
 - Campi privati readonly: prefisso `_` + `camelCase` (es. `_readOnlyField`)
 - Costanti: `PascalCase` (es. `MaxValue`), come da linee guida Microsoft.
   `UPPER_SNAKE_CASE` solo dove la convenzione del linguaggio lo prevede
-  (`enum` in Python, costanti C-like).
+  (`enum` in Python, costanti C-like). La wiki EVODOC indica ancora
+  `UPPERCASE`: vedi nota in `evodoc.md`.
 - Evitare notazione ungherese
-- Repository **[solo EVODOC]**: `_evodoc_-cosa-tecnologia-funzione` (es. `evodoc-library-dotnet-algorithm`);
-  mondo DATA: `_kokos_-cosa-tecnologia-_evodoc_-funzione` (es. `kokos-me-dotnet-evodoc-evoengine`)
 
-> **ATTENZIONE (reteopsibilità dati):** NON rinominare proprietà di oggetti già
+> **ATTENZIONE (retrocompatibilità dati):** NON rinominare proprietà di oggetti già
 > serializzati nel database e in rilascio: rendono i dati non retrocompatibili.
 > Le nuove variabili seguono sempre le regole sopra.
 
@@ -81,9 +74,28 @@ file con le seguenti differenze:
 
 - Seguire le linee guida di codifica Microsoft per .NET.
 - Graffe `{}` sempre su righe separate (stile Allman).
-- Indentazione coerente; una riga vuota tra metodi; **niente righe vuote casuali** all'interno dei blocchi.
+- Indentazione coerente; una riga vuota tra metodi e attorno ai blocchi logici.
+- **Niente righe vuote casuali** all'interno dei blocchi.
 - Preferire `var` quando il tipo è evidente dal contesto.
 - Preferire LINQ (`.Where(...)`, `.Select(...)`, `.ToList()`) ai loop manuali.
+- Stringhe vuote: usare `string.Empty`, non `""`.
+
+### Commenti
+
+- Breve commento su funzione o classe: sì. Commento prolisso: no.
+- Nessun riferimento a documenti temporanei di sviluppo (issue, piani…).
+- Nessun commento su casi specifici di errori trovati: solo una breve
+  spiegazione dell'algoritmo, dove serve.
+- Le spiegazioni di funzionamento vanno nel README, non nel codice.
+- I commenti non devono proliferare fino a rendere il codice illeggibile.
+- Dopo ogni modifica, verificare i commenti ancora validi e aggiornarli.
+
+## Altri linguaggi
+
+- Seguire le convenzioni ufficiali/consolidate della comunità del linguaggio
+  (formattazione, linting, naming, gestione errori, packaging).
+- Le regole trasversali del file restano valide (lingue, segreti, eccezioni,
+  test, workflow, documentazione).
 
 ## Gestione delle eccezioni
 
@@ -111,14 +123,15 @@ file con le seguenti differenze:
   (`<tipo>: <descrizione> (#PR)`).
 - Decisioni architetturali significative: registrale nella **descrizione della PR**.
 - Unico artefatto di sviluppo commitato: `CHANGELOG.md` (stile Keep a Changelog).
-- Lane `/full` (feature multi-sessione): lo stato riassumibile della story vive nel
-  **body dell'epic di riferimento** (aggiornamenti append-only via `gh`); a squash
-  merge chiuderla con un commento finale. Niente file della story nel repo.
-- Stato effimero di sessione: solo in `.slim/` (git-ignored), muore a fine lavoro.
+- Stato effimero di sessione: solo in cartelle git-ignored (es. `.slim/`),
+  muore a fine lavoro.
 
 ## Test
 
-- Framework: **XUnit**; assertion con **Fluent Assertions**.
+Framework: **XUnit**; assertion con **Fluent Assertions**.
+Progetti non .NET: framework di test standard dell'ecosistema, stesse regole
+di disciplina.
+
 - Progetto di test: `<nomeprogetto>.Tests`.
 - Struttura: pattern **AAA** (Arrange – Act – Assert) con i tre commenti espliciti.
 - Naming test: `Metodo_StateUnderTest_ExpectedBehavior` (es. `Add_EmptyString_ReturnsZero`).
@@ -126,61 +139,52 @@ file con le seguenti differenze:
 - Test isolati (mock/stub/DI), deterministici, rapidi, senza logica replicata.
 - Coprire happy path, casi di errore/edge case, comportamenti eccezionali.
 
-## Workflow di sviluppo (GitHub) [solo EVODOC]
+## Workflow di sviluppo (GitHub)
 
-1. **Task**: GitHub Project [EVOPLATFORM](https://github.com/orgs/smeup/projects/25) → issue assegnata da `Planned` a `In Progress`.
-2. **Branch**: creato **sempre da `dev`** via "Create branch" della issue.
-   Formato: `<tipo>/<numero-issue>-<breve-descrizione-kebab-case>`.
-   Tipi: `feature/`, `fix/`, `tech-debt/`, `chore/`, `spike/`, `hotfix/`.
-   Esempi: `feature/125-import-documenti`, `fix/238-errore-login`.
-   Se la issue tocca più repository: **un branch per repository**, stesso nome in tutti, dalla stessa issue.
-3. **Sviluppo**: commit e push sul branch; i test automatici girano a ogni commit/PR.
-4. **Pull Request**: una per repository modificato. Nel corpo **aggiungere il numero issue** a:
+1. **Task**: issue nel tracker del progetto (GitHub Issues/Projects del repo)
+   portata da backlog ad "in corso".
+2. **Branch**: `<tipo>/<breve-descrizione-kebab-case>` dal branch base del
+   progetto (`main` di default, o `dev` se previsto). Tipi: `feature/`, `fix/`,
+   `tech-debt/`, `chore/`, `spike/`, `hotfix/`.
+3. **Sviluppo**: commit e push sul branch; test automatici a ogni commit/PR.
+4. **Pull Request**: una per repository modificato. Nel body
+   `Refs <owner>/<repo>#<issue>`. Titolo: `<tipo>: <breve descrizione>` con
+   tipi `feat | fix | tech-debt | refactor | chore | docs | test`.
+5. **Merge**: Squash and Merge; il messaggio del commit squash deve essere
+   `<tipo>: <breve descrizione> (#numeroPR)`.
+6. **Versioning**: `MAJOR.MINOR.PATCH` (SemVer) di default; override nel repo.
+   Breaking → MAJOR, funzionalità compatibili → MINOR, bugfix → PATCH.
 
-   ```text
-   Refs smeup/evoplatform-projects#
-   ```
-
-   Titolo PR: `<tipo>: <breve descrizione>` con tipi `feat | fix | tech-debt | refactor | chore | docs | test`.
-   Esempio: `feat: aggiunta gestione PEC`. Vietati titoli generici (`fix`, `update`, `modifiche`).
-5. **Review**: a PR pronta → issue `Review Status = Waiting Review`; collegare tutte le PR nella sezione Development della issue. Con modifiche richieste → `Changes Requested`.
-6. **Merge**: **Squash and Merge** su `dev`; il messaggio del commit squash deve essere `<tipo>: <breve descrizione> (#numeroPR)` (es. `fix: gestione errore durante l'upload (#245)`).
-7. **Dopo review approvata**: issue → `Ready to Test`, `Review Status = Approved`.
-
-## Branching e versioning [solo EVODOC]
-
-- Branch: `main` (produzione stabile), `dev` (testato, pronto per main), feature branch da `dev`.
-- Servizi legacy (repo: `ZD_evoDoc2`, `ZD_ClientUnico`, `ZD_Zerod.evoPortal`, `ZD_Zerod.evoServer.Connector`, `ZD_Zerod.evoENGINE`): versione `YYYY.MM.DD.X` impostata da Jenkins (non manuale).
-- Microservizi: **SemVer** `MAJOR.MINOR.PATCH`; breaking → MAJOR, nuove funzionalità compatibili → MINOR, bugfix → PATCH.
-  - Branch feature: `MAJOR.MINOR.PATCH-feature.NOME_BRANCH.X`
-  - Branch dev: `MAJOR.MINOR.PATCH-dev.X`
-- Prerelease NuGet: workflow CI/CD manuale da GitHub Actions sul branch di lavoro (non più automatico per commit).
-- Sviluppi misti legacy+microservizio: sviluppare **prima** il microservizio/SDK, referenziare la prerelease feature nel legacy; **prima della PR del legacy rimuovere il riferimento feature** e puntare alla versione dev/stabile.
-
-## Commesse (ore su agenda SmeUP) [solo EVODOC]
-
-- `EVO.006` nuove funzionalità · `EVO.007` integrazione smeup · `EVO.008` int. plain doc
-- `EVO.009` bugfix · `EVO.010` software testing
-- `DS-S709` solo riunioni interne · `GRN.OR1.02` smeup lab
+I progetti del perimetro EVODOC seguono la variante completa in `evodoc.md`
+(EVOPLATFORM, branch e prerelease da `dev`, versioning legacy/microservizi).
 
 ## Layering delle regole
 
 Le regole si organizzano su tre livelli (pattern Cursor):
 
-1. **Globali always-on** — solo gli invarianti (questo file): obiettivo
-   sotto le 200 righe, stile "comandi non ragioni" (cosa fare, non il perché).
+1. **Globali always-on** — solo gli invarianti (questo file + `evodoc.md`):
+   obiettivo sotto le 200 righe, stile "comandi non ragioni" (cosa fare, non il perché).
 2. **Dominio-specifico** — regole del singolo progetto in
    `.opencode/rules/*.md`, caricate via glob in `instructions` (opencode lo
    supporta), es.:
 
    ```jsonc
-   "instructions": ["~/.config/opencode/rules/rules.md", ".opencode/rules/*.md"]
+   "instructions": ["~/.config/opencode/rules/rules.md", "~/.config/opencode/rules/evodoc.md", ".opencode/rules/*.md"]
    ```
 
 3. **Manuale** — lane e comandi (`.opencode/commands/*.md`), non always-on.
 
 ## Cronologia versioni
 
+- `2.0.0 (2026-10-07)` — **MAJOR**: ristrutturazione su due file. Le regole
+  specifiche EVODOC (workflow EVOPLATFORM, versioning legacy/microservizi,
+  prerelease NuGet, flusso misto legacy+micro, commesse) migrano in
+  `rules/evodoc.md`, che individua il perimetro dal nome del repository
+  (`ZD_*` o contiene `evodoc`/`zerod`); i kokos_* di altri team e tutti i
+  progetti smeup/danismeup/danifx fuori perimetro seguono solo le regole
+  universali. Il file universale integra dal wiki (Stile e best practice):
+  regole sui commenti e `string.Empty`. Nessun principio indebolito: il
+  contenuto EVODOC conserva la stessa forza normativa nel file dedicato.
 - `1.4.0 (2026-10-05)` — **MINOR**: le costanti passano da `UPPER_SNAKE_CASE` a
   `PascalCase`, eliminando una contraddizione interna: la sezione "Regole
   C# / VB.NET" imponeva già di seguire le linee guida Microsoft, che in C#
