@@ -8,7 +8,8 @@ Configurazione globale opencode.
 - `tui.json` — config TUI (attualmente quasi vuota, placeholder)
 - `agents/` — agenti .md personalizzati
 - `commands/` — lane (/quick, /medium, /full, /debug)
-- `rules/` — regole always-on (`rules.md` = regole di sviluppo EVODOC, caricate via `instructions`)
+- `rules/` — regole always-on su due file, caricate via `instructions`: `rules.md` v2.0.0 = invarianti universali per tutti i progetti; `evodoc.md` v1.0.0 = perimetro EVODOC (repo `ZD_*` o con `evodoc`/`zerod` nel nome), fonte wiki ZD_evoDoc2
+- `scripts/wiki-sync.ps1|.sh` — mirror wiki ZD_evoDoc2 in `wiki-mirror/` (git-ignored); `-InstallTask` crea task pianificata Windows giornaliera
 - `skills/` — skill npm
 
 ## Permessi
@@ -34,7 +35,7 @@ Uso esclusivo della CLI `gh` (autenticata su tutte le macchine, allowlistata nei
 ## Agenti (nativi, `agents/*.md`)
 
 - `orchestrator` — coordinatore principale (primary, `opencode-go/glm-5.3-flash`)
-- `explorer`, `fixer`, `librarian`, `looker`, `observer`, `oracle`, `reviewer`, `verifier` — specialisti (`openrouter/deepseek/...`: flash per "rilegatura", `v4-pro` per `oracle`; `looker` = vision su `minimax-m3`)
+- `explorer`, `fixer`, `librarian`, `looker`, `observer`, `oracle`, `reviewer`, `verifier` — specialisti (`openrouter/deepseek/...`: flash per "rilegatura", `v4-pro` per `oracle`; `looker` = vision su `google/gemini-2.5-flash-lite`, supporto PDF nativo)
 - `designer` — UI/UX (`openrouter/meta/muse-spark-1.3-contributor`)
 
 I subagent non spawnano altri subagent (`subagent_depth: 1`); l'orchestrator

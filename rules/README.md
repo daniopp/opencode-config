@@ -1,38 +1,66 @@
 # Opencode Rules
 
 Regole always-on caricate via `instructions` in `opencode.jsonc` e applicate
-a tutti gli agenti.
+a tutti gli agenti. Struttura su due file:
 
-## Regole attuali
+| File | Versione | Perimetro |
+|---|---|---|
+| `rules.md` | 2.0.0 | **Universale**: tutti i progetti (smeup, danismeup, danifx) |
+| `evodoc.md` | 1.0.0 | **Solo perimetro EVODOC**: repo `ZD_*` o con `evodoc`/`zerod` nel nome |
 
-`rules.md` contiene le regole di sviluppo EVODOC (Team ZeroD / SmeUP):
+## Perimetro EVODOC
 
-- **Lingue**: documentazione in italiano, funzioni/variabili in inglese, messaggi di eccezione e log in italiano
-- **Nomenclatura**: PascalCase/camelCase, campi readonly `_` + camelCase, costanti UPPER_SNAKE_CASE, niente notazione ungherese
-- **C# / VB.NET**: sempre `List<T>` (mai `Collection<T>`), graffe stile Allman, preferire LINQ, pattern di creazione `JObject`
-- **Eccezioni**: rilancio con `throw;` (mai `throw ex;`), catch specifici, mai log di dati sensibili
-- **Test**: XUnit + Fluent Assertions, pattern AAA, naming `Metodo_StateUnderTest_ExpectedBehavior`
-- **Workflow GitHub EVODOC**: issue → branch da `dev` → PR → squash merge su `dev`, convenzioni titoli
-- **Branching/versioning**: SemVer per i microservizi, `YYYY.MM.DD.X` per i servizi legacy
-- **Commesse**: codici agenda SmeUP (EVO.006–010, DS-S709, GRN.OR1.02)
+Il perimetro si riconosce dal nome del repository (case-insensitive): inizia
+con `ZD_` (legacy), oppure contiene `evodoc`, oppure contiene `zerod`
+(es. `kokos-me-dotnet-evodoc-evocache`, `kokos-me-dotnet-zerod-evocache`).
+I repo `kokos_*` senza questi termini sono di altri team: solo regole
+universali.
 
-## Linee guida per nuove regole
+## Contenuto universale (rules.md)
 
-- Solo regole sempre-applicabili, non contestuali a un singolo progetto
-- Niente segreti o credenziali
-- Le regole sono vincolanti per tutti gli agenti (orchestrator e subagent)
+- **Lingue**: documentazione in italiano, funzioni/variabili in inglese, eccezioni e log in italiano
+- **Nomenclatura**: PascalCase/camelCase, `_` + camelCase per readonly, costanti PascalCase (Microsoft), niente ungherese
+- **C# / VB.NET**: `List<T>` mai `Collection<T>`, `JObject` con `JProperty`, Allman, LINQ, `var`, `string.Empty`, commenti brevi senza riferimenti a doc di sviluppo
+- **Eccezioni**: `throw;` mai `throw ex;`, catch specifici, mai log di dati sensibili
+- **Segreti**: mai nei repo; un solo meccanismo di lettura, stesso nome variabile in tutti gli ambienti
+- **Test**: XUnit + Fluent Assertions, AAA, naming `Metodo_StateUnderTest_ExpectedBehavior`
+- **Workflow GitHub generico**: issue → branch `<tipo>/<descrizione>` → PR `<tipo>: <descrizione>` + `Refs` → squash merge → SemVer
+- **Documentazione di sviluppo**: fuori dai repo; unico artefatto `CHANGELOG.md`
+
+## Contenuto EVODOC (evodoc.md)
+
+Fonte: wiki <https://github.com/smeup/ZD_evoDoc2/wiki> ("Bibbia dello
+sviluppatore"). Include: elenco legacy ufficiale, workflow EVOPLATFORM
+(issue → branch da `dev` → PR `Refs smeup/evoplatform-projects#` → squash),
+versioning legacy `YYYY.MM.DD.X` (Jenkins) e microservizi (SemVer +
+prerelease `feature.X`/`dev.X` manuali), struttura repo microservizio
+(microservizio+SDK+Shared stessa versione), flusso misto legacy+micro,
+rilascio fine sprint, commesse SmeUP. Le pagine operative della wiki
+(installazione, IIS, porte, helper…) sono riferimenti, non regole.
+
+## Mirror wiki e aggiornamento
+
+`scripts/wiki-sync.ps1` clona/aggiorna la wiki in `wiki-mirror/`
+(git-ignored, mai commit-ata: alcune pagine contengono credenziali):
+
+```powershell
+scripts/wiki-sync.ps1              # clone o aggiornamento
+scripts/wiki-sync.ps1 -Status      # stato del mirror
+scripts/wiki-sync.ps1 -InstallTask # task pianificata Windows giornaliera 07:30
+```
+
+Su Linux: `scripts/wiki-sync.sh` oppure cron
+`30 7 * * * <repo>/scripts/wiki-sync.sh`.
 
 ## Governance e versioning
 
-`rules.md` è un artefatto di governance versionato: la versione SemVer è nel
-blocco `> Versione:` in testa al file; semantica MAJOR/MINOR/PATCH e procedura
-di modifica (una modifica = PR su questo repo con aggiornamento di versione e
-cronologia) sono in `## Governance di questo file`; lo storico in
-`## Cronologia versioni`. I principi non si diluiscono per chiudere un conflitto.
+Entrambi i file sono artefatti di governance versionati (SemVer nel blocco
+`> Versione:` e `## Cronologia versioni`): una modifica = una PR su questo
+repo. MAJOR = principio rimosso/indebolito, MINOR = nuova regola, PATCH =
+redazionale. I principi non si diluiscono per chiudere un conflitto.
 
 ## Layering delle regole
 
-Le regole sono organizzate su tre livelli: globali always-on (solo invarianti
-EVODOC, sotto le 200 righe, "comandi non ragioni"), dominio-specifico
-(`.opencode/rules/*.md` nel progetto, caricati via glob in `instructions`) e
-manuale (lane e comandi).
+Tre livelli: globali always-on (`rules.md` + `evodoc.md`, sotto le 200 righe,
+"comandi non ragioni"), dominio-specifico (`.opencode/rules/*.md` nel
+progetto, caricati via glob in `instructions`), manuale (lane e comandi).

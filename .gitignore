@@ -8,6 +8,9 @@
 .opencode/sessions/
 .opencode/cache/
 
+# Mirror locale wiki ZD_evoDoc2 (puo' contenere credenziali: MAI committare)
+wiki-mirror/
+
 # Generici
 node_modules/
 logs/

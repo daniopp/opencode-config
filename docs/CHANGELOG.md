@@ -1,5 +1,74 @@
 # Changelog
 
+## 2026-10-07 (2) - skill gh-pr-windows — fix gh pr create su Windows
+
+### Aggiunto
+
+- `skills/gh-pr-windows/SKILL.md` — skill on-demand per i fallimenti di `gh` (e subcommand che shellano git) su Windows: causa documentata `C:\src\depot_tools\git.bat` prima di `C:\Program Files\Git\cmd\git.exe` nel PATH (gh risolve il wrapper depot_tools, le chiamate git interne falliscono con `"merge" non è riconosciuto`); escalation PATH guard (`$env:PATH = "C:\Program Files\Git\cmd;$env:PATH"`) poi fallback REST `gh api repos/OWNER/REPO/pulls` (zero git locale)
+- `.gitattributes` — `*.sh text eol=lf`: gli script shell restano LF nel working tree Windows
+
+### Modificato
+
+- `scripts/sync.sh` — normalizzato a LF nel working tree: ora eseguibile dal bash tool Windows (WSL `/mnt/c` e Git Bash), prima bocciato da bash con `$'\r': command not found`
+
+### Note
+
+- Root cause riprodotta con `gh pr create --dry-run` (errore riproducibile, niente PR spurie); fix PATH verificato empiricamente (dry-run verde dopo il guard); sync locale↔repo verificata per hash SHA-256
+- Skill attiva al prossimo restart di opencode (le skill si caricano all'avvio)
+
+## 2026-10-07 - rules v2.0.0 su due file — invarianti universali + perimetro EVODOC
+
+### Aggiunto
+
+- `rules/evodoc.md` — 1.0.0: regole del perimetro EVODOC (repo `ZD_*` o con `evodoc`/`zerod` nel nome), fonte wiki ZD_evoDoc2 — workflow EVOPLATFORM, branching/versioning (legacy `YYYY.MM.DD.X` da Jenkins, SemVer microservizi), prerelease NuGet manuali, flusso misto legacy+micro, rilascio fine sprint, commesse SmeUP
+- `scripts/wiki-sync.ps1|.sh` — mirror wiki ZD_evoDoc2 in `wiki-mirror/` (git-ignored); `-InstallTask` crea task pianificata Windows giornaliera
+- `docs/CHANGELOG.md` — entry release precedenti allineate
+
+### Modificato
+
+- `rules/rules.md` → 2.0.0 (MAJOR): ristrutturazione su due file — invarianti universali per tutti i progetti smeup/danismeup/danifx; contenuti EVODOC migrati in `rules/evodoc.md`; dal wiki "Stile e best practice": regole sui commenti e `string.Empty`
+- `rules/README.md`, `AGENTS.md`, `README.md` — allineati alla struttura due-file e alla fonte wiki
+- `.gitignore` — `wiki-mirror/` escluso
+
+### Note
+
+- Nessun principio indebolito: il contenuto EVODOC conserva la stessa forza normativa nel file dedicato; MAJOR per la ristrutturazione documentale, non per indebolimento di regole
+
+## 2026-10-05 (2) - looker: modello PDF-capable (gemini-2.5-flash-lite)
+
+### Modificato
+
+- `agents/looker.md` — modello da `openrouter/minimax/minimax-m3` (no input `file`, causa errore "Cannot read pdf") a `google/gemini-2.5-flash-lite`: input PDF+immagine nativi, ctx 1M, $0.10/M in e $0.40/M out (tier low-cost, scelta dopo scan di 466 modelli del catalogo OpenRouter)
+- `AGENTS.md` — inventario agenti allineato
+
+### Note
+
+- Modifica applicata sia al repo sia alla config live `~/.config/opencode/agents/looker.md` (i due file erano identici prima e dopo); richiede restart opencode per prendere effetto
+
+## 2026-10-05 - rules.md v1.4.0 — costanti in PascalCase
+
+### Modificato
+
+- `rules/rules.md` → 1.4.0 (MINOR): le costanti passano da `UPPER_SNAKE_CASE` a `PascalCase` (`MaxValue`), eliminando la contraddizione interna con "Seguire le linee guida Microsoft" che in C# prescrive `PascalCase` anche per le costanti; `UPPER_SNAKE_CASE` resta indicato per i linguaggi la cui convenzione lo prevede (`enum` in Python, costanti C-like)
+- `AGENTS.md`, `README.md`, `rules/README.md` — mention della versione allineate a 1.4.0
+
+### Note
+
+- Nessun principio indebolito: le regole "Documentazione di sviluppo", "Segreti", "Gestione delle eccezioni" e l'audit trail restano invariati; la modifica riguarda una sola convenzione di nomenclatura
+- Decisione nata in `AutoDiario.it`, dove il codice aveva adottato `PascalCase` in contrasto con la regola: il codice è stato lasciato com'è, la regola allineata al codice
+
+## 2026-10-04 (2) - rules.md v1.3.0 — regole valide anche fuori dal perimetro EVODOC
+
+### Modificato
+
+- `rules/rules.md` → 1.3.0 (MINOR): titolo generico "Regole di sviluppo"; nuova sezione "Ambito" con i default per i progetti fuori perimetro (issue nel tracker di progetto, nessun blocco `Refs smeup/evoplatform-projects#`, feature branch da `main`, SemVer di default); tag `[solo EVODOC]` su Workflow EVOPLATFORM, naming repository, Branching e Commesse
+- `rules/README.md` — "Regole attuali" riscritte con l'ambito applicativo e i tag `[solo EVODOC]`; `AGENTS.md`, `README.md` — mention allineate
+
+### Note
+
+- Invariante `Universal+` confermato senza rimozioni di regole: audit trail issue/PR/squash resta universale (per i progetti esterni vale il tracker del repo); "Documentazione di sviluppo" (CHANGELOG unico), "Segreti" ed "Eccezioni" restano intatti
+- Il titolo perde il prefisso `EVODOC -` perché il documento ora copre due perimetri; la fonte wiki e il team SmeUP restano citati in testata e nella sezione "Ambito"
+
 ## 2026-10-04 - v1.3.0 — agente looker, OpenCode Go, permission gating segreti (PR #8)
 
 ### Aggiunto
