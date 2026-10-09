@@ -8,7 +8,7 @@ Configurazione globale opencode.
 - `tui.json` — config TUI (attualmente quasi vuota, placeholder)
 - `agents/` — agenti .md personalizzati
 - `commands/` — lane (/quick, /medium, /full, /debug)
-- `rules/` — regole always-on su due file, caricate via `instructions`: `rules.md` v2.0.0 = invarianti universali per tutti i progetti; `evodoc.md` v1.0.0 = perimetro EVODOC (repo `ZD_*` o con `evodoc`/`zerod` nel nome), fonte wiki ZD_evoDoc2
+- `rules/` — regole always-on su due file, caricate via `instructions`: `rules.md` v2.0.0 = invarianti universali per tutti i progetti; `evodoc.md` v1.1.0 = perimetro EVODOC (repo `ZD_*` o con `evodoc`/`zerod` nel nome; limite 64 caratteri versione prerelease/50 caratteri nome branch), fonte wiki ZD_evoDoc2
 - `scripts/wiki-sync.ps1|.sh` — mirror wiki ZD_evoDoc2 in `wiki-mirror/` (git-ignored); `-InstallTask` crea task pianificata Windows giornaliera
 - `skills/` — skill npm
 
