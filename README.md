@@ -21,7 +21,7 @@ echo "OPENROUTER_API_KEY=your_token" > ~/git/opencode-config/.dev.vars
 opencode
 ```
 
-**Per guide dettagliate (WSL, modelli, troubleshooting), vedi [INSTALL.md](INSTALL.md).**
+**Per guide dettagliate (WSL, modelli, troubleshooting), vedi [INSTALL.md](wiki/INSTALL.md).**
 
 ## Modelli
 
@@ -95,10 +95,10 @@ Nessuno (`mcp: {}`). Rimossi dopo verifica su opencode.db (zero invocazioni nell
 
 ## Documenti
 
-- [INSTALL.md](INSTALL.md) — guida installazione dettagliata
-- [ARCHITECTURE.md](ARCHITECTURE.md) — architettura della config
-- [docs/SETUP.md](docs/SETUP.md) · [docs/PERMISSIONS.md](docs/PERMISSIONS.md) · [docs/DEBUG.md](docs/DEBUG.md) · [docs/CHANGELOG.md](docs/CHANGELOG.md)
-- [docs/BMAD-ASSESSMENT.md](docs/BMAD-ASSESSMENT.md) — valutazione BMAD v6 e framework spec-driven, gap analysis e strategia (homegrown + skill `story-craft`, `spec-archive`, `project-kb-setup` estesa; roadmap completata; wave 2 con pattern adottati)
+- [INSTALL.md](wiki/INSTALL.md) — guida installazione dettagliata
+- [ARCHITECTURE.md](wiki/ARCHITECTURE.md) — architettura della config
+- [SETUP.md](wiki/SETUP.md) · [PERMISSIONS.md](wiki/PERMISSIONS.md) · [DEBUG.md](wiki/DEBUG.md) · [CHANGELOG.md](CHANGELOG.md)
+- [BMAD-ASSESSMENT.md](wiki/BMAD-ASSESSMENT.md) — valutazione BMAD v6 e framework spec-driven, gap analysis e strategia (homegrown + skill `story-craft`, `spec-archive`, `project-kb-setup` estesa; roadmap completata; wave 2 con pattern adottati)
 
 ## Tools / Script
 
@@ -118,8 +118,8 @@ opencode-config/
 ├── rules/            # Always-on rules
 ├── skills/           # Skills markdown
 ├── memory/           # Memoria utente (esclusa dal sync)
-├── docs/             # Guide (setup, permessi, debug, changelog, decisioni)
-├── mcp/ · global/    # Note MCP, config alternative
+├── wiki/             # Documentazione (Home.md = indice; mcp/, plans/, specs/)
+├── global/           # Config alternative
 ├── scripts/          # sync.sh (sync live <-> repo)
 ├── repo-examples/    # Template (es. opencode-project-trusted.jsonc)
 └── .dev.vars         # Credentials
