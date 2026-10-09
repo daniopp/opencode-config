@@ -72,4 +72,4 @@ export OPENCODE_SERVER_PASSWORD="tua-password"
 ### npm E404 su pacchetti MCP
 
 `@github/github-mcp-server` NON esiste su npm.
-Usa il remote server o compila da Go. Vedi `mcp/GITHUB_MCP.md`.
+Usa il remote server o compila da Go. Vedi `wiki/mcp/GITHUB_MCP.md`.
