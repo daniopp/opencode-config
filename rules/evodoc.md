@@ -1,6 +1,6 @@
 # Regole EVODOC (Team ZeroD / SmeUP)
 
-> Versione: 1.0.0 (2026-10-07)
+> Versione: 1.1.0 (2026-10-09)
 >
 > **Perimetro** — si applicano SOLO se il nome del repository soddisfa una di
 > queste condizioni (case-insensitive): inizia con `ZD_`, oppure contiene
@@ -72,6 +72,17 @@ Servizi legacy (componenti storici dell'ecosistema EVODOC):
   della PR del legacy rimuovere il riferimento feature** e puntare alla
   versione `dev`/stabile. Mai rilasciare legacy che dipende da versioni
   `feature` dei microservizi.
+- **Lunghezza massima versione prerelease**: la stringa di versione completa
+  non può superare i **64 caratteri** — limite applicato da nuget.org alla
+  pubblicazione (Azure Artifacts rifiuta oltre 90). Poiché il prerelease
+  incorpora il nome del branch (`MAJOR.MINOR.PATCH-feature.NOME_BRANCH.X`),
+  i nomi dei branch devono restare brevi:
+  - Nome branch massimo **50 caratteri** totali, formato `<tipo>/<issue>-<slug>`:
+    slug breve (2-3 parole, es. `fix/123-nuget-version-length`), niente frasi
+    descrittive.
+  - Se la versione composta rischia comunque il limite (branch non
+    comprimibile), comporre il campo versione con una forma abbreviata di
+    `NOME_BRANCH`: il nome del branch git resta invariato.
 - Rilascio fine sprint (microservizi): PR `dev → main` con merge
   "Rebase and Merge" e titolo `Pre-Release Version x.x.x [skip ci]`; bump
   versione nei 3 progetti; commit diretto su `main`
@@ -101,6 +112,13 @@ di `rules.md`.
 
 ## Cronologia versioni
 
+- `1.1.0 (2026-10-09)` — **MINOR**: nuova regola di lunghezza versioni
+  prerelease: la stringa completa `MAJOR.MINOR.PATCH-...` non deve superare
+  64 caratteri (limite documentato di nuget.org; Azure Artifacts abortisce a
+  90). Con la versione che incorpora il nome del branch, il branch è limitato
+  a massimo 50 caratteri, slug breve; in caso limite si abbrevia `NOME_BRANCH`
+  nel campo versione senza rinominare il branch git. Fonte: analisi NuGet
+  (Microsoft Learn nuspec, codice NuGetGallery). Nessun principio indebolito.
 - `1.0.0 (2026-10-07)` — versione iniziale: estrae dalla wiki sviluppatore
   EVODOC il perimetro (legacy `ZD_*`, repo con `evodoc`/`zerod` nel nome),
   workflow EVOPLATFORM, branching/versioning (legacy `YYYY.MM.DD.X` da
