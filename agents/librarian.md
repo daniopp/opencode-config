@@ -1,7 +1,7 @@
 ---
 description: External research specialist - official documentation, API references, version-specific web retrieval with cited sources
 mode: subagent
-model: opencode-go/mimo-v2.6-flash-free
+model: opencode/mimo-v2.6-flash-free
 steps: 25
 permission:
   read:

@@ -32,15 +32,15 @@ Il body del markdown è il system prompt.
 | Agente | Mode | Modello | Permessi chiave |
 |---|---|---|---|
 | `orchestrator` | primary | `opencode-go/claude-haiku-5-5` (dal config globale, nessun override) | task allowlist sugli 8 specialisti |
-| `explorer` | subagent | `opencode-go/mimo-v2.6-flash-free` | read-only (solo read/grep/glob, niente bash) |
-| `librarian` | subagent | `opencode-go/mimo-v2.6-flash-free` | webfetch/websearch, niente shell |
+| `explorer` | subagent | `opencode/mimo-v2.6-flash-free` | read-only (solo read/grep/glob, niente bash) |
+| `librarian` | subagent | `opencode/mimo-v2.6-flash-free` | webfetch/websearch, niente shell |
 | `oracle` | subagent | `opencode-go/claude-sonnet-5-5` | read-only, advisor strategico |
 | `fixer` | subagent | `opencode-go/claude-haiku-5-5` | edit allow, bash solo test runner + git status/diff |
 | `reviewer` | subagent | `opencode-go/claude-haiku-5-5` | read-only, review avversariale con evidenze |
 | `verifier` | subagent | `opencode-go/claude-haiku-5-5` | read-only, verifica completion con evidenze |
-| `observer` | subagent | `opencode-go/mimo-v2.6-flash-free` | read-only, monitoraggio |
+| `observer` | subagent | `opencode/mimo-v2.6-flash-free` | read-only, monitoraggio |
 | `looker` | subagent | `opencode-go/claude-haiku-5-5` | vision/PDF, read-only |
-| `designer` | subagent | `opencode-go/muse-spark-1.3-contributor-free` | edit allow, eredita matrice bash globale |
+| `designer` | subagent | `opencode/muse-spark-1.3-contributor-free` | edit allow, eredita matrice bash globale |
 
 I subagent hanno `task: deny` (non spawnano altri agenti);
 `subagent_depth: 1` in `opencode.jsonc` impone il limite anche a livello di
