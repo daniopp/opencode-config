@@ -27,14 +27,16 @@ opencode
 
 | Ruolo | Modello | Prezzo ($/M in/out) | Note |
 |-------|---------|---------------------|------|
-| Primario | `openrouter/z-ai/glm-5.3-flash` | 0.15 / 0.50 | contesto 1M, multimodale, cache read 0.03 |
-| Small model | `openrouter/deepseek/deepseek-v4-flash-0731` | 0.05 / 0.16 | title/summary/compaction, contesto 1M |
+| Primario | `opencode-go/claude-haiku-5-5` | 0.10 / 0.50 | contesto 1M, vision, cache read 0.01 |
+| Small model | `opencode-go/deepseek-v4-flash` | 0.14 / 0.28 | title/summary/compaction, contesto 1M |
 
 ## Agenti
 
-- `orchestrator` — coordinatore principale (GLM 5.3 Flash)
-- `explorer`, `librarian`, `oracle`, `reviewer`, `verifier`, `fixer`, `observer` — specialisti (DeepSeek V4 Flash)
-- `designer` — UI/UX, multimodale (`meta/muse-spark-1.3-contributor`)
+- `orchestrator` — coordinatore principale (Claude Haiku 5.5)
+- `explorer`, `librarian`, `observer` — recon read-only su free (MiMo-V2.6-Flash)
+- `fixer`, `reviewer`, `verifier`, `looker` — Haiku 5.5 (looker = vision/PDF)
+- `oracle` — advisor deep-reasoning (`claude-sonnet-5.5` via OpenRouter)
+- `designer` — UI/UX, multimodale (`muse-spark-1.3-contributor-free`)
 
 ## Comandi (lane)
 

@@ -96,19 +96,19 @@ opencode
 
 ## Model Providers e API Keys
 
-Modelli correnti, via OpenRouter (prezzi di listino $/M token):
+Modelli correnti, via OpenCode Go (prezzi di listino $/M token):
 
 | Ruolo | Modello | in | out | cache read |
 |-------|---------|----|----|------------|
-| Primario | `z-ai/glm-5.3-flash` | 0.15 | 0.50 | 0.03 |
-| Small model | `deepseek/deepseek-v4-flash-0731` | 0.05 | 0.16 | 0.013 |
+| Primario | `claude-haiku-5-5` | 0.10 | 0.50 | 0.01 |
+| Small model | `deepseek-v4-flash` | 0.14 | 0.28 | 0.03 |
 
 Config in `opencode.jsonc`:
 
 ```json
 {
-  "model": "openrouter/z-ai/glm-5.3-flash",
-  "small_model": "openrouter/deepseek/deepseek-v4-flash-0731"
+  "model": "opencode-go/claude-haiku-5-5",
+  "small_model": "opencode-go/deepseek-v4-flash"
 }
 ```
 
@@ -131,15 +131,16 @@ Questa configurazione usa agenti custom in `agents/*.md` invece di quelli built-
 
 | Agente | Scopo | Modello |
 |--------|-------|---------|
-| `orchestrator` | Coordinatore principale, gestione workflow | `z-ai/glm-5.3-flash` |
-| `explorer` | Ricerca codice read-only | `deepseek-v4.1-flash` |
-| `librarian` | Ricerca documentazione read-only | `deepseek-v4.1-flash` |
-| `oracle` | Analisi architetturale read-only | `deepseek-v4.1-flash` |
-| `reviewer` | Review avversariale di piani e codice | `deepseek-v4.1-flash` |
-| `verifier` | Verifica completamento con evidenze | `deepseek-v4.1-flash` |
-| `fixer` | Implementazione rapida e scoped | `deepseek-v4.1-flash` |
-| `observer` | Monitoring read-only | `deepseek-v4.1-flash` |
-| `designer` | UI/UX design e implementation | `meta/muse-spark-1.3-contributor` |
+| `orchestrator` | Coordinatore principale, gestione workflow | `claude-haiku-5-5` (Go) |
+| `explorer` | Ricerca codice read-only | `mimo-v2.6-flash-free` (Go, free) |
+| `librarian` | Ricerca documentazione read-only | `mimo-v2.6-flash-free` (Go, free) |
+| `oracle` | Analisi architetturale read-only | `openrouter/anthropic/claude-sonnet-5.5` (OpenRouter) |
+| `reviewer` | Review avversariale di piani e codice | `claude-haiku-5-5` (Go) |
+| `verifier` | Verifica completamento con evidenze | `claude-haiku-5-5` (Go) |
+| `fixer` | Implementazione rapida e scoped | `claude-haiku-5-5` (Go) |
+| `observer` | Monitoring read-only | `mimo-v2.6-flash-free` (Go, free) |
+| `looker` | Analisi PDF/immagini (vision) | `claude-haiku-5-5` (Go) |
+| `designer` | UI/UX design e implementation | `muse-spark-1.3-contributor-free` (Go, free) |
 
 **Per dettagli su ciascun agente, vedi [`agents/README.md`](agents/README.md).**
 
