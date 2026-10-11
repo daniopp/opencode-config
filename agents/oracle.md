@@ -1,7 +1,7 @@
 ---
 description: High-impact strategic technical advisor for architecture decisions, risk analysis, code reviews, and deep debugging. Read-only.
 mode: subagent
-model: openrouter/deepseek/deepseek-v4-pro
+model: openrouter/anthropic/claude-sonnet-5.5
 steps: 25
 permission:
   # read sempre a mappa: la scalar "allow" by-passa le deny globali sui segreti
