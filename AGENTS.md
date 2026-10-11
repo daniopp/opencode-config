@@ -34,9 +34,13 @@ Uso esclusivo della CLI `gh` (autenticata su tutte le macchine, allowlistata nei
 
 ## Agenti (nativi, `agents/*.md`)
 
-- `orchestrator` — coordinatore principale (primary, `opencode-go/glm-5.3-flash`)
-- `explorer`, `fixer`, `librarian`, `looker`, `observer`, `oracle`, `reviewer`, `verifier` — specialisti (`openrouter/deepseek/...`: flash per "rilegatura", `v4-pro` per `oracle`; `looker` = vision su `google/gemini-2.5-flash-lite`, supporto PDF nativo)
-- `designer` — UI/UX (`openrouter/meta/muse-spark-1.3-contributor`)
+- `orchestrator` — coordinatore principale (primary, `opencode-go/claude-haiku-5-5`)
+
+- `fixer`, `reviewer`, `verifier`, `looker` — specialisti su `opencode-go/claude-haiku-5-5`
+  (looker = vision/PDF); `explorer`, `librarian`, `observer` — recon free su
+  `opencode-go/mimo-v2.6-flash-free` (tier Zen free, rate-limited)
+- `designer` — UI/UX (`opencode-go/muse-spark-1.3-contributor-free`)
+- `oracle` — advisor strategico (`opencode-go/claude-sonnet-5-5`)
 
 I subagent non spawnano altri subagent (`subagent_depth: 1`); l'orchestrator
 delega via `task` tool con allowlist su 8 specialisti.

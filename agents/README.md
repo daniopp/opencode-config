@@ -31,15 +31,16 @@ Il body del markdown è il system prompt.
 
 | Agente | Mode | Modello | Permessi chiave |
 |---|---|---|---|
-| `orchestrator` | primary | `opencode-go/glm-5.3-flash` (dal config globale, nessun override) | task allowlist sugli 8 specialisti |
-| `explorer` | subagent | `openrouter/deepseek/deepseek-v4.1-flash` | read-only (solo read/grep/glob, niente bash) |
-| `librarian` | subagent | `openrouter/deepseek/deepseek-v4.1-flash` | webfetch/websearch, niente shell |
-| `oracle` | subagent | `openrouter/deepseek/deepseek-v4-pro` | read-only, advisor strategico |
-| `fixer` | subagent | `openrouter/deepseek/deepseek-v4.1-flash` | edit allow, bash solo test runner + git status/diff |
-| `reviewer` | subagent | `openrouter/deepseek/deepseek-v4.1-flash` | read-only, review avversariale con evidenze |
-| `verifier` | subagent | `openrouter/deepseek/deepseek-v4.1-flash` | read-only, verifica completion con evidenze |
-| `observer` | subagent | `openrouter/deepseek/deepseek-v4.1-flash` | read-only, monitoraggio |
-| `designer` | subagent | `openrouter/meta/muse-spark-1.3-contributor` | edit allow, eredita matrice bash globale |
+| `orchestrator` | primary | `opencode-go/claude-haiku-5-5` (dal config globale, nessun override) | task allowlist sugli 8 specialisti |
+| `explorer` | subagent | `opencode-go/mimo-v2.6-flash-free` | read-only (solo read/grep/glob, niente bash) |
+| `librarian` | subagent | `opencode-go/mimo-v2.6-flash-free` | webfetch/websearch, niente shell |
+| `oracle` | subagent | `opencode-go/claude-sonnet-5-5` | read-only, advisor strategico |
+| `fixer` | subagent | `opencode-go/claude-haiku-5-5` | edit allow, bash solo test runner + git status/diff |
+| `reviewer` | subagent | `opencode-go/claude-haiku-5-5` | read-only, review avversariale con evidenze |
+| `verifier` | subagent | `opencode-go/claude-haiku-5-5` | read-only, verifica completion con evidenze |
+| `observer` | subagent | `opencode-go/mimo-v2.6-flash-free` | read-only, monitoraggio |
+| `looker` | subagent | `opencode-go/claude-haiku-5-5` | vision/PDF, read-only |
+| `designer` | subagent | `opencode-go/muse-spark-1.3-contributor-free` | edit allow, eredita matrice bash globale |
 
 I subagent hanno `task: deny` (non spawnano altri agenti);
 `subagent_depth: 1` in `opencode.jsonc` impone il limite anche a livello di

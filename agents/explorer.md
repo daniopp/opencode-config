@@ -1,7 +1,7 @@
 ---
 description: Read-only codebase reconnaissance - finds files, symbols, and patterns, returning compressed maps
 mode: subagent
-model: openrouter/deepseek/deepseek-v4.1-flash
+model: opencode-go/mimo-v2.6-flash-free
 steps: 25
 permission:
   # read sempre a mappa: la scalar "allow" by-passa le deny globali sui segreti

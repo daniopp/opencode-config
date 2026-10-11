@@ -26,9 +26,11 @@ REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # (es. MODELS[nome]="provider/modello")
 # ---------------------------------------------------------------------------
 declare -A MODELS=(
-  [glm]="openrouter/z-ai/glm-5.3-flash"                   # GLM 5.3 Flash (Z.AI)
-  [dsv4]="openrouter/deepseek/deepseek-v4-flash-0731"     # DeepSeek V4 Flash 0731 (small_model)
-  [dsv41]="openrouter/deepseek/deepseek-v4.1-flash"       # DeepSeek V4.1 Flash (specialists)
+  [haiku]="opencode-go/claude-haiku-5-5"                  # Claude Haiku 5.5 (primario + fixer/reviewer/verifier/looker)
+  [mimo]="opencode-go/mimo-v2.6-flash-free"               # MiMo-V2.6-Flash free (explorer/librarian/observer)
+  [dsv4]="opencode-go/deepseek-v4-flash"                  # DeepSeek V4 Flash (small_model)
+  [glm]="openrouter/z-ai/glm-5.3-flash"                   # GLM 5.3 Flash (fallback OpenRouter)
+  [dsv41]="openrouter/deepseek/deepseek-v4.1-flash"       # DeepSeek V4.1 Flash (fallback OpenRouter)
 )
 
 BLU='\033[1;36m'; YLW='\033[1;33m'; GRN='\033[1;32m'; RST='\033[0m'

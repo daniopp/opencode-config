@@ -1,7 +1,7 @@
 ---
 description: Multimodal media specialist - analyzes PDFs, images, screenshots and diagrams, returning extracted facts as text. Saves orchestrator context by keeping media out of the main session.
 mode: subagent
-model: openrouter/google/gemini-2.5-flash-lite
+model: opencode-go/claude-haiku-5-5
 steps: 15
 permission:
   # Mappa read esplicita: la scalar "allow" è un override della matrice

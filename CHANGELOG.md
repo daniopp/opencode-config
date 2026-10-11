@@ -1,5 +1,23 @@
 # Changelog
 
+## 2026-10-11 - riallocazione modelli su OpenCode Go (analisi costi/qualità Go + OpenRouter)
+
+### Modificato
+
+- `opencode.jsonc` — primario da `opencode-go/glm-5.3-flash` a `opencode-go/claude-haiku-5-5` ($0.10/$0.50, cache read $0.01 vs $0.15/$0.50/$0.03; τ²-Bench Airline 75.3% vs 75.7%, ctx 1M, vision); `small_model` da `openrouter/deepseek/deepseek-v4-flash-0731` a `opencode-go/deepseek-v4-flash` ($0.14/$0.28)
+- `agents/{fixer,reviewer,verifier}.md` — da `openrouter/deepseek/deepseek-v4.1-flash` a `opencode-go/claude-haiku-5-5` (output 4× più economico del V4.1 Flash su Go, qualità agentic pari)
+- `agents/looker.md` — da `openrouter/google/gemini-2.5-flash-lite` (retirement segnalato 20-10-2026) a `opencode-go/claude-haiku-5-5` (vision nativa)
+- `agents/{explorer,librarian,observer}.md` — da `openrouter/deepseek/deepseek-v4.1-flash` a `opencode-go/mimo-v2.6-flash-free` (free tier Zen, τ² tool-call 79.7% — #2 assoluto)
+- `agents/designer.md` — da `openrouter/meta/muse-spark-1.3-contributor` ($0.10/$0.20) a `opencode-go/muse-spark-1.3-contributor-free` ($0)
+- `agents/oracle.md` — da `openrouter/deepseek/deepseek-v4-pro` (elenco volatile, Go $1.74/$3.84 = tier più caro) a `opencode-go/claude-sonnet-5-5` (τ² 78.0% #7, AA Intelligence #2)
+- `agents/orchestrator.md`, `agents/README.md`, `AGENTS.md`, `README.md`, `wiki/INSTALL.md`, `scripts/set-models.sh` — allineati alla nuova mappa (alias `haiku`/`mimo`/`dsv4`)
+
+### Note
+
+- Fonte: listino modelli OpenCode Go (piano abbonato) + OpenRouter models/rankings/τ²-Bench ai 10-11 ottobre 2026; prezzi OpenRouter e Go combaciano per Haiku 5.5
+- Prime prove su free tiers (mimo/muse contributor) da fare in sessione reale: rate-limit e latency da monitorare
+- Cambio effettivo al riavvio di opencode (config non hot-reload)
+
 ## 2026-10-07 (2) - skill gh-pr-windows — fix gh pr create su Windows
 
 ### Aggiunto
