@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-11 (2) - fix modello oracle
+
+### Modificato
+
+- `agents/oracle.md`, `agents/README.md`, `AGENTS.md`, `README.md`, `wiki/INSTALL.md` — `opencode-go/claude-sonnet-5-5` sostituito con `openrouter/anthropic/claude-sonnet-5.5`: il primo non esiste nel catalogo OpenCode Go (`ProviderModelNotFoundError`), il secondo risponde
+
 ## 2026-10-11 - riallocazione modelli su OpenCode Go (analisi costi/qualità Go + OpenRouter)
 
 ### Modificato

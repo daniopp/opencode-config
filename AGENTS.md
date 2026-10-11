@@ -40,7 +40,7 @@ Uso esclusivo della CLI `gh` (autenticata su tutte le macchine, allowlistata nei
   (looker = vision/PDF); `explorer`, `librarian`, `observer` — recon free su
   `opencode/mimo-v2.6-flash-free` (tier Zen free, rate-limited)
 - `designer` — UI/UX (`opencode/muse-spark-1.3-contributor-free`)
-- `oracle` — advisor strategico (`opencode-go/claude-sonnet-5-5`)
+- `oracle` — advisor strategico (`openrouter/anthropic/claude-sonnet-5.5`)
 
 I subagent non spawnano altri subagent (`subagent_depth: 1`); l'orchestrator
 delega via `task` tool con allowlist su 8 specialisti.

@@ -34,7 +34,7 @@ Il body del markdown è il system prompt.
 | `orchestrator` | primary | `opencode-go/claude-haiku-5-5` (dal config globale, nessun override) | task allowlist sugli 8 specialisti |
 | `explorer` | subagent | `opencode/mimo-v2.6-flash-free` | read-only (solo read/grep/glob, niente bash) |
 | `librarian` | subagent | `opencode/mimo-v2.6-flash-free` | webfetch/websearch, niente shell |
-| `oracle` | subagent | `opencode-go/claude-sonnet-5-5` | read-only, advisor strategico |
+| `oracle` | subagent | `openrouter/anthropic/claude-sonnet-5.5` | read-only, advisor strategico |
 | `fixer` | subagent | `opencode-go/claude-haiku-5-5` | edit allow, bash solo test runner + git status/diff |
 | `reviewer` | subagent | `opencode-go/claude-haiku-5-5` | read-only, review avversariale con evidenze |
 | `verifier` | subagent | `opencode-go/claude-haiku-5-5` | read-only, verifica completion con evidenze |
