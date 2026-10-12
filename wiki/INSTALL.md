@@ -132,13 +132,13 @@ Questa configurazione usa agenti custom in `agents/*.md` invece di quelli built-
 | Agente | Scopo | Modello |
 |--------|-------|---------|
 | `orchestrator` | Coordinatore principale, gestione workflow | `claude-haiku-5-5` (Go) |
-| `explorer` | Ricerca codice read-only | `mimo-v2.6-flash-free` (Go, free) |
-| `librarian` | Ricerca documentazione read-only | `mimo-v2.6-flash-free` (Go, free) |
+| `explorer` | Ricerca codice read-only | `claude-haiku-5-5` (Go) |
+| `librarian` | Ricerca documentazione read-only | `claude-haiku-5-5` (Go) |
 | `oracle` | Analisi architetturale read-only | `openrouter/anthropic/claude-sonnet-5.5` (OpenRouter) |
 | `reviewer` | Review avversariale di piani e codice | `claude-haiku-5-5` (Go) |
 | `verifier` | Verifica completamento con evidenze | `claude-haiku-5-5` (Go) |
 | `fixer` | Implementazione rapida e scoped | `claude-haiku-5-5` (Go) |
-| `observer` | Monitoring read-only | `mimo-v2.6-flash-free` (Go, free) |
+| `observer` | Monitoring read-only | `claude-haiku-5-5` (Go) |
 | `looker` | Analisi PDF/immagini (vision) | `claude-haiku-5-5` (Go) |
 | `designer` | UI/UX design e implementation | `muse-spark-1.3-contributor-free` (Go, free) |
 

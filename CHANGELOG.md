@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-12 - recon su claude-haiku-5-5 (free tier non affidabile)
+
+### Modificato
+
+- `agents/{explorer,librarian,observer}.md` — da `opencode/mimo-v2.6-flash-free` a `opencode-go/claude-haiku-5-5` (il free tier fallisce in uso reale)
+- `agents/README.md`, `AGENTS.md`, `wiki/INSTALL.md` — riferimenti allineati ai nuovi modelli dei recon
+- `scripts/set-models.sh` — commento dell'alias `mimo` aggiornato: resta disponibile ma non è più il default dei recon
+
 ## 2026-10-12 - override provider opencode-go per claude-haiku-5-5
 
 ### Modificato
