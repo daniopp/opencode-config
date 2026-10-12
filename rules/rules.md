@@ -1,9 +1,9 @@
 # Regole di sviluppo (Team ZeroD / SmeUP)
 
-> Versione: 2.1.0 (2026-10-09)
+> Versione: 2.1.1 (2026-10-12)
 
 Regole **universali**: vincolanti per tutti gli agent su **tutti i progetti**
-(organization smeup e account danismeup/danifx), perimetro EVODOC incluso.
+(organization smeup e account daniopp/danifx), perimetro EVODOC incluso.
 Le regole **aggiuntive o sostitutive** del perimetro EVODOC (repo legacy `ZD_*`
 e repo con `evodoc` o `zerod` nel nome) stanno nel file `evodoc.md`, caricato
 insieme a questo.
@@ -118,7 +118,7 @@ diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 - **Nessun documento di sviluppo nei repository di codice**: niente `docs/dev/`, master-plan, blueprint, note di analisi o `decisions/`. Non vanno né nel tree del codice, né su alcuna "memory" centrale.
 - **Tutta la documentazione (di utilizzo e di sviluppo) va nella wiki del repository**:
   - Repo con wiki GitHub nativa (repo smeup o assetti simili): `https://github.com/<owner>/<repo>/wiki`;
-  - Repo privati danismeup → cartella `wiki/` nella root del repository, stessa struttura (per-directory subfolder per i temi, `Home.md` come indice) — la wiki GitHub nativa non è disponibile per i privati.
+  - Repo privati daniopp → cartella `wiki/` nella root del repository, stessa struttura (per-directory subfolder per i temi, `Home.md` come indice) — la wiki GitHub nativa non è disponibile per i privati.
   - Eccezioni: `README.md` e `CONTRIBUTING.md` in root (versionati, review PR); `CHANGELOG.md` in root (unico artefatto di sviluppo commitato).
 - L'audit trail è già garantito dal workflow: **issue** (scope e motivazioni),
   **PR body** (`Refs <owner>/<repo>#<issue>`) e **messaggio di squash merge**
@@ -178,13 +178,14 @@ Le regole si organizzano su tre livelli (pattern Cursor):
 
 ## Cronologia versioni
 
+- `2.1.1 (2026-10-12)` — **PATCH**: correzione redazionale: il nome dell'account privato passa da `danismeup` a `daniopp` (account e repo privati). Nessun cambio di regola.
 - `2.1.0 (2026-10-09)` — **MINOR**: nuova regola "Tutta la documentazione nella wiki del repository": utilizzo e sviluppo vanno nella wiki (nativa GitHub per i repo smeup; cartella `wiki/` versionata nel repo per i privati danismeup, che non possono abilitarla). Unico eccezioni in root: `README.md`, `CONTRIBUTING.md`, `CHANGELOG.md` — niente `docs/`, `plans/`, `specs/`, `mcp/` nel tree. Nessun principio indebolito: il divieto di `docs/dev/` e master-plan nel tree resta.
 - `2.0.0 (2026-10-07)` — **MAJOR**: ristrutturazione su due file. Le regole
   specifiche EVODOC (workflow EVOPLATFORM, versioning legacy/microservizi,
   prerelease NuGet, flusso misto legacy+micro, commesse) migrano in
   `rules/evodoc.md`, che individua il perimetro dal nome del repository
   (`ZD_*` o contiene `evodoc`/`zerod`); i kokos_* di altri team e tutti i
-  progetti smeup/danismeup/danifx fuori perimetro seguono solo le regole
+  progetti smeup/daniopp/danifx fuori perimetro seguono solo le regole
   universali. Il file universale integra dal wiki (Stile e best practice):
   regole sui commenti e `string.Empty`. Nessun principio indebolito: il
   contenuto EVODOC conserva la stessa forza normativa nel file dedicato.
