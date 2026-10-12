@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-12 - override provider opencode-go per claude-haiku-5-5
+
+### Modificato
+
+- `opencode.jsonc` — blocco `provider.opencode-go.models.claude-haiku-5-5` con `name`, `limit` (context 1M, output 128k) e `cost` ($0.10/$0.50, cache read $0.01, cache write $0.125) allineati a models.dev; tier di prezzo oltre 100k token omesso
+
 ## 2026-10-11 (2) - fix modello oracle
 
 ### Modificato
