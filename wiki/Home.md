@@ -1,6 +1,6 @@
 # OpenCode Config — Wiki
 
-Indice della wiki versionata (repo privato danismeup = cartella `wiki/` al posto della wiki GitHub nativa).
+Indice della wiki versionata (repo privato daniopp = cartella `wiki/` al posto della wiki GitHub nativa).
 
 ## Fondamenta
 
