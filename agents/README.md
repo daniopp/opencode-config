@@ -33,12 +33,12 @@ Il body del markdown è il system prompt.
 |---|---|---|---|
 | `orchestrator` | primary | `opencode-go/claude-haiku-5-5` (dal config globale, nessun override) | task allowlist sugli 8 specialisti |
 | `explorer` | subagent | `opencode-go/claude-haiku-5-5` | read-only (solo read/grep/glob, niente bash) |
-| `librarian` | subagent | `opencode/mimo-v2.6-flash-free` | webfetch/websearch, niente shell |
+| `librarian` | subagent | `opencode-go/claude-haiku-5-5` | webfetch/websearch, niente shell |
 | `oracle` | subagent | `openrouter/anthropic/claude-sonnet-5.5` | read-only, advisor strategico |
 | `fixer` | subagent | `opencode-go/claude-haiku-5-5` | edit allow, bash solo test runner + git status/diff |
 | `reviewer` | subagent | `opencode-go/claude-haiku-5-5` | read-only, review avversariale con evidenze |
 | `verifier` | subagent | `opencode-go/claude-haiku-5-5` | read-only, verifica completion con evidenze |
-| `observer` | subagent | `opencode/mimo-v2.6-flash-free` | read-only, monitoraggio |
+| `observer` | subagent | `opencode-go/claude-haiku-5-5` | read-only, monitoraggio |
 | `looker` | subagent | `opencode-go/claude-haiku-5-5` | vision/PDF, read-only |
 | `designer` | subagent | `opencode/muse-spark-1.3-contributor-free` | edit allow, eredita matrice bash globale |
 
