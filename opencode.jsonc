@@ -208,7 +208,10 @@
   ],
 
   // Profondità nesting subagent: 1 = i subagent non spawnano altri subagent
-  "subagent_depth": 1,
+  // (in v2 la chiave vive sotto `experimental`; top-level viene ignorata)
+  "experimental": {
+    "subagent_depth": 1
+  },
 
   // LSP built-in
   "lsp": true,

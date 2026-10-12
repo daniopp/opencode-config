@@ -52,7 +52,7 @@ Contiene:
 - **plugin** - Plugin npm
 - **permission** - Matrice permessi granulari (elithrar pattern)
 - **agent** - Disabilitazione agenti built-in (sostituiti da agents/*.md)
-- **subagent_depth** - Profondità nesting subagent (1 = disabilitato)
+- **experimental.subagent_depth** - Profondità nesting subagent (1 = disabilitato)
 - **compaction** - Compattazione automatica context
 - **watcher** - Ignorare file/directories
 

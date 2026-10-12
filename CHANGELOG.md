@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-12 - compatibilità config con opencode v2
+
+### Modificato
+
+- `agents/README.md` spostato in `wiki/Agenti.md`: la v2 carica ogni `.md` in `agents/` come agente (il README compariva come agente `primary` visibile)
+- `opencode.jsonc` — `subagent_depth` spostato sotto `experimental.subagent_depth`: la v2 ignora la chiave top-level
+- `wiki/INSTALL.md`, `wiki/ARCHITECTURE.md`, `wiki/Agenti.md` — riferimenti aggiornati
+
 ## 2026-10-12 - fixer a 80 steps, allineamento step in wiki
 
 ### Modificato
