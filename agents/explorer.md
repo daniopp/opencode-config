@@ -1,7 +1,7 @@
 ---
 description: Read-only codebase reconnaissance - finds files, symbols, and patterns, returning compressed maps
 mode: subagent
-model: opencode/mimo-v2.6-flash-free
+model: opencode-go/claude-haiku-5-5
 steps: 25
 permission:
   # read sempre a mappa: la scalar "allow" by-passa le deny globali sui segreti
