@@ -40,7 +40,7 @@ Il body del markdown è il system prompt.
 | `verifier` | subagent | `opencode-go/claude-haiku-5-5` | read-only, verifica completion con evidenze |
 | `observer` | subagent | `opencode-go/claude-haiku-5-5` | read-only, monitoraggio |
 | `looker` | subagent | `opencode-go/claude-haiku-5-5` | vision/PDF, read-only |
-| `designer` | subagent | `opencode/muse-spark-1.3-contributor-free` | edit allow, eredita matrice bash globale |
+| `designer` | subagent | `opencode-go/muse-spark-1.3-contributor` | edit allow, eredita matrice bash globale |
 
 I subagent hanno `task: deny` (non spawnano altri agenti);
 `subagent_depth: 1` in `opencode.jsonc` impone il limite anche a livello di

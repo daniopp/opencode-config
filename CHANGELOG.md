@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-10-12 - fixer a 80 steps, allineamento step in wiki
+
+### Modificato
+
+- `agents/fixer.md` — `steps` da 30 a 80 (implementazione multi-step, evita stop prematuri)
+- `wiki/ARCHITECTURE.md` — valori `steps` allineati ai file `agents/*.md` (prima stale: fixer 120, orchestrator 250, ecc.); aggiunti reviewer, verifier, looker
+
+## 2026-10-12 - designer su Muse Spark 1.3 Contributor (Go)
+
+### Modificato
+
+- `agents/designer.md` — da `opencode/muse-spark-1.3-contributor-free` (Zen free) a `opencode-go/muse-spark-1.3-contributor` (quota Go, disponibilità per regione da verificare; test in sessione in corso)
+- `AGENTS.md`, `README.md`, `agents/README.md`, `wiki/INSTALL.md` — tabelle allineate al designer su Go
+- `scripts/set-models.sh` — alias `mimo` su `opencode-go/mimo-v2.6-flash`, marcato come lento (non usato dai recon)
+- Recon (`explorer`, `librarian`, `observer`) restano su `opencode-go/claude-haiku-5-5`: MiMo testato come candidato ma troppo lento (~8 min per task contro ~1.6 min di Haiku)
+
 ## 2026-10-12 - recon su claude-haiku-5-5 (free tier non affidabile)
 
 ### Modificato

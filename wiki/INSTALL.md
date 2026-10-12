@@ -140,7 +140,7 @@ Questa configurazione usa agenti custom in `agents/*.md` invece di quelli built-
 | `fixer` | Implementazione rapida e scoped | `claude-haiku-5-5` (Go) |
 | `observer` | Monitoring read-only | `claude-haiku-5-5` (Go) |
 | `looker` | Analisi PDF/immagini (vision) | `claude-haiku-5-5` (Go) |
-| `designer` | UI/UX design e implementation | `muse-spark-1.3-contributor-free` (Go, free) |
+| `designer` | UI/UX design e implementation | `muse-spark-1.3-contributor` (Go) |
 
 **Per dettagli su ciascun agente, vedi [`agents/README.md`](agents/README.md).**
 

@@ -88,13 +88,16 @@ Matrice permessi con pattern elithrar:
 
 Nativi, definiti in `agents/*.md` (nessun plugin di terzi):
 
-- **orchestrator** - Coordinatore (primary, 250 steps)
-- **oracle** - Analisi architetturale (read-only, 60 steps)
+- **orchestrator** - Coordinatore (primary, 100 steps)
+- **oracle** - Analisi architetturale (read-only, 25 steps)
 - **designer** - UI/UX (100 steps)
-- **fixer** - Implementazione (120 steps)
-- **explorer** - Ricerca codice (read-only, 40 steps)
-- **librarian** - Documentazione (read-only, 50 steps)
-- **observer** - Monitoraggio (read-only, 30 steps)
+- **fixer** - Implementazione (80 steps)
+- **explorer** - Ricerca codice (read-only, 25 steps)
+- **librarian** - Documentazione (read-only, 25 steps)
+- **observer** - Monitoraggio (read-only, 20 steps)
+- **reviewer** - Review avversariale (read-only, 20 steps)
+- **verifier** - Verifica completion (read-only, 20 steps)
+- **looker** - Media PDF/immagini (read-only, 15 steps)
 
 Gerarchia: `subagent_depth: 1` + `permission.task` allowlist — solo
 l'orchestrator può delegare, i subagent non spawnano altri subagent.

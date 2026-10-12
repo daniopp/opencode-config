@@ -37,8 +37,7 @@ Uso esclusivo della CLI `gh` (autenticata su tutte le macchine, allowlistata nei
 - `orchestrator` — coordinatore principale (primary, `opencode-go/claude-haiku-5-5`)
 
 - `fixer`, `reviewer`, `verifier`, `looker`, `explorer`, `librarian`, `observer` — specialisti su `opencode-go/claude-haiku-5-5`
-  (looker = vision/PDF; explorer/librarian/observer = recon, già su Go e non più sul free tier)
-- `designer` — UI/UX (`opencode/muse-spark-1.3-contributor-free`)
+- `designer` — UI/UX (`opencode-go/muse-spark-1.3-contributor`)
 - `oracle` — advisor strategico (`openrouter/anthropic/claude-sonnet-5.5`)
 
 I subagent non spawnano altri subagent (`subagent_depth: 1`); l'orchestrator
