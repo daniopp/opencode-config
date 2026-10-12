@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# sync.sh — sincronizza la config live di opencode con il repo danismeup/opencode-config
-# Repo: https://github.com/danismeup/opencode-config
+# sync.sh — sincronizza la config live di opencode con il repo daniopp/opencode-config
+# Repo: https://github.com/daniopp/opencode-config
 #
 # Uso:
 #   scripts/sync.sh status        confronto read-only (default)

@@ -9,7 +9,7 @@ Configurazione opencode multi-macchina, sincronizzata via repo.
 npm install -g @opencode/ai
 
 # 2. Clone config repo
-git clone https://github.com/danismeup/opencode-config.git ~/git/opencode-config
+git clone https://github.com/daniopp/opencode-config.git ~/git/opencode-config
 
 # 3. Sync verso la config live (~/.config/opencode)
 cd ~/git/opencode-config && scripts/sync.sh pull

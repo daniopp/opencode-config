@@ -24,7 +24,7 @@ npx @opencode/ai
 ### 2. Clone questa configuration repo
 
 ```bash
-git clone https://github.com/danismeup/opencode-config.git ~/git/opencode-config
+git clone https://github.com/daniopp/opencode-config.git ~/git/opencode-config
 cd ~/git/opencode-config
 ```
 
@@ -77,7 +77,7 @@ sudo apt install rsync
 npm install -g @opencode/ai
 
 # 2. Clone config
-git clone https://github.com/danismeup/opencode-config.git ~/git/opencode-config
+git clone https://github.com/daniopp/opencode-config.git ~/git/opencode-config
 cd ~/git/opencode-config
 
 # 3. Setup credentials (OPENROUTER_API_KEY)
