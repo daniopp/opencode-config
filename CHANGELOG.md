@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-10-13 - documentazione unica nella wiki GitHub
+
+### Modificato
+
+- Documentazione spostata nella wiki GitHub `https://github.com/daniopp/opencode-config/wiki`, unico punto di documentazione. Pagine di utilizzo in radice; piani, specifiche, MCP e BMAD in sezione Archivio (`Archivio-*`)
+- `rules/rules.md` 2.2.0 (MINOR): la wiki GitHub nativa è ora disponibile anche per il repo daniopp pubblico; `wiki/` resta solo come fallback
+- `README.md`, `scripts/migrate-v2.sh` — link alla wiki
+
+### Rimosso
+
+- `wiki/` dal repo (storia git preservata) e `scripts/wiki-publish.sh` (non più necessario: la wiki si edita direttamente)
+
 ## 2026-10-13 - migrazione config a opencode v2
 
 ### Aggiunto

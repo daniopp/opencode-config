@@ -5,7 +5,7 @@ Configurazione opencode multi-macchina, sincronizzata via repo.
 ## Setup Rapido
 
 ```bash
-# 1. Install OpenCode V2 (vedi https://opencode.ai/v2/docs/cli e wiki/INSTALL.md)
+# 1. Install OpenCode V2 (vedi https://opencode.ai/v2/docs/cli e https://github.com/daniopp/opencode-config/wiki/INSTALL)
 
 # 2. Clone config repo
 git clone https://github.com/daniopp/opencode-config.git ~/git/opencode-config
@@ -20,7 +20,7 @@ echo "OPENROUTER_API_KEY=your_token" > ~/git/opencode-config/.dev.vars
 opencode
 ```
 
-**Per guide dettagliate (WSL, modelli, troubleshooting), vedi [INSTALL.md](wiki/INSTALL.md).**
+**Per guide dettagliate (WSL, modelli, troubleshooting), vedi [INSTALL](https://github.com/daniopp/opencode-config/wiki/INSTALL).**
 
 ## Modelli
 
@@ -80,7 +80,7 @@ Nelle regole always-on, `rules/rules.md` è versionato (v1.4.0: Governance SemVe
 | `shell` | ask | era `bash` in V1. Allowlist 4 tier dallo storico sessioni (letture/scritture sicure → allow, distruttivi → deny) |
 | `external_directory` | ask | allow su `~/git/**`, `/tmp/**` |
 
-Config V2: `permissions` è un array ordinato di regole `{ action, resource, effect }` (effect: `allow`, `deny`, `ask`). Vince l'ultima regola che matcha; nessun match = `ask`. Azioni V1 → V2: `bash` → `shell`, `task` → `subagent`. `doom_loop` non è più un'azione. Dettagli in [PERMISSIONS.md](wiki/PERMISSIONS.md).
+Config V2: `permissions` è un array ordinato di regole `{ action, resource, effect }` (effect: `allow`, `deny`, `ask`). Vince l'ultima regola che matcha; nessun match = `ask`. Azioni V1 → V2: `bash` → `shell`, `task` → `subagent`. `doom_loop` non è più un'azione. Dettagli in [PERMISSIONS.md](https://github.com/daniopp/opencode-config/wiki/PERMISSIONS).
 
 ### Progetti fidati (shell allow-by-default)
 
@@ -98,11 +98,11 @@ Nessuno (`mcp: {}`). Rimossi dopo verifica su opencode.db (zero invocazioni nell
 
 ## Documenti
 
-- [INSTALL.md](wiki/INSTALL.md) — guida installazione dettagliata
-- [MIGRATION-V1-V2.md](wiki/MIGRATION-V1-V2.md) — migrazione da OpenCode V1 a V2 (chiavi, permessi, `cli.json`)
-- [ARCHITECTURE.md](wiki/ARCHITECTURE.md) — architettura della config
-- [SETUP.md](wiki/SETUP.md) · [PERMISSIONS.md](wiki/PERMISSIONS.md) · [DEBUG.md](wiki/DEBUG.md) · [CHANGELOG.md](CHANGELOG.md)
-- [BMAD-ASSESSMENT.md](wiki/BMAD-ASSESSMENT.md) — valutazione BMAD v6 e framework spec-driven, gap analysis e strategia (homegrown + skill `story-craft`, `spec-archive`, `project-kb-setup` estesa; roadmap completata; wave 2 con pattern adottati)
+- [INSTALL](https://github.com/daniopp/opencode-config/wiki/INSTALL) — guida installazione dettagliata
+- [MIGRATION-V1-V2](https://github.com/daniopp/opencode-config/wiki/MIGRATION-V1-V2) — migrazione da OpenCode V1 a V2 (chiavi, permessi, `cli.json`)
+- [ARCHITECTURE](https://github.com/daniopp/opencode-config/wiki/ARCHITECTURE) — architettura della config
+- [SETUP](https://github.com/daniopp/opencode-config/wiki/SETUP) · [PERMISSIONS](https://github.com/daniopp/opencode-config/wiki/PERMISSIONS) · [DEBUG](https://github.com/daniopp/opencode-config/wiki/DEBUG) · [CHANGELOG.md](CHANGELOG.md)
+- [BMAD-ASSESSMENT](https://github.com/daniopp/opencode-config/wiki/Archivio-BMAD-ASSESSMENT) — valutazione BMAD v6 e framework spec-driven, gap analysis e strategia (homegrown + skill `story-craft`, `spec-archive`, `project-kb-setup` estesa; roadmap completata; wave 2 con pattern adottati)
 
 ## Tools / Script
 
@@ -121,7 +121,7 @@ opencode-config/
 ├── rules/            # Always-on rules
 ├── skills/           # Skills markdown
 ├── memory/           # Memoria utente (esclusa dal sync)
-├── wiki/             # Documentazione (Home.md = indice; mcp/, plans/, specs/)
+├── (documentazione: wiki GitHub, vedi https://github.com/daniopp/opencode-config/wiki)
 ├── global/           # Config alternative
 ├── scripts/          # sync.sh (sync live <-> repo)
 ├── repo-examples/    # Template (es. opencode-project-trusted.jsonc)

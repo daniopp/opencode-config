@@ -1,6 +1,6 @@
 # Regole di sviluppo (Team ZeroD / SmeUP)
 
-> Versione: 2.1.1 (2026-10-12)
+> Versione: 2.2.0 (2026-10-13)
 
 Regole **universali**: vincolanti per tutti gli agent su **tutti i progetti**
 (organization smeup e account daniopp/danifx), perimetro EVODOC incluso.
@@ -117,8 +117,8 @@ diluendo un principio. I principi non si diluiscono per chiudere un conflitto.
 
 - **Nessun documento di sviluppo nei repository di codice**: niente `docs/dev/`, master-plan, blueprint, note di analisi o `decisions/`. Non vanno né nel tree del codice, né su alcuna "memory" centrale.
 - **Tutta la documentazione (di utilizzo e di sviluppo) va nella wiki del repository**:
-  - Repo con wiki GitHub nativa (repo smeup o assetti simili): `https://github.com/<owner>/<repo>/wiki`;
-  - Repo privati daniopp → cartella `wiki/` nella root del repository, stessa struttura (per-directory subfolder per i temi, `Home.md` come indice) — la wiki GitHub nativa non è disponibile per i privati.
+  - Repo con wiki GitHub attiva (repo smeup, repo daniopp pubblici): `https://github.com/<owner>/<repo>/wiki`. Si modifica clonando `https://github.com/<owner>/<repo>.wiki.git`; `Home` come indice;
+  - Fallback per repo senza wiki nativa attivabile (es. privati): cartella `wiki/` nella root del repository, stessa struttura (`Home.md` come indice).
   - Eccezioni: `README.md` e `CONTRIBUTING.md` in root (versionati, review PR); `CHANGELOG.md` in root (unico artefatto di sviluppo commitato).
 - L'audit trail è già garantito dal workflow: **issue** (scope e motivazioni),
   **PR body** (`Refs <owner>/<repo>#<issue>`) e **messaggio di squash merge**
@@ -178,6 +178,7 @@ Le regole si organizzano su tre livelli (pattern Cursor):
 
 ## Cronologia versioni
 
+- `2.2.0 (2026-10-13)` — **MINOR**: la wiki GitHub nativa è attivata anche per i repo daniopp pubblici (`daniopp/opencode-config`): la documentazione va in `https://github.com/daniopp/opencode-config/wiki`, che diventa l'unico punto di documentazione. La cartella `wiki/` resta solo come fallback per repo senza wiki nativa. Nessun principio indebolito.
 - `2.1.1 (2026-10-12)` — **PATCH**: correzione redazionale: il nome dell'account privato passa da `danismeup` a `daniopp` (account e repo privati). Nessun cambio di regola.
 - `2.1.0 (2026-10-09)` — **MINOR**: nuova regola "Tutta la documentazione nella wiki del repository": utilizzo e sviluppo vanno nella wiki (nativa GitHub per i repo smeup; cartella `wiki/` versionata nel repo per i privati danismeup, che non possono abilitarla). Unico eccezioni in root: `README.md`, `CONTRIBUTING.md`, `CHANGELOG.md` — niente `docs/`, `plans/`, `specs/`, `mcp/` nel tree. Nessun principio indebolito: il divieto di `docs/dev/` e master-plan nel tree resta.
 - `2.0.0 (2026-10-07)` — **MAJOR**: ristrutturazione su due file. Le regole

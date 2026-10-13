@@ -114,7 +114,7 @@ say "== migrate-v2 (repo: $REPO, config: $LOCAL, dry-run: $DRY)"
 command -v node >/dev/null 2>&1 || die "node non trovato (necessario per leggere il JSONC)" 2
 command -v opencode >/dev/null 2>&1 || {
   step "preflight.opencode" "fail" "opencode non in PATH"
-  MANUAL+=("Installa OpenCode V2 (vedi wiki/MIGRATION-V1-V2.md, sezione 2), poi riesegui.")
+  MANUAL+=("Installa OpenCode V2 (vedi https://github.com/daniopp/opencode-config/wiki/MIGRATION-V1-V2, sezione 2), poi riesegui.")
   die "opencode non trovato" 2
 }
 
@@ -266,7 +266,7 @@ fi
 # --- 8. passi manuali (non automatizzabili) -----------------------------
 MANUAL+=("Test in TUI: lancia /full e /debug su un task di prova (devono partire come child session).")
 MANUAL+=("Test permessi: un comando shell distruttivo (es. rm -rf x) deve essere rifiutato.")
-MANUAL+=("Se usi progetti con opencode.jsonc locale: convertili con la guida V2 (wiki/MIGRATION-V1-V2.md, sezione 5).")
+MANUAL+=("Se usi progetti con opencode.jsonc locale: convertili con la guida V2 (https://github.com/daniopp/opencode-config/wiki/MIGRATION-V1-V2, sezione 5).")
 
 if [[ $DRY == 1 ]]; then
   STATUS="dry-run"; EXIT_CODE=0
