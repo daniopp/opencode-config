@@ -5,10 +5,10 @@ Configurazione globale opencode.
 ## File principali
 
 - `opencode.jsonc` — config principale (questa)
-- `cli.json` (live in `~/.config/opencode/`, fuori dal repo) — config terminale V2; `tui.json` rimosso con la migrazione V2
+- `cli.json` (live in `~/.config/opencode/`, fuori dal repo) — config terminale V2; `tui.json` rimosso con la migrazione V2 (non più presente né nel repo né in live)
 - `agents/` — agenti .md personalizzati
 - `commands/` — lane (/quick, /medium, /full, /debug)
-- `rules/` — regole always-on su due file, caricate via `instructions`: `rules.md` v2.0.0 = invarianti universali per tutti i progetti; `evodoc.md` v1.1.0 = perimetro EVODOC (repo `ZD_*` o con `evodoc`/`zerod` nel nome; limite 64 caratteri versione prerelease/50 caratteri nome branch), fonte wiki ZD_evoDoc2
+- `rules/` — regole always-on su due file, caricate via `instructions`: `rules.md` v2.2.0 = invarianti universali per tutti i progetti; `evodoc.md` v1.1.0 = perimetro EVODOC (repo `ZD_*` o con `evodoc`/`zerod` nel nome; limite 64 caratteri versione prerelease/50 caratteri nome branch), fonte wiki ZD_evoDoc2
 - `scripts/wiki-sync.ps1|.sh` — mirror wiki ZD_evoDoc2 in `wiki-mirror/` (git-ignored); `-InstallTask` crea task pianificata Windows giornaliera
 - `skills/` — skill npm
 
@@ -41,7 +41,7 @@ Uso esclusivo della CLI `gh` (autenticata su tutte le macchine, allowlistata nei
 - `oracle` — advisor strategico (`openrouter/anthropic/claude-sonnet-5.5`)
 
 I subagent non spawnano altri subagent (`subagent_depth: 1`); l'orchestrator
-delega via `task` tool con allowlist su 8 specialisti.
+delega via `task` tool con allowlist su 9 specialisti (explorer, librarian, oracle, designer, fixer, observer, reviewer, verifier, looker).
 
 ## Lane disponibili
 
@@ -49,7 +49,7 @@ Usa `/quick`, `/medium`, `/full`, `/debug` nel TUI.
 
 ## Sync con il repo
 
-Config live `~/.config/opencode` ↔ repo `~/git/opencode-config` (`daniopp/opencode-config`):
+Config live `~/.config/opencode` ↔ repo `~/git/opencode-config` (`danismeup/opencode-config`):
 
 - `scripts/sync.sh status|diff|push|pull` nel repo (allowlistato in bash). Nessuna divergenza nota: `opencode.jsonc` è identico su tutte le macchine — `instructions` usa il formato `~/` (`~/.config/opencode/rules/rules.md`), che opencode espande con `os.homedir()` su Linux e Windows
 - Comando `/sync-config` — l'orchestrator esegue status → push → commit → push
