@@ -49,7 +49,7 @@ Usa `/quick`, `/medium`, `/full`, `/debug` nel TUI.
 
 ## Sync con il repo
 
-Config live `~/.config/opencode` ↔ repo `~/git/opencode-config` (`danismeup/opencode-config`):
+Config live `~/.config/opencode` ↔ repo `~/git/opencode-config` (`daniopp/opencode-config`):
 
 - `scripts/sync.sh status|diff|push|pull` nel repo (allowlistato in bash). Nessuna divergenza nota: `opencode.jsonc` è identico su tutte le macchine — `instructions` usa il formato `~/` (`~/.config/opencode/rules/rules.md`), che opencode espande con `os.homedir()` su Linux e Windows
 - Comando `/sync-config` — l'orchestrator esegue status → push → commit → push
