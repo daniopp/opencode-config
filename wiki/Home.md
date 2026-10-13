@@ -1,27 +1,22 @@
 # OpenCode Config — Wiki
 
-Indice della wiki versionata (repo privato daniopp = cartella `wiki/` al posto della wiki GitHub nativa).
+Documentazione della configurazione OpenCode V2 usata nel repo
+[daniopp/opencode-config](https://github.com/daniopp/opencode-config).
+
+Fonte delle pagine: cartella `wiki/` del repo. Le pagine qui sono pubblicate da `scripts/wiki-publish.sh`.
 
 ## Fondamenta
 
-- [INSTALL.md](INSTALL.md) — installazione passo-passo
-- [MIGRATION-V1-V2.md](MIGRATION-V1-V2.md) — migrazione da OpenCode V1 a V2 (chiavi, permessi, `cli.json`)
-- [SETUP.md](SETUP.md) — setup credentials e ambiente
-- [PERMISSIONS.md](PERMISSIONS.md) — matrice permessi (forma V2)
-- [DEBUG.md](DEBUG.md) — debug opencode
-- [ARCHITECTURE.md](ARCHITECTURE.md) — architettura della configurazione
-- [BMAD-ASSESSMENT.md](BMAD-ASSESSMENT.md) — valutazione BMAD v6 e framework spec-driven
-- [CHANGELOG.md](../CHANGELOG.md) — cronologia versioni (root, unica eccezione)
+- [INSTALL](INSTALL) — installazione passo-passo
+- [MIGRATION-V1-V2](MIGRATION-V1-V2) — migrazione da OpenCode V1 a V2 (chiavi, permessi, `cli.json`)
+- [SETUP](SETUP) — setup credenziali e ambiente
+- [PERMISSIONS](PERMISSIONS) — matrice permessi (forma V2)
+- [DEBUG](DEBUG) — debug OpenCode
+- [ARCHITECTURE](ARCHITECTURE) — architettura della configurazione
+- [Agenti](Agenti) — agenti nativi e frontmatter
 
-## MCP
+## Riferimenti nel repo
 
-- [GITHUB_MCP.md](mcp/GITHUB_MCP.md) — server GitHub MCP (rimosso: duplicava `gh` CLI)
-- [CONTEXT7.md](mcp/CONTEXT7.md) — context7 MCP
-
-## Roadmap e specs
-
-- [roadmap-bmad-usage/plan.md](plans/roadmap-bmad-usage/plan.md) — roadmap BMAD usage
-- [roadmap-patterns-wave2/plan.md](plans/roadmap-patterns-wave2/plan.md) — roadmap patterns wave 2
-- [001-aggiungere-opzione-top/spec.md](specs/001-aggiungere-opzione-top/spec.md) — spec opzione `top`
-- [001-aggiungere-opzione-top/plan.md](specs/001-aggiungere-opzione-top/plan.md)
-- [001-aggiungere-opzione-top/tasks.md](specs/001-aggiungere-opzione-top/tasks.md)
+- [CHANGELOG](https://github.com/daniopp/opencode-config/blob/main/CHANGELOG.md) — cronologia versioni
+- [commands/README.md](https://github.com/daniopp/opencode-config/blob/main/commands/README.md) — lane e comandi
+- [skills/README.md](https://github.com/daniopp/opencode-config/blob/main/skills) — skill installate

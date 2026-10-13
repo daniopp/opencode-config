@@ -75,7 +75,7 @@ Matrice permessi V2 (default quando nessuna regola matcha: `ask`):
 | subagent | ask | Era `task` in V1. Allowlist sugli specialisti (vedi sotto) |
 | external_directory | ask | Sandbox: ~/git/**, /tmp/** |
 
-`doom_loop` non è più un'azione V2: la protezione non è presente nella config. Dettagli in [PERMISSIONS.md](../PERMISSIONS.md).
+`doom_loop` non è più un'azione V2: la protezione non è presente nella config. Dettagli in [PERMISSIONS](PERMISSIONS).
 
 ## Lane (Comandi)
 

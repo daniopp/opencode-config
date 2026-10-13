@@ -158,7 +158,7 @@ Le lanes definiscono il workflow di lavoro:
 | `/debug` | Troubleshooting e analisi errori |
 | `/sync-config` | Sync config live ↔ repo |
 
-**Per dettagli su ciascuna lane, vedi [`commands/README.md`](commands/README.md).**
+**Per dettagli su ciascuna lane, vedi [`commands/README.md`](https://github.com/daniopp/opencode-config/blob/main/commands/README.md).**
 
 ### Skills
 
@@ -182,7 +182,7 @@ Skills markdown in `skills/`:
 | `verification-planning` | Plan verification for non-trivial tasks |
 | `worktrees` | Isolated coding lanes with Git worktrees |
 
-**Per dettagli su ciascuna skill, vedi [`skills/README.md`](skills/README.md).**
+**Per dettagli su ciascuna skill, vedi [`skills/README.md`](https://github.com/daniopp/opencode-config/blob/main/skills).**
 
 ### MCP Servers
 

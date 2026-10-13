@@ -16,6 +16,11 @@
 - `package.json` / `package-lock.json` — rimossa dipendenza V1 `@opencode-ai/plugin`
 - `README.md`, `AGENTS.md`, `wiki/*` (INSTALL, SETUP, PERMISSIONS, ARCHITECTURE, Agenti, DEBUG, Home) — documentazione allineata a V2
 
+### Aggiunto (wiki pubblica)
+
+- `scripts/wiki-publish.sh` — pubblica le pagine di `wiki/` nella wiki GitHub (dry-run di default, `--push` per pubblicare). Pagine escluse: `plans/`, `specs/`, `mcp/`, `BMAD-ASSESSMENT.md`
+- `wiki/Home.md` — indice delle sole pagine pubblicate, con link assoluti ai file del repo
+
 ### Rimosso
 
 - `tui.json` — sostituito da `cli.json` globale (fuori repo, migrato automaticamente da V2)
