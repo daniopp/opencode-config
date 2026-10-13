@@ -1,5 +1,25 @@
 # Changelog
 
+## 2026-10-13 - migrazione config a opencode v2
+
+### Aggiunto
+
+- `scripts/migrate-v2.sh` — migrazione automatica di una macchina da V1 a V2: preflight, backup (config + DB), sync dal repo, riavvio e verifica log. Supporta `--dry-run`, `--yes`, `--pull`, `--json` (per agent), exit code 0/1/2/3
+- `wiki/MIGRATION-V1-V2.md` — guida di migrazione: cosa cambia, prerequisiti, uso dello script, rollback, limiti noti
+
+### Modificato
+
+- `opencode.jsonc` — conversione completa a sintassi nativa V2 (`permissions` array con azione `shell`, `agents`, `providers`, `snapshots`, `plugins`); rimosso `compaction.prune`
+- `commands/*.md`, `commands/README.md` — `subtask` → `subagent`
+- `repo-examples/opencode-project-trusted.jsonc` — forma `permissions` array V2
+- `scripts/sync.sh` — `tui.json` rimosso dalla lista dei file sincronizzati
+- `package.json` / `package-lock.json` — rimossa dipendenza V1 `@opencode-ai/plugin`
+- `README.md`, `AGENTS.md`, `wiki/*` (INSTALL, SETUP, PERMISSIONS, ARCHITECTURE, Agenti, DEBUG, Home) — documentazione allineata a V2
+
+### Rimosso
+
+- `tui.json` — sostituito da `cli.json` globale (fuori repo, migrato automaticamente da V2)
+
 ## 2026-10-12 - compatibilità config con opencode v2
 
 ### Modificato

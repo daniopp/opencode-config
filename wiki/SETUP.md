@@ -2,18 +2,19 @@
 
 ## Prerequisiti
 
-- OpenCode installato (`~/.opencode/bin/opencode`)
+- OpenCode V2 installato (`opencode --version` → `2.x`, vedi [INSTALL.md](INSTALL.md))
 - Node.js (opzionale, per MCP locali)
-- Go (opzionale, per compilare GitHub MCP server locale)
 
 ## 1. Installazione config globale
 
+La config live è `~/.config/opencode/` (config globale `opencode.jsonc`, config terminale `cli.json`). Si allinea dal repo con:
+
 ```bash
-mkdir -p ~/.config/opencode
-cp global/opencode.jsonc ~/.config/opencode/opencode.jsonc
+cd ~/git/opencode-config && scripts/sync.sh pull
 ```
 
-Modifica il modello se necessario (es. per usare Claude invece di Kimi):
+Modifica il modello se necessario, nella forma V2 (`model`):
+
 ```jsonc
 {
   "model": "anthropic/claude-sonnet-4-5"
@@ -28,27 +29,21 @@ chmod +x ~/start-opencode.sh
 ```
 
 Modifica le variabili all'inizio dello script:
+
 ```bash
 export GITHUB_PERSONAL_ACCESS_TOKEN="ghp_xxx"
 export OPENCODE_SERVER_PASSWORD="tua-password-sicura"
 ```
 
-## 3. Autenticazione GitHub MCP
+## 3. MCP
 
-```bash
-# Prima avviata in modalita' interattiva (non web)
-opencode mcp auth github
-```
+Nessun server MCP configurato (`mcp: {}`). Il GitHub MCP è stato rimosso: GitHub si usa via CLI `gh`.
 
 ## 4. Plugin
 
-I plugin si installano automaticamente al primo avvio se configurati in `plugin`.
-Se falliscono, installa manualmente:
+Chiave V2: `plugins` in `opencode.jsonc` (era `plugin` in V1). Attualmente è vuota (`"plugins": []`): nessun plugin installato.
 
-```bash
-opencode plugin install opencode-mem
-opencode plugin install envsitter-guard
-```
+Il comando `opencode plugin install ...` non è verificato in V2: non usarlo finché non è confermato con la doc [Plugins](https://opencode.ai/v2/docs/plugins) (da verificare). Per aggiungere un plugin, aggiungilo a `plugins` dopo aver verificato la sintassi V2 in quella pagina.
 
 ## 5. LSP
 

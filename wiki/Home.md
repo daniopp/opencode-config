@@ -5,8 +5,9 @@ Indice della wiki versionata (repo privato daniopp = cartella `wiki/` al posto d
 ## Fondamenta
 
 - [INSTALL.md](INSTALL.md) — installazione passo-passo
+- [MIGRATION-V1-V2.md](MIGRATION-V1-V2.md) — migrazione da OpenCode V1 a V2 (chiavi, permessi, `cli.json`)
 - [SETUP.md](SETUP.md) — setup credentials e ambiente
-- [PERMISSIONS.md](PERMISSIONS.md) — matrice permessi
+- [PERMISSIONS.md](PERMISSIONS.md) — matrice permessi (forma V2)
 - [DEBUG.md](DEBUG.md) — debug opencode
 - [ARCHITECTURE.md](ARCHITECTURE.md) — architettura della configurazione
 - [BMAD-ASSESSMENT.md](BMAD-ASSESSMENT.md) — valutazione BMAD v6 e framework spec-driven

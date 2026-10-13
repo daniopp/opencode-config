@@ -1,22 +1,67 @@
 # Gestione permessi e sicurezza
 
+Fonte: [Permissions (V2)](https://opencode.ai/v2/docs/permissions).
+
 ## Modello least-privilege
 
 La configurazione usa un approccio conservativo: tutto richiede conferma esplicita, salvo operazioni di sola lettura.
 
-## Chiavi di permission
+## Forma V2
 
-| Chiave | Descrizione | Valore consigliato |
+In V2 i permessi sono un **array ordinato** `permissions` in `opencode.jsonc`. Ogni regola ha tre campi stringa:
+
+| Campo | Significato |
+|---|---|
+| `action` | Tipo di permesso (vedi tabella sotto) |
+| `resource` | Valore su cui agire: percorso, comando shell, URL, query, ID skill o agente |
+| `effect` | `allow`, `deny` oppure `ask` |
+
+Regole di valutazione:
+
+- **Vince l'ultima regola che matcha.** Le regole generiche vanno prima, le eccezioni dopo.
+- **Nessun match = `ask`.**
+- Wildcard: `*` = zero o più caratteri (anche `/`), `?` = un carattere. Il pattern deve coprire l'intero valore normalizzato.
+- Un pattern shell che termina con spazio e `*` matcha anche il comando senza argomenti: `git status *` matcha sia `git status` sia `git status --short`.
+
+```jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permissions": [
+    { "action": "read", "resource": "*", "effect": "allow" },
+    { "action": "read", "resource": "*.env", "effect": "deny" }
+  ]
+}
+```
+
+## Azioni
+
+| Azione | Descrizione | Valore consigliato |
 |---|---|---|
-| `edit` | Modifiche a file nel progetto | `ask` |
-| `bash` | Esecuzione comandi shell | `ask` |
+| `read` | Lettura file | `allow`, con deny su `*.env*`, `*.dev.vars` |
+| `edit` | Modifiche a file (copre edit, write, patch) | `allow` |
+| `shell` | Esecuzione comandi shell (era `bash` in V1) | `ask` |
+| `subagent` | Delega a un agente (era `task` in V1) | secondo agente |
 | `webfetch` | Lettura URL esterni | `allow` |
+| `websearch` | Ricerche web | `allow` o `ask` |
+| `external_directory` | Accesso fuori dal progetto | `ask`, allow su `~/git/**`, `/tmp/**` |
 
-## Allowlist bash (opencode.jsonc)
+Altre azioni supportate dalla doc V2 (`question`, `skill`, `execute`, tool MCP `<server>_<tool>`) sono descritte in [Permissions](https://opencode.ai/v2/docs/permissions).
 
-Il matcher valuta l'**ultima** regola che matcha il comando: `"*": "ask"` sta
-prima, le eccezioni specifiche dopo. Su Windows opencode esegue via pwsh, quindi
-l'allowlist include anche i cmdlet PowerShell (TIER 6).
+Migrazione da V1: `bash` → `shell`, `task` → `subagent`, `write`/`patch` → `edit`. `doom_loop` non è più un'azione V2: la sua protezione non è presente nella config.
+
+## Allowlist shell (opencode.jsonc)
+
+Regole `action: shell`, in ordine: prima il default generico, poi le eccezioni. Su Windows opencode esegue via pwsh, quindi l'allowlist include anche i cmdlet PowerShell (TIER 6).
+
+```jsonc
+{
+  "permissions": [
+    { "action": "shell", "resource": "*", "effect": "ask" },
+    { "action": "shell", "resource": "git status *", "effect": "allow" },
+    { "action": "shell", "resource": "git push --force*", "effect": "deny" }
+  ]
+}
+```
 
 | Tier | Categoria | Esempi | Azione |
 |---|---|---|---|
@@ -39,30 +84,30 @@ Altri dettagli:
 
 - I cmdlet di pipeline hanno anche la forma bare (`"ConvertTo-Json"` oltre a
   `"ConvertTo-Json *"`), perché il pattern `X *` non matcha `X` senza argomenti.
-- `"Get-Content *.env*": "deny"` mantiene il deny dei segreti anche da shell
-  (allineato al deny `*.env*` della chiave `read`).
+- `{ "action": "shell", "resource": "Get-Content *.env*", "effect": "deny" }` mantiene il deny dei segreti anche da shell (allineato al deny `*.env*` dell'azione `read`).
 - `Invoke-WebRequest` è `allow` per coerenza con `webfetch: allow`, ma può fare
   POST verso host arbitrari (rischio esfiltrazione): passa a `ask` se serve
   massima sicurezza.
+- Il riconoscimento dei comandi PowerShell dipende dallo scanner shell di V2 (opzione sperimentale `experimental.portable_shell_scanner`): da verificare con la doc [Permissions](https://opencode.ai/v2/docs/permissions) prima di fare affidamento sui tier 6 su Windows.
 
-## Override per repo
+## Override per agente
 
-Nel `.opencode/opencode.jsonc` del repo puoi allentare i permessi per agenti specifici:
+Un agente può avere regole proprie in `agents.<nome>.permissions` (forma V2, vedi [migrazione](https://opencode.ai/v2/docs/migrate-v1)). Le chiavi `permission` dei frontmatter in `agents/*.md` sono tradotte automaticamente, ma la forma nativa è `permissions`.
 
 ```jsonc
 {
   "agents": {
     "java-refactor": {
-      "permission": {
-        "edit": "allow",
-        "bash": "ask"
-      }
+      "permissions": [
+        { "action": "edit", "resource": "*", "effect": "allow" },
+        { "action": "shell", "resource": "*", "effect": "ask" }
+      ]
     },
     "readonly-analyst": {
-      "permission": {
-        "edit": "deny",
-        "bash": "deny"
-      }
+      "permissions": [
+        { "action": "edit", "resource": "*", "effect": "deny" },
+        { "action": "shell", "resource": "*", "effect": "deny" }
+      ]
     }
   }
 }

@@ -18,6 +18,19 @@ ls -lt ~/.local/share/opencode/log/
 
 # Segui l'ultimo log in tempo reale
 tail -f ~/.local/share/opencode/log/$(ls -t ~/.local/share/opencode/log/ | head -1)
+
+# Log V2 principale
+tail -f ~/.local/share/opencode/log/opencode.log
+```
+
+Warning da cercare nel log: `configuration normalization diagnostic` indica chiavi legacy V1 ignorate (vedi [MIGRATION-V1-V2.md](MIGRATION-V1-V2.md)).
+
+## Servizio e API V2
+
+```bash
+opencode service status
+opencode service restart
+opencode api get /api/info     # check che il servizio risponda
 ```
 
 ## Debug MCP locali
@@ -36,24 +49,27 @@ npx --version
 
 ## Problemi comuni
 
-### Errore: `Unrecognized keys: plugins, permissions, mcpServers`
+### Errore con config V1 in V2 (`Unrecognized keys: plugins, permissions, mcpServers`)
 
-Chiavi errate. Usa:
-- `plugin` (non `plugins`)
-- `permission` (non `permissions`)
-- `mcp` (non `mcpServers`)
+Errore di config V1 letta da V2, oppure config V2 scritta con chiavi errate.
+Verifica:
 
-### Errore: `opencode: not found`
+- nel log, cerca il warning `configuration normalization diagnostic`: indica le chiavi legacy ignorate;
+- chiavi V2 corrette: `plugins`, `permissions` (array di `{ action, resource, effect }`), `mcp`, `agents`, `providers`, `snapshots`;
+- chiavi V1 da sostituire: `plugin`, `permission`, `agent`, `provider`, `snapshot`, `small_model` (→ `agents.title.model`), `compaction.prune`.
 
-OpenCode non e' nel PATH. Soluzioni:
+Guida completa: [MIGRATION-V1-V2.md](MIGRATION-V1-V2.md) e [Migrate from V1](https://opencode.ai/v2/docs/migrate-v1).
+
+### Errore: `opencode: not found` o binario sbagliato
+
+Verifica quale binario viene eseguito e la versione:
+
 ```bash
-# Aggiungi al PATH permanentemente
-echo 'export PATH="$HOME/.opencode/bin:$PATH"' >> ~/.bashrc
-source ~/.bashrc
-
-# Oppure usa il percorso assoluto nello script
-OPENCODE_BIN="$HOME/.opencode/bin/opencode"
+which -a opencode
+opencode --version     # deve essere 2.x
 ```
+
+Se `which -a` mostra più installazioni, rimuovi quella V1 gestita da package manager (vedi [INSTALL.md](INSTALL.md)). Il path `~/.opencode/bin` non è più il riferimento: il binario V1 è stato sostituito dall'installer V2.
 
 ### MCP con pallino rosso nella UI
 

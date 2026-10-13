@@ -14,11 +14,9 @@ Questo repo contiene la configurazione globale opencode, strutturata per essere:
 
 ```text
 ~/.config/opencode/
-├── opencode.jsonc         # Config principale con permessi granulari
-├── tui.json               # Tema e keybinds
+├── opencode.jsonc         # Config globale V2 con permessi granulari
 ├── AGENTS.md              # Documentazione e regole globali
 ├── oh-my-opencode-slim.jsonc  # (inattivo) preset modelli ex-plugin, solo riferimento
-├── package.json           # Dipendenze plugin npm
 ├── agents/                # Agenti nativi (.md con frontmatter YAML)
 │   ├── README.md
 │   ├── orchestrator.md
@@ -41,39 +39,43 @@ Questo repo contiene la configurazione globale opencode, strutturata per essere:
     └── validate-jsonc.sh
 ```
 
+La config terminale V2 `cli.json` sta in `~/.config/opencode/cli.json`, fuori dal repo (vedi sotto).
+
 ## File di configurazione
 
 ### opencode.jsonc
 
-Contiene:
+JSONC nativo V2. Chiavi principali:
 
-- **model** - Modello primario
-- **small_model** - Modello economico per task leggeri
-- **plugin** - Plugin npm
-- **permission** - Matrice permessi granulari (elithrar pattern)
-- **agent** - Disabilitazione agenti built-in (sostituiti da agents/*.md)
-- **experimental.subagent_depth** - Profondità nesting subagent (1 = disabilitato)
-- **compaction** - Compattazione automatica context
-- **watcher** - Ignorare file/directories
+- **$schema**, **model** - Schema e modello primario
+- **default_agent** - Agente di default
+- **providers** - Provider (era `provider` in V1)
+- **plugins** - Plugin (era `plugin` in V1); attualmente `[]`
+- **permissions** - Array ordinato di regole `{ action, resource, effect }`; vince l'ultima che matcha (era `permission` in V1)
+- **agents** - Agenti (era `agent`): disabilitazione built-in `explore`, `general`, `scout`; **agents.title.model** sostituisce `small_model`
+- **instructions** - File di regole caricati all'avvio
+- **experimental.subagent_depth** - Profondità nesting subagent (1 = nessun nesting)
+- **lsp**, **compaction** (`{ auto }`), **watcher**, **snapshots** (era `snapshot`), **share**, **mcp** (`{}`)
 
-### tui.json
+Chiavi V1 non più valide: `small_model`, `snapshot`, `plugin`, `provider`, `permission`, `agent`, `compaction.prune` (rimosso in V2). Il warning `configuration normalization diagnostic` nel log indica chiavi legacy ignorate.
 
-Contiene:
+### cli.json
 
-- **theme** - Tema UI
-- **keybinds** - Keybindings personalizzati
+Config del client terminale V2, globale, in `~/.config/opencode/cli.json`. È posseduta dal client terminale: il servizio in background non la carica. Sostituisce i file `tui.json` / `tui.jsonc` layerati di V1. Non fa parte del repo e non viene sincronizzata da `scripts/sync.sh`. Se `cli.json` manca, al primo avvio del client terminale V2 vengono migrate le impostazioni globali di `tui.json`; i file V1 restano invariati. Contenuto e chiavi: da verificare con [CLI](https://opencode.ai/v2/docs/cli).
 
 ## Permessi
 
-Matrice permessi con pattern elithrar:
+Matrice permessi V2 (default quando nessuna regola matcha: `ask`):
 
-| Tool | Default | Note |
+| Azione | Default | Note |
 |---|---|---|
-| doom_loop | ask | Conferma loop infinito |
 | read | allow | deny su *.env*, *.dev.vars |
-| edit | allow | Copre write e patch |
-| bash | ask | Allowlist granulare a 4 tier |
+| edit | allow | Copre edit, write e patch |
+| shell | ask | Era `bash` in V1. Allowlist granulare a 4 tier |
+| subagent | ask | Era `task` in V1. Allowlist sugli specialisti (vedi sotto) |
 | external_directory | ask | Sandbox: ~/git/**, /tmp/** |
+
+`doom_loop` non è più un'azione V2: la protezione non è presente nella config. Dettagli in [PERMISSIONS.md](../PERMISSIONS.md).
 
 ## Lane (Comandi)
 
@@ -99,8 +101,9 @@ Nativi, definiti in `agents/*.md` (nessun plugin di terzi):
 - **verifier** - Verifica completion (read-only, 20 steps)
 - **looker** - Media PDF/immagini (read-only, 15 steps)
 
-Gerarchia: `subagent_depth: 1` + `permission.task` allowlist — solo
-l'orchestrator può delegare, i subagent non spawnano altri subagent.
+Gerarchia: `experimental.subagent_depth: 1` in `opencode.jsonc` + allowlist
+`subagent` nei permessi (era `permission.task`) — solo l'orchestrator può
+delegare, i subagent non spawnano altri subagent.
 I preset modelli dell'ex-plugin sono in `oh-my-opencode-slim.jsonc`
 (riferimento storico, inattivo).
 
@@ -118,7 +121,7 @@ Valida la sintassi JSONC:
 
 1. Clona il repo
 2. Copia in `~/.config/opencode/`
-3. Installa dipendenze: `npm install`
+3. Installa OpenCode V2 (vedi [INSTALL.md](INSTALL.md)); nessuna dipendenza npm (`plugins: []`)
 4. Modifica `opencode.jsonc` se necessario (modelli, percorsi)
 
 ## Versionamento
@@ -133,6 +136,6 @@ Valida la sintassi JSONC:
 
 1. **Non modificare node_modules** - sempre reinstallato
 2. **Non commitare credenziali** - usa .gitignore
-3. **Usa permission granulari** - più sicuro
+3. **Usa permissions granulari** - più sicuro
 4. **Documenta modifiche** - AGENTS.md
 5. **Testa prima di deploy** - usa validate-jsonc.sh

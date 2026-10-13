@@ -11,15 +11,16 @@ Guida per installare e configurare opencode.
 
 ## Installation
 
-### 1. Install Opencode CLI
+### 1. Install Opencode CLI (V2)
 
-```bash
-# Via npm (globale)
-npm install -g @opencode/ai
+Installa OpenCode V2 seguendo la guida ufficiale: [opencode.ai/v2/docs/cli](https://opencode.ai/v2/docs/cli) (metodo di installazione da verificare sulla pagina; lo script `migrate-v2.sh` verifica solo la versione).
 
-# Oppure via npx (uso diretto)
-npx @opencode/ai
-```
+Prima di installare V2 su una macchina con V1:
+
+- fai backup di `~/.local/share/opencode/` (contiene `opencode.db`, condiviso tra versioni);
+- rimuovi un'installazione V1 gestita da package manager (vedi [migrazione V1 → V2](https://opencode.ai/v2/docs/migrate-v1)).
+
+Verifica: `opencode --version` deve restituire `2.x`.
 
 ### 2. Clone questa configuration repo
 
@@ -73,8 +74,7 @@ sudo apt install rsync
 ### Setup Opencode in WSL
 
 ```bash
-# 1. Install opencode CLI
-npm install -g @opencode/ai
+# 1. Install opencode CLI V2 (vedi https://opencode.ai/v2/docs/cli)
 
 # 2. Clone config
 git clone https://github.com/daniopp/opencode-config.git ~/git/opencode-config
@@ -103,12 +103,14 @@ Modelli correnti, via OpenCode Go (prezzi di listino $/M token):
 | Primario | `claude-haiku-5-5` | 0.10 | 0.50 | 0.01 |
 | Small model | `deepseek-v4-flash` | 0.14 | 0.28 | 0.03 |
 
-Config in `opencode.jsonc`:
+Config in `opencode.jsonc` (V2: il vecchio `small_model` è sostituito da `agents.title.model`):
 
-```json
+```jsonc
 {
   "model": "opencode-go/claude-haiku-5-5",
-  "small_model": "opencode-go/deepseek-v4-flash"
+  "agents": {
+    "title": { "model": "opencode-go/deepseek-v4-flash" }
+  }
 }
 ```
 
@@ -193,13 +195,40 @@ Configurati in `opencode.jsonc`:
 | Categoria | Default | Note |
 |-----------|---------|------|
 | `read` | allow | Deny su `*.env*`, `*.dev.vars` |
-| `edit` | allow | Copre write e patch |
-| `bash` | ask | Allowlist 4 tier dallo storico sessioni (git, rg, docker ps... → allow; distruttivi → deny) + TIER 6 cmdlet PowerShell |
+| `edit` | allow | Copre edit, write e patch |
+| `shell` | ask | Era `bash` in V1. Allowlist 4 tier dallo storico sessioni (git, rg, docker ps... → allow; distruttivi → deny) + TIER 6 cmdlet PowerShell |
 | `external_directory` | ask | Allow su `~/git/**`, `/tmp/**` |
 
-### Progetti fidati (bash allow-by-default)
+Le regole sono un array ordinato `permissions`; vince l'ultima regola che matcha, nessun match = `ask`. Dettagli in [PERMISSIONS.md](PERMISSIONS.md).
 
-In un progetto fidato bash passa a "tutto allow tranne i distruttivi" senza conferme continue:
+### Progetti fidati (shell allow-by-default)
+
+In un progetto fidato `shell` passa a "tutto allow tranne i distruttivi" senza conferme continue. Config di progetto (forma V2, `repo-examples/opencode-project-trusted.jsonc` va allineato a questa forma):
+
+```jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permissions": [
+    { "action": "shell", "resource": "*", "effect": "allow" },
+    { "action": "shell", "resource": "rm -rf *", "effect": "deny" },
+    { "action": "shell", "resource": "sudo *", "effect": "deny" },
+    { "action": "shell", "resource": "git push --force*", "effect": "deny" },
+    { "action": "shell", "resource": "git -C * push --force*", "effect": "deny" },
+    { "action": "shell", "resource": "git reset --hard*", "effect": "deny" },
+    { "action": "shell", "resource": "git -C * reset --hard*", "effect": "deny" },
+    { "action": "shell", "resource": "git clean -f*", "effect": "deny" },
+    { "action": "shell", "resource": "git checkout -- *", "effect": "deny" },
+    { "action": "shell", "resource": "git restore *", "effect": "deny" },
+    { "action": "shell", "resource": "docker system prune*", "effect": "deny" },
+    { "action": "shell", "resource": "docker volume rm *", "effect": "deny" },
+    { "action": "shell", "resource": "gh release delete *", "effect": "deny" },
+    { "action": "shell", "resource": "gh pr delete *", "effect": "deny" },
+    { "action": "shell", "resource": "dotnet ef database drop*", "effect": "deny" }
+  ]
+}
+```
+
+Ordine di merge delle regole tra config di progetto e globale: da verificare con la doc [Permissions](https://opencode.ai/v2/docs/permissions) (l'ultima regola che matcha vince).
 
 ```bash
 cp ~/git/opencode-config/repo-examples/opencode-project-trusted.jsonc ~/git/<progetto>/opencode.jsonc
@@ -225,9 +254,10 @@ Divergenza nota (sync saltato di proposito): `opencode.jsonc` sezione `instructi
 
 Per informazioni più dettagliate su opencode CLI:
 
-- **Documentazione ufficiale:** [opencode.ai/docs](https://opencode.ai/docs)
-- **Configurazione:** [opencode.ai/config](https://opencode.ai/config)
-- **Model Provider:** [opencode.ai/models](https://opencode.ai/models)
+- **Documentazione ufficiale V2:** [opencode.ai/v2/docs](https://opencode.ai/v2/docs/)
+- **Configurazione:** [opencode.ai/v2/docs/config](https://opencode.ai/v2/docs/config)
+- **Migrazione da V1:** [opencode.ai/v2/docs/migrate-v1](https://opencode.ai/v2/docs/migrate-v1) (guida nel repo: [MIGRATION-V1-V2.md](MIGRATION-V1-V2.md))
+- **Model Provider:** [opencode.ai/models](https://opencode.ai/models) (da verificare la pagina V2)
 
 ## Updating
 

@@ -1,7 +1,7 @@
 ---
 description: "Quick lane per piccoli cambiamenti isolati"
 agent: orchestrator
-subtask: true
+subagent: true
 ---
 
 # Quick Lane

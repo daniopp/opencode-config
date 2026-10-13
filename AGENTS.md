@@ -5,7 +5,7 @@ Configurazione globale opencode.
 ## File principali
 
 - `opencode.jsonc` — config principale (questa)
-- `tui.json` — config TUI (attualmente quasi vuota, placeholder)
+- `cli.json` (live in `~/.config/opencode/`, fuori dal repo) — config terminale V2; `tui.json` rimosso con la migrazione V2
 - `agents/` — agenti .md personalizzati
 - `commands/` — lane (/quick, /medium, /full, /debug)
 - `rules/` — regole always-on su due file, caricate via `instructions`: `rules.md` v2.0.0 = invarianti universali per tutti i progetti; `evodoc.md` v1.1.0 = perimetro EVODOC (repo `ZD_*` o con `evodoc`/`zerod` nel nome; limite 64 caratteri versione prerelease/50 caratteri nome branch), fonte wiki ZD_evoDoc2

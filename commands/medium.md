@@ -1,7 +1,7 @@
 ---
 description: "Medium lane per lavoro scoped con piano"
 agent: orchestrator
-subtask: true
+subagent: true
 ---
 
 # Medium Lane

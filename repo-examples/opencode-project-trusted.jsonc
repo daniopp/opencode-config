@@ -2,37 +2,35 @@
   "$schema": "https://opencode.ai/config.json",
 
   // ─────────────────────────────────────────────────────────────────
-  // Config di PROGETTO per ambiente FIDATO (opencode si fonde con
-  // quella globale; le regole qui sovrascrivono l'ask globale).
+  // Config di PROGETTO per ambiente FIDATO (OpenCode V2).
+  // Le regole di questo file si aggiungono dopo quelle globali
+  // (~/.config/opencode/opencode.jsonc): vince l'ULTIMA regola che matcha.
   //
   // Installazione:
   //   cp ~/git/opencode-config/repo-examples/opencode-project-trusted.jsonc <progetto>/opencode.jsonc
   //
-  // Effetto: bash passa a allow-by-default, resta deny su tutto ciò
-  // che è distruttivo o irreversibile. Ordine regole: broad PRIMA,
-  // narrow DOPO (vince l'ultima regola che matcha).
+  // Effetto: shell passa a allow-by-default, resta deny su tutto ciò
+  // che è distruttivo o irreversibile. Ordine: broad PRIMA, narrow DOPO.
   // ─────────────────────────────────────────────────────────────────
 
-  "permission": {
-    "bash": {
-      // Default fidato: tutto consentito
-      "*": "allow",
+  "permissions": [
+    // Default fidato: tutta la shell consentita
+    { "action": "shell", "resource": "*", "effect": "allow" },
 
-      // ── irreversibili / distruttivi → deny ──
-      "rm -rf *": "deny",
-      "sudo *": "deny",
-      "git push --force*": "deny",
-      "git -C * push --force*": "deny",
-      "git reset --hard*": "deny",
-      "git -C * reset --hard*": "deny",
-      "git clean -f*": "deny",
-      "git checkout -- *": "deny",
-      "git restore *": "deny",
-      "docker system prune*": "deny",
-      "docker volume rm *": "deny",
-      "gh release delete *": "deny",
-      "gh pr delete *": "deny",
-      "dotnet ef database drop*": "deny"
-    }
-  }
+    // ── irreversibili / distruttivi → deny ──
+    { "action": "shell", "resource": "rm -rf *", "effect": "deny" },
+    { "action": "shell", "resource": "sudo *", "effect": "deny" },
+    { "action": "shell", "resource": "git push --force*", "effect": "deny" },
+    { "action": "shell", "resource": "git -C * push --force*", "effect": "deny" },
+    { "action": "shell", "resource": "git reset --hard*", "effect": "deny" },
+    { "action": "shell", "resource": "git -C * reset --hard*", "effect": "deny" },
+    { "action": "shell", "resource": "git clean -f*", "effect": "deny" },
+    { "action": "shell", "resource": "git checkout -- *", "effect": "deny" },
+    { "action": "shell", "resource": "git restore *", "effect": "deny" },
+    { "action": "shell", "resource": "docker system prune*", "effect": "deny" },
+    { "action": "shell", "resource": "docker volume rm *", "effect": "deny" },
+    { "action": "shell", "resource": "gh release delete *", "effect": "deny" },
+    { "action": "shell", "resource": "gh pr delete *", "effect": "deny" },
+    { "action": "shell", "resource": "dotnet ef database drop*", "effect": "deny" }
+  ]
 }

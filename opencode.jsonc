@@ -7,17 +7,11 @@
   // (τ²-Bench 75.3% vs 75.7%), ctx 1M, tool calling + vision.
   // Se la quota Go si esaurisce, la ricaduta su modelli free/saldo Zen la fa il server Go;
   // per usare il saldo OpenRouter basta passare con /models a `openrouter/z-ai/glm-5.3-flash`
-  // (override `provider.openrouter` sotto resta per quello switch manuale).
+  // (override `providers.openrouter` sotto resta per quello switch manuale).
   "model": "opencode-go/claude-haiku-5-5",
 
   // Agente primario attivo all'avvio (TUI, run, desktop: vale ovunque)
   "default_agent": "orchestrator",
-
-  // Modello economico per task leggeri (title, summary, compaction):
-  // DeepSeek V4 Flash su Go — $0.14 in / $0.28 out per M token (vs ~$0.18 out blended
-  // del vecchio `openrouter/deepseek/deepseek-v4-flash-0731`); su Zen esistono anche
-  // i free (mimo-v2.6-flash-free, ling-3.1-flash-free) ma scontati da rate-limit.
-  "small_model": "opencode-go/deepseek-v4-flash",
 
   // Override espliciti sulla variante OpenRouter di GLM 5.3 Flash — fallback manuale
   // pay-per-use (`openrouter/z-ai/glm-5.3-flash` quando la quota Go è finita).
@@ -25,15 +19,15 @@
   // i metadati limit/cost su models.dev sono già corretti, nessun override serve.
   // - limit: abilita auto-compaction corretta su sessioni repo-scale (finestra 1M)
   // - cost: listino first-party Z.AI su OpenRouter ($/M token), per statistiche accurate
-  // - options: sampling consigliato Z.ai per coding agentico (benchmark NL2Repo: temp 1.0 / top_p 1.0)
-  "provider": {
+  // - body: sampling consigliato Z.ai per coding agentico (benchmark NL2Repo: temp 1.0 / top_p 1.0)
+  "providers": {
     "openrouter": {
       "models": {
         "z-ai/glm-5.3-flash": {
           "name": "GLM 5.3 Flash",
           "limit": { "context": 1048576, "output": 131072 },
-          "cost": { "input": 0.15, "output": 0.5, "cache_read": 0.03 },
-          "options": { "temperature": 1.0, "top_p": 1.0 }
+          "cost": { "input": 0.15, "output": 0.5, "cache": { "read": 0.03 } },
+          "body": { "temperature": 1.0, "top_p": 1.0 }
         }
       }
     },
@@ -44,158 +38,157 @@
         "claude-haiku-5-5": {
           "name": "Claude Haiku 5.5",
           "limit": { "context": 1000000, "output": 128000 },
-          "cost": { "input": 0.1, "output": 0.5, "cache_read": 0.01, "cache_write": 0.125 }
+          "cost": { "input": 0.1, "output": 0.5, "cache": { "read": 0.01, "write": 0.125 } }
         }
       }
     }
   },
 
   // Plugin: nessuno
-  "plugin": [],
+  "plugins": [],
 
-    // ⭐ MATRICE PERMESSI (pattern elithrar)
-  "permission": {
-    // Controllo loop infinito - ask invece di deny (chiave validata nello schema ufficiale)
-    "doom_loop": "ask",
-
+    // ⭐ MATRICE PERMESSI (pattern elithrar, sintassi V2: lista ordinata, vince l'ULTIMA regola che matcha)
+    // Nota migrazione: la vecchia regola `doom_loop: ask` è stata rimossa perché `doom_loop` non è
+    // un'azione di permesso V2 (vedi doc Permissions: "doom_loop and lsp are not current V2 Core permission actions").
+  "permissions": [
     // Lettura: permesso di default, negazione per segreti
-    "read": {
-      "*": "allow",
-      "*.env": "deny",
-      "*.env.*": "deny",
-      "**/.env": "deny",
-      "**/.env.*": "deny",
-      "**/*.env": "deny",
-      "**/*.env.*": "deny",
-      "*.dev.vars": "deny",
-      "**/*.dev.vars": "deny",
-      "*.env.example": "allow",
-      "**/*.env.example": "allow"
-    },
+    { "action": "read", "resource": "*", "effect": "allow" },
+    { "action": "read", "resource": "*.env", "effect": "deny" },
+    { "action": "read", "resource": "*.env.*", "effect": "deny" },
+    { "action": "read", "resource": "**/.env", "effect": "deny" },
+    { "action": "read", "resource": "**/.env.*", "effect": "deny" },
+    { "action": "read", "resource": "**/*.env", "effect": "deny" },
+    { "action": "read", "resource": "**/*.env.*", "effect": "deny" },
+    { "action": "read", "resource": "*.dev.vars", "effect": "deny" },
+    { "action": "read", "resource": "**/*.dev.vars", "effect": "deny" },
+    { "action": "read", "resource": "*.env.example", "effect": "allow" },
+    { "action": "read", "resource": "**/*.env.example", "effect": "allow" },
 
     // Modifica file: permesso di default (copre anche write e patch).
     // Cross-platform: il matcher di opencode normalizza i percorsi (backslash -> slash)
     // prima del matching e "*" equivale a ".*" (include i separatori di percorso),
-    // quindi la forma shorthand "allow" (= {"*": "allow"}) copre ogni file
+    // quindi la regola {action "edit", resource "*", effect "allow"} copre ogni file
     // identicamente su Windows e Linux, senza pattern specifici per piattaforma.
-    "edit": "allow",
+    { "action": "edit", "resource": "*", "effect": "allow" },
 
     // Shell: default ask + allowlist granulare a 6 tier
-    "bash": {
-      "*": "ask",
-      // TIER 1: letture → allow (da storico sessioni: ls/grep/find/sed sono tra i comandi più usati)
-      "git status": "allow",
-      "git status *": "allow",
-      "git diff *": "allow",
-      "git log *": "allow",
-      "git show *": "allow",
-      "git branch": "allow",
-      "git branch *": "allow",
-      "git remote *": "allow",
-      "rg *": "allow",
-      "jq *": "allow",
-      "wc *": "allow",
-      "which *": "allow",
-      "ls": "allow",
-      "ls *": "allow",
-      "grep *": "allow",
-      "find *": "allow",
-      "sed -n *": "allow",
-      "echo *": "allow",
-      "docker ps": "allow",
-      "docker ps *": "allow",
-      "docker images": "allow",
-      "docker logs *": "allow",
-      "npx tsc *": "allow",
-      "gh pr list": "allow",
-      "gh pr list *": "allow",
-      "gh pr view *": "allow",
-      "gh issue list": "allow",
-      "gh issue list *": "allow",
-      "gh issue view *": "allow",
-      // TIER 2: scritture sicure → allow
-      "git add *": "allow",
-      "git commit *": "allow",
-      "mkdir *": "allow",
-      "cp *": "allow",
-      "mv *": "allow",
-      "touch *": "allow",
-      "git push": "allow",
-      "git push *": "allow",
-      // Sync config live <-> repo (rsync su Linux, robocopy su Windows; nessun commit automatico)
-      "scripts/sync.sh *": "allow",
-      "scripts/sync.ps1 *": "allow",
-      "/home/daniele/git/opencode-config/scripts/sync.sh *": "allow",
-      // Sync wiki ZD_evoDoc2 (mirror locale wiki-mirror/, git-ignored)
-      "scripts/wiki-sync.ps1": "allow",
-      "scripts/wiki-sync.ps1 *": "allow",
-      "scripts/wiki-sync.sh *": "allow",
-      // TIER 3: irreversibili → ask (default, già sopra)
-      // TIER 4: distruttivi → deny (vince l'ULTIMA regola che matcha: i narrow stanno dopo i broad)
-      "rm -rf *": "deny",
-      "git reset --hard *": "deny",
-      "git push --force*": "deny",
-      "git clean -f *": "deny",
-      "git clean -fd *": "deny",
-      "gh release delete *": "deny",
-      "gh pr delete *": "deny",
-      "Remove-Item *-Recurse*": "deny",
-      "Remove-Item *-Force*": "deny",
-      // TIER 5: esecuzioni
-      "dotnet *": "allow",
+    { "action": "shell", "resource": "*", "effect": "ask" },
+    // TIER 1: letture → allow (da storico sessioni: ls/grep/find/sed sono tra i comandi più usati)
+    { "action": "shell", "resource": "git status", "effect": "allow" },
+    { "action": "shell", "resource": "git status *", "effect": "allow" },
+    { "action": "shell", "resource": "git diff *", "effect": "allow" },
+    { "action": "shell", "resource": "git log *", "effect": "allow" },
+    { "action": "shell", "resource": "git show *", "effect": "allow" },
+    { "action": "shell", "resource": "git branch", "effect": "allow" },
+    { "action": "shell", "resource": "git branch *", "effect": "allow" },
+    { "action": "shell", "resource": "git remote *", "effect": "allow" },
+    { "action": "shell", "resource": "rg *", "effect": "allow" },
+    { "action": "shell", "resource": "jq *", "effect": "allow" },
+    { "action": "shell", "resource": "wc *", "effect": "allow" },
+    { "action": "shell", "resource": "which *", "effect": "allow" },
+    { "action": "shell", "resource": "ls", "effect": "allow" },
+    { "action": "shell", "resource": "ls *", "effect": "allow" },
+    { "action": "shell", "resource": "grep *", "effect": "allow" },
+    { "action": "shell", "resource": "find *", "effect": "allow" },
+    { "action": "shell", "resource": "sed -n *", "effect": "allow" },
+    { "action": "shell", "resource": "echo *", "effect": "allow" },
+    { "action": "shell", "resource": "docker ps", "effect": "allow" },
+    { "action": "shell", "resource": "docker ps *", "effect": "allow" },
+    { "action": "shell", "resource": "docker images", "effect": "allow" },
+    { "action": "shell", "resource": "docker logs *", "effect": "allow" },
+    { "action": "shell", "resource": "npx tsc *", "effect": "allow" },
+    { "action": "shell", "resource": "gh pr list", "effect": "allow" },
+    { "action": "shell", "resource": "gh pr list *", "effect": "allow" },
+    { "action": "shell", "resource": "gh pr view *", "effect": "allow" },
+    { "action": "shell", "resource": "gh issue list", "effect": "allow" },
+    { "action": "shell", "resource": "gh issue list *", "effect": "allow" },
+    { "action": "shell", "resource": "gh issue view *", "effect": "allow" },
+    // TIER 2: scritture sicure → allow
+    { "action": "shell", "resource": "git add *", "effect": "allow" },
+    { "action": "shell", "resource": "git commit *", "effect": "allow" },
+    { "action": "shell", "resource": "mkdir *", "effect": "allow" },
+    { "action": "shell", "resource": "cp *", "effect": "allow" },
+    { "action": "shell", "resource": "mv *", "effect": "allow" },
+    { "action": "shell", "resource": "touch *", "effect": "allow" },
+    { "action": "shell", "resource": "git push", "effect": "allow" },
+    { "action": "shell", "resource": "git push *", "effect": "allow" },
+    // Sync config live <-> repo (rsync su Linux, robocopy su Windows; nessun commit automatico)
+    { "action": "shell", "resource": "scripts/sync.sh *", "effect": "allow" },
+    { "action": "shell", "resource": "scripts/sync.ps1 *", "effect": "allow" },
+    { "action": "shell", "resource": "/home/daniele/git/opencode-config/scripts/sync.sh *", "effect": "allow" },
+    // Sync wiki ZD_evoDoc2 (mirror locale wiki-mirror/, git-ignored)
+    { "action": "shell", "resource": "scripts/wiki-sync.ps1", "effect": "allow" },
+    { "action": "shell", "resource": "scripts/wiki-sync.ps1 *", "effect": "allow" },
+    { "action": "shell", "resource": "scripts/wiki-sync.sh *", "effect": "allow" },
+    // TIER 3: irreversibili → ask (default, già sopra)
+    // TIER 4: distruttivi → deny (vince l'ULTIMA regola che matcha: i narrow stanno dopo i broad)
+    { "action": "shell", "resource": "rm -rf *", "effect": "deny" },
+    { "action": "shell", "resource": "git reset --hard *", "effect": "deny" },
+    { "action": "shell", "resource": "git push --force*", "effect": "deny" },
+    { "action": "shell", "resource": "git clean -f *", "effect": "deny" },
+    { "action": "shell", "resource": "git clean -fd *", "effect": "deny" },
+    { "action": "shell", "resource": "gh release delete *", "effect": "deny" },
+    { "action": "shell", "resource": "gh pr delete *", "effect": "deny" },
+    { "action": "shell", "resource": "Remove-Item *-Recurse*", "effect": "deny" },
+    { "action": "shell", "resource": "Remove-Item *-Force*", "effect": "deny" },
+    // TIER 5: esecuzioni
+    { "action": "shell", "resource": "dotnet *", "effect": "allow" },
 
-      // TIER 6: cmdlet PowerShell — su Windows opencode esegue i comandi via pwsh,
-      // quindi ogni cmdlet non presente qui matcha "*" e richiede conferma.
-      // I cmdlet di pipeline hanno anche la forma bare: il pattern "X *" non
-      // matcha il comando "X" senza argomenti (es. "... | ConvertTo-Json").
-      // Letture (coerenti con "read": allow):
-      "Get-Content *": "allow",
-      "Get-Item *": "allow",
-      "Get-ChildItem *": "allow",
-      "Test-Path *": "allow",
-      "Select-String *": "allow",
-      "Select-Object": "allow",
-      "Select-Object *": "allow",
-      "Measure-Object": "allow",
-      "Measure-Object *": "allow",
-      "Sort-Object": "allow",
-      "Sort-Object *": "allow",
-      "ConvertFrom-Json": "allow",
-      "ConvertFrom-Json *": "allow",
-      "ConvertTo-Json": "allow",
-      "ConvertTo-Json *": "allow",
-      // Mantieni il deny dei segreti anche da shell (allinea con "read": *.env* deny)
-      "Get-Content *.env*": "deny",
-      // Scritture file (coerenti con "edit": allow)
-      "Out-File *": "allow",
-      "Set-Content *": "allow",
-      "Add-Content *": "allow",
-      "New-Item *": "allow",
-      "Copy-Item *": "allow",
-      "Move-Item *": "allow",
-      // Rete: allineato a "webfetch": allow. NB: Invoke-WebRequest può fare
-      // POST verso host arbitrari (esfiltrazione); per massima sicurezza: "ask".
-      "Invoke-WebRequest *": "allow"
-    },
+    // TIER 6: cmdlet PowerShell — su Windows opencode esegue i comandi via pwsh,
+    // quindi ogni cmdlet non presente qui matcha "*" e richiede conferma.
+    // I cmdlet di pipeline hanno anche la forma bare: il pattern "X *" non
+    // matcha il comando "X" senza argomenti (es. "... | ConvertTo-Json").
+    // Letture (coerenti con read allow):
+    { "action": "shell", "resource": "Get-Content *", "effect": "allow" },
+    { "action": "shell", "resource": "Get-Item *", "effect": "allow" },
+    { "action": "shell", "resource": "Get-ChildItem *", "effect": "allow" },
+    { "action": "shell", "resource": "Test-Path *", "effect": "allow" },
+    { "action": "shell", "resource": "Select-String *", "effect": "allow" },
+    { "action": "shell", "resource": "Select-Object", "effect": "allow" },
+    { "action": "shell", "resource": "Select-Object *", "effect": "allow" },
+    { "action": "shell", "resource": "Measure-Object", "effect": "allow" },
+    { "action": "shell", "resource": "Measure-Object *", "effect": "allow" },
+    { "action": "shell", "resource": "Sort-Object", "effect": "allow" },
+    { "action": "shell", "resource": "Sort-Object *", "effect": "allow" },
+    { "action": "shell", "resource": "ConvertFrom-Json", "effect": "allow" },
+    { "action": "shell", "resource": "ConvertFrom-Json *", "effect": "allow" },
+    { "action": "shell", "resource": "ConvertTo-Json", "effect": "allow" },
+    { "action": "shell", "resource": "ConvertTo-Json *", "effect": "allow" },
+    // Mantieni il deny dei segreti anche da shell (allinea con read: *.env* deny)
+    { "action": "shell", "resource": "Get-Content *.env*", "effect": "deny" },
+    // Scritture file (coerenti con edit: allow)
+    { "action": "shell", "resource": "Out-File *", "effect": "allow" },
+    { "action": "shell", "resource": "Set-Content *", "effect": "allow" },
+    { "action": "shell", "resource": "Add-Content *", "effect": "allow" },
+    { "action": "shell", "resource": "New-Item *", "effect": "allow" },
+    { "action": "shell", "resource": "Copy-Item *", "effect": "allow" },
+    { "action": "shell", "resource": "Move-Item *", "effect": "allow" },
+    // Rete: allineato a webfetch: allow. NB: Invoke-WebRequest può fare
+    // POST verso host arbitrari (esfiltrazione); per massima sicurezza: "ask".
+    { "action": "shell", "resource": "Invoke-WebRequest *", "effect": "allow" },
 
     // Sandbox: solo nelle directory di lavoro
-    "external_directory": {
-      "*": "ask",
-      "~/git/**": "allow",
-      "/tmp/**": "allow",
-      "/private/tmp/**": "allow"
-    },
+    { "action": "external_directory", "resource": "*", "effect": "ask" },
+    { "action": "external_directory", "resource": "~/git/**", "effect": "allow" },
+    { "action": "external_directory", "resource": "/tmp/**", "effect": "allow" },
+    { "action": "external_directory", "resource": "/private/tmp/**", "effect": "allow" },
 
     // Web e accesso remoto
-    "webfetch": "allow",
-    "websearch": "allow"
-  },
+    { "action": "webfetch", "resource": "*", "effect": "allow" },
+    { "action": "websearch", "resource": "*", "effect": "allow" }
+  ],
 
   // Agenti built-in disabilitati (sostituiti da agents/*.md)
-  "agent": {
-    "explore": { "disable": true },
-    "general": { "disable": true },
-    "scout": { "disable": true }
+  // title: modello economico per task leggeri (title, summary, compaction).
+  // DeepSeek V4 Flash su Go — $0.14 in / $0.28 out per M token (vs ~$0.18 out blended
+  // del vecchio `openrouter/deepseek/deepseek-v4-flash-0731`); su Zen esistono anche
+  // i free (mimo-v2.6-flash-free, ling-3.1-flash-free) ma scontati da rate-limit.
+  // (già `small_model` in V1; in V2 è la selezione modello dell'agente title)
+  "agents": {
+    "explore": { "disabled": true },
+    "general": { "disabled": true },
+    "scout": { "disabled": true },
+    "title": { "model": "opencode-go/deepseek-v4-flash" }
   },
 
   // Collegamento al file di regole contenuto nella cartella rules
@@ -218,8 +211,7 @@
 
   // Compaction automatica (riduce bisogno di plugin di context pruning)
   "compaction": {
-    "auto": true,
-    "prune": true
+    "auto": true
   },
 
   // File watcher ignore
@@ -228,7 +220,7 @@
   },
 
   // Undo/revert (utile per sicurezza) - chiave validata nello schema ufficiale
-  "snapshot": true,
+  "snapshots": true,
 
   // Sharing manuale
   "share": "manual",
