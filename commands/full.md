@@ -1,7 +1,7 @@
 ---
 description: "Full lane per lavoro ad alto rischio"
 agent: orchestrator
-subtask: true
+subagent: true
 ---
 
 # Full Lane

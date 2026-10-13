@@ -1,5 +1,5 @@
 ---
-description: Sincronizza la config opencode live con il repo danismeup/opencode-config
+description: Sincronizza la config opencode live con il repo daniopp/opencode-config
 ---
 # Sync Config
 

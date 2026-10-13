@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# sync.sh — sincronizza la config live di opencode con il repo danismeup/opencode-config
-# Repo: https://github.com/danismeup/opencode-config
+# sync.sh — sincronizza la config live di opencode con il repo daniopp/opencode-config
+# Repo: https://github.com/daniopp/opencode-config
 #
 # Uso:
 #   scripts/sync.sh status        confronto read-only (default)
@@ -25,7 +25,7 @@ MODE="${1:-status}"
 FORCE="${2:-}"
 
 MIRROR=(agents commands rules)          # mirror esatto (--delete)
-COPY=(opencode.jsonc tui.json AGENTS.md package.json package-lock.json skills)
+COPY=(opencode.jsonc AGENTS.md package.json package-lock.json skills)
 
 # Divergenze note e intenzionali repo<->locale: sync saltato senza --force
 # Vuota dal 2026-09-18: opencode.jsonc usa il path `~/` nelle instructions,

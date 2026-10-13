@@ -5,7 +5,7 @@ Configurazione globale opencode.
 ## File principali
 
 - `opencode.jsonc` — config principale (questa)
-- `tui.json` — config TUI (attualmente quasi vuota, placeholder)
+- `cli.json` (live in `~/.config/opencode/`, fuori dal repo) — config terminale V2; `tui.json` rimosso con la migrazione V2
 - `agents/` — agenti .md personalizzati
 - `commands/` — lane (/quick, /medium, /full, /debug)
 - `rules/` — regole always-on su due file, caricate via `instructions`: `rules.md` v2.0.0 = invarianti universali per tutti i progetti; `evodoc.md` v1.1.0 = perimetro EVODOC (repo `ZD_*` o con `evodoc`/`zerod` nel nome; limite 64 caratteri versione prerelease/50 caratteri nome branch), fonte wiki ZD_evoDoc2
@@ -49,7 +49,7 @@ Usa `/quick`, `/medium`, `/full`, `/debug` nel TUI.
 
 ## Sync con il repo
 
-Config live `~/.config/opencode` ↔ repo `~/git/opencode-config` (`danismeup/opencode-config`):
+Config live `~/.config/opencode` ↔ repo `~/git/opencode-config` (`daniopp/opencode-config`):
 
 - `scripts/sync.sh status|diff|push|pull` nel repo (allowlistato in bash). Nessuna divergenza nota: `opencode.jsonc` è identico su tutte le macchine — `instructions` usa il formato `~/` (`~/.config/opencode/rules/rules.md`), che opencode espande con `os.homedir()` su Linux e Windows
 - Comando `/sync-config` — l'orchestrator esegue status → push → commit → push

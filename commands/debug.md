@@ -1,7 +1,7 @@
 ---
 description: "Debug lane per triage e fix"
 agent: orchestrator
-subtask: true
+subagent: true
 ---
 
 # Debug Lane

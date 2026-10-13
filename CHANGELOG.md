@@ -1,5 +1,50 @@
 # Changelog
 
+## 2026-10-13 - documentazione unica nella wiki GitHub
+
+### Modificato
+
+- Documentazione spostata nella wiki GitHub `https://github.com/daniopp/opencode-config/wiki`, unico punto di documentazione. Pagine di utilizzo in radice; piani, specifiche, MCP e BMAD in sezione Archivio (`Archivio-*`)
+- `rules/rules.md` 2.2.0 (MINOR): la wiki GitHub nativa è ora disponibile anche per il repo daniopp pubblico; `wiki/` resta solo come fallback
+- `README.md`, `scripts/migrate-v2.sh` — link alla wiki
+
+### Rimosso
+
+- `wiki/` dal repo (storia git preservata) e `scripts/wiki-publish.sh` (non più necessario: la wiki si edita direttamente)
+
+## 2026-10-13 - migrazione config a opencode v2
+
+### Aggiunto
+
+- `scripts/migrate-v2.sh` — migrazione automatica di una macchina da V1 a V2: preflight, backup (config + DB), sync dal repo, riavvio e verifica log. Supporta `--dry-run`, `--yes`, `--pull`, `--json` (per agent), exit code 0/1/2/3
+- `wiki/MIGRATION-V1-V2.md` — guida di migrazione: cosa cambia, prerequisiti, uso dello script, rollback, limiti noti
+
+### Modificato
+
+- `opencode.jsonc` — conversione completa a sintassi nativa V2 (`permissions` array con azione `shell`, `agents`, `providers`, `snapshots`, `plugins`); rimosso `compaction.prune`
+- `commands/*.md`, `commands/README.md` — `subtask` → `subagent`
+- `repo-examples/opencode-project-trusted.jsonc` — forma `permissions` array V2
+- `scripts/sync.sh` — `tui.json` rimosso dalla lista dei file sincronizzati
+- `package.json` / `package-lock.json` — rimossa dipendenza V1 `@opencode-ai/plugin`
+- `README.md`, `AGENTS.md`, `wiki/*` (INSTALL, SETUP, PERMISSIONS, ARCHITECTURE, Agenti, DEBUG, Home) — documentazione allineata a V2
+
+### Aggiunto (wiki pubblica)
+
+- `scripts/wiki-publish.sh` — pubblica le pagine di `wiki/` nella wiki GitHub (dry-run di default, `--push` per pubblicare). Pagine escluse: `plans/`, `specs/`, `mcp/`, `BMAD-ASSESSMENT.md`
+- `wiki/Home.md` — indice delle sole pagine pubblicate, con link assoluti ai file del repo
+
+### Rimosso
+
+- `tui.json` — sostituito da `cli.json` globale (fuori repo, migrato automaticamente da V2)
+
+## 2026-10-12 - compatibilità config con opencode v2
+
+### Modificato
+
+- `agents/README.md` spostato in `wiki/Agenti.md`: la v2 carica ogni `.md` in `agents/` come agente (il README compariva come agente `primary` visibile)
+- `opencode.jsonc` — `subagent_depth` spostato sotto `experimental.subagent_depth`: la v2 ignora la chiave top-level
+- `wiki/INSTALL.md`, `wiki/ARCHITECTURE.md`, `wiki/Agenti.md` — riferimenti aggiornati
+
 ## 2026-10-12 - fixer a 80 steps, allineamento step in wiki
 
 ### Modificato

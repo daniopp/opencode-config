@@ -8,7 +8,7 @@ Comandi `/` per workflow strutturati.
 ---
 description: descrizione del comando
 agent: nome-agente
-subtask: true|false
+subagent: true|false
 ---
 
 [Content del command]
@@ -29,7 +29,7 @@ Creare le lane di rischio:
 ---
 description: "Quick lane per piccoli cambiamenti isolati"
 agent: orchestrator
-subtask: true
+subagent: true
 ---
 
 ## Quick Lane

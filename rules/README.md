@@ -5,8 +5,8 @@ a tutti gli agenti. Struttura su due file:
 
 | File | Versione | Perimetro |
 |---|---|---|
-| `rules.md` | 2.0.0 | **Universale**: tutti i progetti (smeup, danismeup, danifx) |
-| `evodoc.md` | 1.0.0 | **Solo perimetro EVODOC**: repo `ZD_*` o con `evodoc`/`zerod` nel nome |
+| `rules.md` | 2.2.0 | **Universale**: tutti i progetti (smeup, daniopp, danifx) |
+| `evodoc.md` | 1.1.0 | **Solo perimetro EVODOC**: repo `ZD_*` o con `evodoc`/`zerod` nel nome |
 
 ## Perimetro EVODOC
 

@@ -5,11 +5,10 @@ Configurazione opencode multi-macchina, sincronizzata via repo.
 ## Setup Rapido
 
 ```bash
-# 1. Install
-npm install -g @opencode/ai
+# 1. Install OpenCode V2 (vedi https://opencode.ai/v2/docs/cli e https://github.com/daniopp/opencode-config/wiki/INSTALL)
 
 # 2. Clone config repo
-git clone https://github.com/danismeup/opencode-config.git ~/git/opencode-config
+git clone https://github.com/daniopp/opencode-config.git ~/git/opencode-config
 
 # 3. Sync verso la config live (~/.config/opencode)
 cd ~/git/opencode-config && scripts/sync.sh pull
@@ -21,7 +20,7 @@ echo "OPENROUTER_API_KEY=your_token" > ~/git/opencode-config/.dev.vars
 opencode
 ```
 
-**Per guide dettagliate (WSL, modelli, troubleshooting), vedi [INSTALL.md](wiki/INSTALL.md).**
+**Per guide dettagliate (WSL, modelli, troubleshooting), vedi [INSTALL](https://github.com/daniopp/opencode-config/wiki/INSTALL).**
 
 ## Modelli
 
@@ -77,13 +76,15 @@ Nelle regole always-on, `rules/rules.md` è versionato (v1.4.0: Governance SemVe
 | Livello | Default | Note |
 |---------|---------|------|
 | `read` | allow | deny su `*.env*`, `*.dev.vars` |
-| `edit` | allow | copre write/patch |
-| `bash` | ask | allowlist 4 tier dallo storico sessioni (letture/scritture sicure → allow, distruttivi → deny) |
+| `edit` | allow | copre edit/write/patch (V2) |
+| `shell` | ask | era `bash` in V1. Allowlist 4 tier dallo storico sessioni (letture/scritture sicure → allow, distruttivi → deny) |
 | `external_directory` | ask | allow su `~/git/**`, `/tmp/**` |
 
-### Progetti fidati (bash allow-by-default)
+Config V2: `permissions` è un array ordinato di regole `{ action, resource, effect }` (effect: `allow`, `deny`, `ask`). Vince l'ultima regola che matcha; nessun match = `ask`. Azioni V1 → V2: `bash` → `shell`, `task` → `subagent`. `doom_loop` non è più un'azione. Dettagli in [PERMISSIONS.md](https://github.com/daniopp/opencode-config/wiki/PERMISSIONS).
 
-In un progetto fidato bash passa a "tutto allow tranne i distruttivi":
+### Progetti fidati (shell allow-by-default)
+
+In un progetto fidato `shell` passa a "tutto allow tranne i distruttivi":
 
 ```bash
 cp ~/git/opencode-config/repo-examples/opencode-project-trusted.jsonc ~/git/<progetto>/opencode.jsonc
@@ -97,10 +98,11 @@ Nessuno (`mcp: {}`). Rimossi dopo verifica su opencode.db (zero invocazioni nell
 
 ## Documenti
 
-- [INSTALL.md](wiki/INSTALL.md) — guida installazione dettagliata
-- [ARCHITECTURE.md](wiki/ARCHITECTURE.md) — architettura della config
-- [SETUP.md](wiki/SETUP.md) · [PERMISSIONS.md](wiki/PERMISSIONS.md) · [DEBUG.md](wiki/DEBUG.md) · [CHANGELOG.md](CHANGELOG.md)
-- [BMAD-ASSESSMENT.md](wiki/BMAD-ASSESSMENT.md) — valutazione BMAD v6 e framework spec-driven, gap analysis e strategia (homegrown + skill `story-craft`, `spec-archive`, `project-kb-setup` estesa; roadmap completata; wave 2 con pattern adottati)
+- [INSTALL](https://github.com/daniopp/opencode-config/wiki/INSTALL) — guida installazione dettagliata
+- [MIGRATION-V1-V2](https://github.com/daniopp/opencode-config/wiki/MIGRATION-V1-V2) — migrazione da OpenCode V1 a V2 (chiavi, permessi, `cli.json`)
+- [ARCHITECTURE](https://github.com/daniopp/opencode-config/wiki/ARCHITECTURE) — architettura della config
+- [SETUP](https://github.com/daniopp/opencode-config/wiki/SETUP) · [PERMISSIONS](https://github.com/daniopp/opencode-config/wiki/PERMISSIONS) · [DEBUG](https://github.com/daniopp/opencode-config/wiki/DEBUG) · [CHANGELOG.md](CHANGELOG.md)
+- [BMAD-ASSESSMENT](https://github.com/daniopp/opencode-config/wiki/Archivio-BMAD-ASSESSMENT) — valutazione BMAD v6 e framework spec-driven, gap analysis e strategia (homegrown + skill `story-craft`, `spec-archive`, `project-kb-setup` estesa; roadmap completata; wave 2 con pattern adottati)
 
 ## Tools / Script
 
@@ -112,15 +114,14 @@ Nessuno (`mcp: {}`). Rimossi dopo verifica su opencode.db (zero invocazioni nell
 
 ```text
 opencode-config/
-├── opencode.jsonc    # Main config
-├── tui.json          # TUI config
+├── opencode.jsonc    # Main config (V2)
 ├── AGENTS.md         # Istruzioni per gli agenti
 ├── agents/           # Custom agents
 ├── commands/         # Lane + /sync-config
 ├── rules/            # Always-on rules
 ├── skills/           # Skills markdown
 ├── memory/           # Memoria utente (esclusa dal sync)
-├── wiki/             # Documentazione (Home.md = indice; mcp/, plans/, specs/)
+├── (documentazione: wiki GitHub, vedi https://github.com/daniopp/opencode-config/wiki)
 ├── global/           # Config alternative
 ├── scripts/          # sync.sh (sync live <-> repo)
 ├── repo-examples/    # Template (es. opencode-project-trusted.jsonc)
@@ -136,7 +137,7 @@ scripts/sync.sh push     # locale -> repo (poi commit/push manuali o /sync-confi
 scripts/sync.sh pull     # repo -> locale
 ```
 
-Nessuna divergenza nota: `opencode.jsonc` è identico su tutte le macchine — `instructions` usa il formato `~/`, che opencode espande alla home utente su Linux e Windows (la config globale è `~/.config/opencode` su entrambe le piattaforme).
+La config terminale V2 (`cli.json`) è globale, in `~/.config/opencode/cli.json`, fuori dal repo: non viene sincronizzata. Nessuna divergenza nota: `opencode.jsonc` è identico su tutte le macchine — `instructions` usa il formato `~/`, che opencode espande alla home utente su Linux e Windows (la config globale è `~/.config/opencode` su entrambe le piattaforme).
 
 ## Updates
 

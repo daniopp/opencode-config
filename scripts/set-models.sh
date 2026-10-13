@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # set-models.sh — switch giornaliero dei modelli opencode
-# Repo: https://github.com/danismeup/opencode-config
+# Repo: https://github.com/daniopp/opencode-config
 #
 # Uso:
 #   scripts/set-models.sh                                     stato corrente (nessuna modifica)

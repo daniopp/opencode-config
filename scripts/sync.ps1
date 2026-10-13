@@ -1,6 +1,6 @@
-# sync.ps1 - sincronizza la config live di opencode con il repo danismeup/opencode-config
+# sync.ps1 - sincronizza la config live di opencode con il repo daniopp/opencode-config
 # Variante Windows (PowerShell 7+) di scripts/sync.sh: stessa semantica, stesso output.
-# Repo: https://github.com/danismeup/opencode-config
+# Repo: https://github.com/daniopp/opencode-config
 #
 # Uso:
 #   scripts/sync.ps1 status        confronto read-only (default)
