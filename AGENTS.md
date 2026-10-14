@@ -37,7 +37,7 @@ Uso esclusivo della CLI `gh` (autenticata su tutte le macchine, allowlistata nei
 - `orchestrator` — coordinatore principale (primary, `openrouter/anthropic/claude-haiku-5.5`)
 
 - `fixer`, `reviewer`, `verifier`, `looker`, `explorer`, `librarian`, `observer` — specialisti su `openrouter/anthropic/claude-haiku-5.5`
-- `designer` — UI/UX (`openrouter/meta/muse-wonder`)
+- `designer` — UI/UX (`openrouter/meta/muse-spark-1.3-contributor`)
 - `oracle` — advisor strategico (`openrouter/anthropic/claude-sonnet-5.5`)
 
 I subagent non spawnano altri subagent (`subagent_depth: 1`); l'orchestrator

@@ -35,7 +35,7 @@ opencode
 - `explorer`, `librarian`, `observer` — recon read-only su Go (Claude Haiku 5.5)
 - `fixer`, `reviewer`, `verifier`, `looker` — Haiku 5.5 (looker = vision/PDF)
 - `oracle` — advisor deep-reasoning (`claude-sonnet-5.5` via OpenRouter)
-- `designer` — UI/UX, multimodale (`meta/muse-wonder`, OpenRouter)
+- `designer` — UI/UX, multimodale (`meta/muse-spark-1.3-contributor`, OpenRouter)
 
 ## Comandi (lane)
 
