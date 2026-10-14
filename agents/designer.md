@@ -1,7 +1,7 @@
 ---
 description: Design UI/UX - layout, hierarchy, styling, responsive e interazioni con intento estetico
 mode: subagent
-model: opencode-go/muse-spark-1.3-contributor
+model: openrouter/meta/muse-wonder
 steps: 100
 permission:
   read:
