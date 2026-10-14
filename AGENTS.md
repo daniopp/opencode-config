@@ -34,9 +34,9 @@ Uso esclusivo della CLI `gh` (autenticata su tutte le macchine, allowlistata nei
 
 ## Agenti (nativi, `agents/*.md`)
 
-- `orchestrator` — coordinatore principale (primary, `opencode-go/claude-haiku-5-5`)
+- `orchestrator` — coordinatore principale (primary, `openrouter/anthropic/claude-haiku-5.5`)
 
-- `fixer`, `reviewer`, `verifier`, `looker`, `explorer`, `librarian`, `observer` — specialisti su `opencode-go/claude-haiku-5-5`
+- `fixer`, `reviewer`, `verifier`, `looker`, `explorer`, `librarian`, `observer` — specialisti su `openrouter/anthropic/claude-haiku-5.5`
 - `designer` — UI/UX (`opencode-go/muse-spark-1.3-contributor`)
 - `oracle` — advisor strategico (`openrouter/anthropic/claude-sonnet-5.5`)
 

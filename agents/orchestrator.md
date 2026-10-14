@@ -2,7 +2,7 @@
 description: Primary workflow coordinator - plans, delegates to specialists, verifies, and integrates results with strict token-budget limits.
 mode: primary
 # nessun override model a livello agente: vale il globale opencode.jsonc
-# (opencode-go/claude-haiku-5-5); un override qui bypasserebbe lo switch globale
+# (openrouter/anthropic/claude-haiku-5.5); un override qui bypasserebbe lo switch globale
 steps: 100
 permission:
   task:

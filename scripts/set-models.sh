@@ -26,7 +26,7 @@ REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # (es. MODELS[nome]="provider/modello")
 # ---------------------------------------------------------------------------
 declare -A MODELS=(
-  [haiku]="opencode-go/claude-haiku-5-5"                  # Claude Haiku 5.5 (primario + fixer/reviewer/verifier/looker)
+  [haiku]="openrouter/anthropic/claude-haiku-5.5"              # Claude Haiku 5.5 (primario + fixer/reviewer/verifier/looker)
   [mimo]="opencode-go/mimo-v2.6-flash"                 # MiMo-V2.6-Flash su Go (lento: non usato dai recon)
   [dsv4]="opencode-go/deepseek-v4-flash"                  # DeepSeek V4 Flash (small_model)
   [glm]="openrouter/z-ai/glm-5.3-flash"                   # GLM 5.3 Flash (fallback OpenRouter)

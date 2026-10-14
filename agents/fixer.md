@@ -1,7 +1,7 @@
 ---
 description: Rapid, scoped implementation - executes explicit code changes without making architectural decisions
 mode: subagent
-model: opencode-go/claude-haiku-5-5
+model: openrouter/anthropic/claude-haiku-5.5
 steps: 80
 permission:
   read:

@@ -1,7 +1,7 @@
 ---
 description: External research specialist - official documentation, API references, version-specific web retrieval with cited sources
 mode: subagent
-model: opencode-go/claude-haiku-5-5
+model: openrouter/anthropic/claude-haiku-5.5
 steps: 25
 permission:
   read:

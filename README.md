@@ -26,7 +26,7 @@ opencode
 
 | Ruolo | Modello | Prezzo ($/M in/out) | Note |
 |-------|---------|---------------------|------|
-| Primario | `opencode-go/claude-haiku-5-5` | 0.10 / 0.50 | contesto 1M, vision, cache read 0.01 |
+| Primario | `openrouter/anthropic/claude-haiku-5.5` | 0.10 / 0.50 | contesto 1M, vision, cache read 0.01 |
 | Small model | `opencode-go/deepseek-v4-flash` | 0.14 / 0.28 | title/summary/compaction, contesto 1M |
 
 ## Agenti

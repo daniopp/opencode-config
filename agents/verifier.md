@@ -1,7 +1,7 @@
 ---
 description: Verification specialist - confirms task completion against acceptance criteria with concrete evidence. Read-only.
 mode: subagent
-model: opencode-go/claude-haiku-5-5
+model: openrouter/anthropic/claude-haiku-5.5
 steps: 20
 permission:
   # read sempre a mappa: la scalar "allow" by-passa le deny globali sui segreti
